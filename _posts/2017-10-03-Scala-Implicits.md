@@ -3,6 +3,9 @@ title: Scala Implicits
 tags: Scala
 ---
 
+* TOC
+{:toc}
+
 `implicit` keyword provides powerful boilerplate-reduction functionalities in Scala. Type conversions, passing global paramters to methods, etc., can be automatically done by compiler with implicits.
 
 # Implicit Class

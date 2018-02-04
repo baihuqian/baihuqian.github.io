@@ -1,5 +1,5 @@
 ---
-title: VIM Notes
+title: VIM Cheetsheet
 tags:
  - Learning
  - Computer Science

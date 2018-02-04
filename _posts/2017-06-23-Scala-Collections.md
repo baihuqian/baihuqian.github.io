@@ -3,6 +3,9 @@ title: Scala Collections
 tags: Scala
 ---
 
+* TOC
+{:toc}
+
 Scala’s collection classes begin with the `Traversable` and `Iterable` traits, and extend into the three main categories of sequences (Seq), sets (Set), and maps (Map). Sequences further branch off into indexed and linear sequences.
 
 The `Traversable` trait lets you traverse an entire collection, and its Scaladoc states that it “implements the behavior common to all collections in terms of a `foreach` method,” which lets you traverse the collection *repeatedly*.
