@@ -1,16 +1,9 @@
 ---
 layout: page
 title: About me
-subtitle: Why you'd want to go on a date with me
+subtitle: Why you'd want to read my blog
 ---
 
-My name is Inigo Montoya. I have the following qualities:
+I am Baihu Qian, I am a Software Development Engineer at Amazon Web Services. Specifically, I work for the AWS VPN team. For more information about the VPN product, please refer to [the public AWS documentation](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpn-connections.html).
 
-- I rock a great mustache
-- I'm extremely loyal to my family
-
-What else do you need?
-
-### my history
-
-To be honest, I'm having some trouble remembering right now, so why don't you just watch [my movie](http://en.wikipedia.org/wiki/The_Princess_Bride_%28film%29) and it will answer **all** your questions.
+I try to learn more, both for work and myself, and become a better developer. This is the place where I place most of my notes.
