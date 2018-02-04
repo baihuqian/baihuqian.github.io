@@ -1,7 +1,8 @@
 ---
 layout: page
-title: About me
+title: Welcome!
 subtitle: Innovate at scale, in the cloud and for the cloud
+use-site-title: true
 ---
 
 Since May 2015, I have been working as a Software Development Engineer at Amazon Web Services. My team owns the [Virtual Private Network (VPN)](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpn-connections.html) service, which provides encrypted connectivity to your Virtual Private Cloud (VPC). It is a core service offering in AWS's Infrastructure-as-a-Service ecosystem and a main enabler of hybrid cloud or multi-cloud architecture. Launched 10 years ago, it is still one of the fastest growing service in AWS with more than 60% of Year-over-Year growth (AWS as a whole grows at 40% YoY).
@@ -18,5 +19,9 @@ In 2017, I directly lead, or participated in, the following public features:
 
 Before joining AWS, I received Master's degree from [Department of Electrical and Computer Engineering at Carnegie Mellon University](http://www.ece.cmu.edu/), and Bachelor's degree in Information and Communication Engineering at [Zhejiang University, China](http://www.zju.edu.cn/english/).
 
+I currently hold the following certifications:
+
 ![junos]({{ "/img/juniper-networks-certified-associate-junos-jncia-junos.png" }}){:height="250px"}
 ![aws]({{ "/img/aws-certified-developer-associate.jpeg" }}){:height="250px"}
+
+I love food, photography, cars, and biking.
