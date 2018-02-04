@@ -1,14 +1,13 @@
 ---
-title: Case Classes and Pattern Matching in Scala
+title: Learning Scala - Case Classes and Pattern Matching in Scala
 tags: Scala
 ---
 
 * TOC
 {:toc}
 
-# Case Classes and Pattern Matching
 ## Case classes
-Case classes are primarily intended to create "immutable records" taht is used in pattern-matching expressions. Scala compiler adds some syntactic conveniences to case class at compile time:
+Case classes are primarily intended to create "immutable records" that is used in pattern-matching expressions. Scala compiler adds some syntactic conveniences to case class at compile time:
 * A factory method with the name of the class, to allow `Var("x")` (like `apply()` method in companion object) instead of `new Var("x")`.
 * An `unapply` method is generated, making it easy to use cadse classes in match expressions.
 * All arguments in the parameter list of a case class implicitly get a `val` prefix, so they become fields and get accessor methods. If mutator is desired, explicitly declare the field as `var`.
@@ -71,6 +70,8 @@ chmatch {
 }
 ```
 
+Note the boolean logic after `if` keyword is **not** enclosed in parentheses.
+
 ### Variable assignment in `match`
 If the `case` keyword is followed by a variable name, then the match expression is assigned to that variable. And it can be used in a guard.
 
@@ -91,7 +92,7 @@ obj match {
 
 In scala this form is **preferred** over using `isInstanceOf` operator, and x in matching is guaranteed to have a certain type, so no need to have expensive type conversion `asInstanceOf`.
 
-Note for generics, because types are erased in JVM, match against a generic map. However, arrays are not erased.
+Note, because types are erased in JVM, generics must match against the generic type. However, arrays are not erased.
 
 ### Extract variables from Arrays, Lists, and Tuples using `match`
 Variable binding gives you easy access to parts of a complex structure, so this operation is called *destructuring*.

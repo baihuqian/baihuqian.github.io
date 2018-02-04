@@ -1,5 +1,5 @@
 ---
-title: Scala Functions
+title: Learning Scala - Functions
 tags: Scala
 ---
 
@@ -40,15 +40,13 @@ val double = (i: Int) => { i * 2 }
 
 Under the covers, a function variable is an instance of the `Function1` trait, which defines a function that takes one argument. The `scala` package defines similar traits with 0 up to 22 arguments.
 
-## Function types
+## The Type of Functions
 Its type is written as `(parameterType) => resultType`.
 
 ## Parameters
 It is possible to provide default values. When the number of parameters provided is less than the actual number, default values are applied from the end (right). Parameters with default values must be after those without to take advantage of the default values. This means `def connect(timeout: Int = 6000, protocol: String)` will compile, but you cannot call it without specifying value for timeout.
 
-Named arguments are supported.
-
-Mixture of named and unnamed parameters are supported.
+Named arguments are supported. Mixture of named and unnamed parameters are supported.
 
 Parameter checking is enforced using `require()` method. It takes a `Boolean` parameter, and if it evaluates to `false`, it throws and `IllegalArgumentException`.
 
@@ -61,15 +59,16 @@ def sum(args: Int*) = {
 }
 ```
 
-`args` is a *varargs* field of type `Seq`. In this case, if the function is called with one argument, it needs to be a single Integer. The `_*` method adapts a sequence to a varargs field.
+`args` is a *varargs* field of type `Seq`. In this case, if the function is called with one argument, it needs to be a single Integer. The `_*` method adapts a sequence to a varargs field:
 
 ```scala
 val s = sum(1 to 5: _*)
 ```
+
 Attempting to define another parameter *after* a varargs field is not allowed. As an implication of this, a method can have only one varargs field.
 
 ### 0-args v.s. Parentheses-less
-In Scala, you can define a function without parentheses. You can call a **parameterless** methods with parentheses or without parentheses, but you **cannot call a parenthesesless method with empty parentheses**. A good style is:
+You can define a function without parentheses. You can call a **parameterless** methods with parentheses or without parentheses, but you **cannot call a parenthesesless method with empty parentheses**. A good style is:
 * Mutator methods (that changes the object state) use parentheses.
 * Accessor methods don't use parentheses.
 
@@ -107,7 +106,7 @@ A partial function of type `PartialFunction[A, B]` is a unary function where the
 Partial functions are often written using case statements:
 ```scala
 val divide2: PartialFunction[ Int, Int] = {
-    case d: Int if d != 0 = > 42 / d
+    case d: Int if d != 0 => 42 / d
 }
 ```
 Partial function's `isDefinedAt` method tests if the given input is within the define domain.
@@ -118,7 +117,7 @@ One example of where you’ll run into partial functions is with the `collect` m
 
 
 ## Procedures
-Special function that returns no value, or return `Unit` to be precise. It is a function without the `=` between definition and body:
+Procedure is special function that returns no value, or return `Unit` to be precise. It is a function without the `=` between definition and body:
 
 ```scala
 def doSomething(s: String) { // no =
@@ -192,7 +191,5 @@ Paul Cantrell states,
 1. The block of code can be passed around as a value, and
 2. It can be executed on demand by anyone who has that value, at which time
 3. It can refer to variables from the context in which it was created (i.e., it is closed with respect to variable access, in the mathematical sense of the word “closed”).
-
-End.
 
 For a function that exercises closure, its references to variables in the enclosing scope become free variable along with arguments of this function. Thus the values of closure are passed to function implicitly.

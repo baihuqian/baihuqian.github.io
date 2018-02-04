@@ -1,8 +1,7 @@
 ---
-title: Object-Oriented Programming in Scala
+title: Learning Scala - Object-Oriented Programming in Scala
 tags:
  - Scala
- - Learning
  - OOP
 ---
 
@@ -137,22 +136,23 @@ In Java a class can have both static and non-static methods. This can be done by
 The class and object can access each other's private members, but they're not in the same scope. Thus access is done by `ClassName.foo` or `objectName.foo` but not `foo` directly.
 
 ### The `apply` Method
-The `apply` method is basically a factory method. Scala compiler converts `ClassName(arg1, ..., argN)` into `ClassName.apply(arg1, ..., argN)`, thus one can create objects of a class without using `new` keyword. If multiple forms of "constructors" are required, just write multiple overloaded `apply` methods.
+`apply` serves the purpose of closing the gap between Object-Oriented and Functional paradigms in Scala. Every function in Scala can be represented as an object. Every function also has an OO type: for instance, a function that takes an Int parameter and returns an Int will have OO type of `Function1[Int,Int]`.
 
-### Application objects
-To run a Scala program, it should have an object with a main method of type `Array[String] => Unit`.
+Now if we want to actually execute the function, or as mathematician say "apply a function to its arguments" we would call the apply method on the `Function1[Int,Int]` object.
+
+Every function in Scala can be treated as an object and it works the other way too - every object can be treated as a function, provided it has the `apply` method.
+The `apply` method: `f.apply(arg1, arg2, ...)` is the same as `f(arg1, arg2, ...)`.
+
+The `update` method: `f(arg1, arg2, ...) = value` is the same as `f.update(arg1, arg2, ..., value)`.
+
+Extractor: `unapply` method that retrieves values from an object. For example,
 
 ```scala
-object Hello extends App {
-	if(args.length > 0)
-		println("hello" + args[0])
-	else
-		println("hello world!")
-}
+val author = "Baihu Qian"
+val Name(first, last) = author // call Name.unapply(author)
+// first == "Baihu", last = "Qian"
 ```
-
-The constructor body becomes the main method. You can get the command line arguments from `args`.
-
+Note `Name` is an object.
 
 # Inheritance
 As in Java, you use `extends` keywords, and specify fields and methods that are new to the subclass or override methods in the superclass.

@@ -1,5 +1,5 @@
 ---
-title: Scala Implicits
+title: Learning Scala - Implicits
 tags: Scala
 ---
 
