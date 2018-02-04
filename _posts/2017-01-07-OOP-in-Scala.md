@@ -1,6 +1,9 @@
 ---
-title: OOP in Scala
-tags: Scala
+title: Object-Oriented Programming in Scala
+tags:
+ - Scala
+ - Learning
+ - OOP
 ---
 
 This article outlines classes, objects, and traits, and Object-Oriented Programming in Scala.

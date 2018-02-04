@@ -3,6 +3,8 @@ title: Scala Functions
 tags: Scala
 ---
 
+* TOC
+{:toc}
 
 Scala support native functions (outside an object) as C++ do, while in Java you have to use static methods.
 

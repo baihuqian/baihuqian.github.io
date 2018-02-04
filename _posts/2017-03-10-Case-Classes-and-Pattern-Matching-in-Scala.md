@@ -3,6 +3,9 @@ title: Case Classes and Pattern Matching in Scala
 tags: Scala
 ---
 
+* TOC
+{:toc}
+
 # Case Classes and Pattern Matching
 ## Case classes
 Case classes are primarily intended to create "immutable records" taht is used in pattern-matching expressions. Scala compiler adds some syntactic conveniences to case class at compile time:

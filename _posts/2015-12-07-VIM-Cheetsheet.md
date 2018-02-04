@@ -1,8 +1,12 @@
 ---
 title: VIM Notes
 tags:
+ - Learning
+ - Computer Science
+ - Tool
 ---
 
+This is a quick-but-dirty cheet sheet of VIM.
 
 # Normal Mode
 Note: Prefix a cursor movement command with a number to repeat it. For example, 4j moves down 4 lines.
