@@ -15,7 +15,7 @@ sudo python3 setup.py install
 * To convert Python2 code to Python3, use `2to3`.
 
 
-# Memory Manamgement
+# Memory Management
 Python is a dynamic-binding, object-oriented language, so variable names are just the references to actual objects.
 
 To find what a variable refers, we can use `id(var)` to get the adress of the referring object in memory (use `hex()` to convert the address to hexidecimal).
@@ -196,7 +196,7 @@ If the expression evaluates to false, an AssertionError is raised with the optio
 
 `isinstance(var, type)` check whether `var` is of `type`.
 
-Python variables cannot be declared without assigning a value to it. 
+Python variables cannot be declared without assigning a value to it.
 
 ## Boolean
 `True` & `False`
@@ -338,11 +338,11 @@ To make it terminal-friendly, you can use `os.get_terminal_size().columns` to ge
 ### Regular Expressions
 Regular expressions are a powerful and (mostly) standardized way of searching, replacing, and parsing text with complex patterns of characters.
 
-In Python, all functionality related to regular expression is in `re` module. 
+In Python, all functionality related to regular expression is in `re` module.
 
 `re.compile(pattern[, flags])`: compiles a RegEx into an object. It is recommended to use raw Python strings `r'someString'` for `pattern` because it doesn't require escaping. It can contain an optional prefix `?P<PATTERNNAME>` to assign a name to the pattern.
 
-There are some useful flags to customize the behavior of various methods. 
+There are some useful flags to customize the behavior of various methods.
 * `re.IGNORECASE` or `re.I` enables case-insensitive text operations;
 * `re.M` or `re.MULTILINE` enables multi-line environment so that `^` matches the beginning of the string and the beginning of the newline, and `$` matches the end of the string and the end of each line.
 * `re.A` or `re.ASCII` Make \w, \W, \b, \B, \d, \D, \s and \S perform ASCII-only matching instead of full Unicode matching defaulted in Python 3.
@@ -351,7 +351,8 @@ There are some useful flags to customize the behavior of various methods.
 ```python
 a = re.compile(r"""\d +  # the integral part
                    \.    # the decimal point
-                   \d *  # some fractional digits""", re.X)
+                   \d *  # some fractional digits
+					""", re.X)
 b = re.compile(r"\d+\.\d*")
 ```
 
@@ -376,7 +377,7 @@ if re.search(regexp, exr):
 * `split`splits string by the occurrences of pattern and return a list. It takes an optional `maxsplit` parameter, default to 0. It is more flexible than `str.split` method.
 * `findall`returns a list of all the substrings that matched the pattern. Note: it doesn't return **overlapping** matches.
 * `finditer`returns an iterator of all matching substrings, instead of a list.
-* `sub`: replaces **ALL** occurrences of pattern in string with replacement. If no occurrences are found, it acts like a no-op. `replacement` can be a function that takes **a single match object** and returns the replacement string. 
+* `sub`: replaces **ALL** occurrences of pattern in string with replacement. If no occurrences are found, it acts like a no-op. `replacement` can be a function that takes **a single match object** and returns the replacement string.
 * `subn` returns the number of matches too.
 
 #### Matching Object
@@ -426,7 +427,7 @@ An empty list is evaluted to `False`, all non-empty list are `True`.
 
 Syntax: `a_tuple = ('a', 1)`, an empty tuple is `()`.
 
-Note: an additional commma is required to create a tuple with exactly **ONE** elements. `a_tuple = (1)` assigns `1` to `a_tuple` (which is an `int`), but `a_tuple = (1,)` creates a tuple. 
+Note: an additional commma is required to create a tuple with exactly **ONE** elements. `a_tuple = (1)` assigns `1` to `a_tuple` (which is an `int`), but `a_tuple = (1,)` creates a tuple.
 
 `[]` is used to index tuples. For example, `t[-1]` gets the last element in tuple `t`.
 
@@ -501,7 +502,7 @@ An empty dictionary is evaluated to `False`.
 
 `dic.items()` returns all key-value pairs (as tuples) in `dic`.
 
-In Python2, `dic.keys()`, `dic.values()` and `dic.items()` are lists. In Python3, are view objects, meaning they'll reflect changes to `dic`. 
+In Python2, `dic.keys()`, `dic.values()` and `dic.items()` are lists. In Python3, are view objects, meaning they'll reflect changes to `dic`.
 
 `dict.fromkeys(seq, value=None)` creates a dictionary that maps items in `seq` to `value`, default to `None`. It is a class method.
 
@@ -542,15 +543,15 @@ An example:
 ```python
 class Fib:
 	''' Generate Fibonacci series '''
-	
+
 	def __init__(self, max):
 		self.max = max		# class variable
-	
+
 	def __iter__(self):
 		self.a = 0			# perform initialization
 		self.b = 1
 		return self
-		
+
 	def __next__(self):
 		fib = self.a
 		if fib > self.max
@@ -577,7 +578,7 @@ It returns an `itertor` object.
 * `iter(obj)`: `obj` must be a collection object that supports the iteration protocol or the sequence protocol, or `TypeError` is raised.
 * `iter(callable, sentinel)`: it will call `callable` with no arguments for each call to its `__next__()` method; if the value returned is equal to `sentinel`, `StopIteration` will be raised, otherwise the value will be returned.
 
-One useful application of the second form is to read lines of a file until a certain line is reached. 
+One useful application of the second form is to read lines of a file until a certain line is reached.
 
 ```python
 with open('mydata.txt') as fp:
@@ -626,7 +627,7 @@ If the number of parameters are not known when function is defined, we can use *
 ```python
 def func(*name):
 	doSomething()
-	
+
 func(1)
 func(1,2,3)
 ```
@@ -638,7 +639,7 @@ Or we can use dictionary:
 ```python
 def func2(**dict):
 	doSomething()
-	
+
 func2(a=1)
 func2(a=1,b=2,c=3)
 ```
@@ -650,10 +651,10 @@ Then `dict` is a dictionary with key as argument name. `func` takes only **keywo
 ```python
 def func(a, b, c)
 	doSomething()
-	
+
 args = (1, 2, 3)
 func(*args)		# 1 passed to a, 2 passed 2 b, etc
-	
+
 dict = {'a':1, 'b', 2, 'c', 3}
 func(**dict)
 ```
@@ -663,7 +664,7 @@ When calling a function, parameters can be:
 
 * passed by value: `fun(1, 2)`;
 * passed by name: `fun(parameter1 = 1, parameter2 = 2)`. In this case order doesn't matter. `fun(parameter2 = 2, parameter1 = 1)` is also valid.
-* some passed by value, others passed by name: `fun(1, parameter2 = 2)`. Order matters for those passed by value, but order doesn't matter for those passed by name. 
+* some passed by value, others passed by name: `fun(1, parameter2 = 2)`. Order matters for those passed by value, but order doesn't matter for those passed by name.
 * **Pass-by-value should happen before pass-by-name.** For example, `fun(parameter1 = 1, 2)` is not valid.
 
 ## docstring
@@ -674,8 +675,8 @@ You can build dynamic functions with a function by passing different parameters 
 
 ```python
 import re
-	
-def build_match_and_apply_functions(pattern, search, replace): 
+
+def build_match_and_apply_functions(pattern, search, replace):
 	def matches_rule(word):
 		return re.search(pattern, word)
 	def apply_rule(word):
@@ -696,7 +697,7 @@ def make_counter(x)
 	while True:
 		yield x 				# not a normal function!
 		x = x + 1
-	
+
 counter = make_counter(2)		# counter is a generator
 next(counter)					# returns 2
 next(counter)					# returns 3
@@ -727,7 +728,7 @@ class Node:
 
 	def add_child(self, node):
 		self._children.append(node)
-	
+
 	def __iter__(self):
 		return iter(self._children)
 
@@ -768,7 +769,7 @@ def decor(F):
 		return F(a, b)
 	return new_F
 ```
-	
+
 So the decorator `decor` adds a `print()` before the execution of the original function `F`. To apply decoration, we can:
 
 ```python
@@ -786,12 +787,12 @@ So now the function `sum()` will print out the input. It passes the original `su
 ```python
 class ClassName(SuperClass):
 	'''docstring here'''
-	
+
 	class_var = "someValue"		# it's class level
-	
+
 	def __init__(self):
 		pass
-	
+
 	startUp() 					# called once when imported
 # outside class
 ```
@@ -817,7 +818,7 @@ Every class instance has a built-in attribute, `__class__`, which is the object'
 
 `x.__format__(format_spec)` is equivalent to `format(x, format_spec)`.
 
-A class can implement other special methods to act like function, set, dictionary, number, or is comparable, serializable, 
+A class can implement other special methods to act like function, set, dictionary, number, or is comparable, serializable,
 
 ## Context manager
 To define a context manager, define two special methods in a class: `__enter__()` and `__exit__()`.
@@ -858,9 +859,9 @@ Note: JSON doesn't support tuples and `bytes`. Lists are mapped as arrays, and d
 
 
 # Working with files
-`open(filename)`: global function that opens a file and returns a stream object. 
+`open(filename)`: global function that opens a file and returns a stream object.
 
-It takes an optional `encoding` parameter to specify the encoding of the file. The default encoding is *platform dependent* and specified in `sys.getdefaultencoding()`, so **always specify encoding when reading/writing a file**. To get the default encoding, `import locale` and call `locale.getpreferredencoding()`. 
+It takes an optional `encoding` parameter to specify the encoding of the file. The default encoding is *platform dependent* and specified in `sys.getdefaultencoding()`, so **always specify encoding when reading/writing a file**. To get the default encoding, `import locale` and call `locale.getpreferredencoding()`.
 
 An optional parameter `mode` specifies the file to be opened in mode:
 * read: `'r'`, by default
@@ -877,8 +878,8 @@ Python3 operates in "universal newline support" (specified as `'U'` in Python2),
 ```python
 with open(filename, encoding = 'utf-8') as a_file
 	doSomething()
-	
-doElse()			# a_file is closed	
+
+doElse()			# a_file is closed
 ```
 
 Use a `with` statement, which creates a runtime context. When exiting `with` block, the stream object `a_file` will automatically call its own `close()` method. The `as` clause assign the `with` context to a variable, but it's optional.
@@ -918,7 +919,7 @@ On Unix systems, this technique of wrapping a file descriptor can be a convenien
 
 ## Stream object
 Many other datatypes can be turned into stream objects, not only files.
-* `io.StringIO(str)` from `io` module turns a string to a stream object. 
+* `io.StringIO(str)` from `io` module turns a string to a stream object.
 * `io.ByteIO(byte_array)` does the same thing to a `byte` array.
 
 Operations:
@@ -931,7 +932,7 @@ Operations:
 * `a_file.tell()` returns the current **byte** location.
 * `a_file.close()` closes the file. `close()` an already closed file won't raise an exception.
 
-* `name` is `filename` you pass into `open()`, without normalization to an absolute path. 
+* `name` is `filename` you pass into `open()`, without normalization to an absolute path.
 * `encoding` is the encoding method. If a binary file is opened, there is no `encoding`.
 * `mode` defaults to `r` (read), you can specify it by passing it into `open()`.
 
@@ -960,8 +961,8 @@ Paths in Python always contains forward slashes, even in Windows.
 ### `os` module
 * `os.getcwd()`: get current working directory
 * `os.chdir()`: change working directory, can take abosulte paths and relative paths
-* `os.listdir(path)`: returns a list of the names of the entries in `path` except `.` and `..`. 
-* `os.stat(filename)`: returns a file's metadata 
+* `os.listdir(path)`: returns a list of the names of the entries in `path` except `.` and `..`.
+* `os.stat(filename)`: returns a file's metadata
 
 `os.path` module:
 * `os.path.basename(path)`: get the last component of the path (filename)
@@ -1110,7 +1111,7 @@ try:
 	from lxml import etree
 except ImportError:
 	import xml.etree.ElementTree as etree
-```	
+```
 
 ### `chardet` module
 For encoding detection, designed for Python 2.
@@ -1120,7 +1121,7 @@ For encoding detection, designed for Python 2.
 * Pick a random item from an iterable, use `random.choice(iter)`.
 * Shuffle an iterable in place, use `random.shuffle(iter)`.
 * Produce random integers from `start` to `stop` inclusive, use `random.randint(start, stop)`.
-* Produce random numbers from 0 to 1, use `random.random()`. 
+* Produce random numbers from 0 to 1, use `random.random()`.
 * `random.uniform()` and `random.gauss()` generates uniformly and normally distributed values.
 
 ### `datetime` module
