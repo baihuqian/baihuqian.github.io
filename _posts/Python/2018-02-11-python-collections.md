@@ -1,0 +1,140 @@
+---
+layout: "post"
+title: "Python Notes: Collections"
+date: "2018-02-11 10:54"
+tags: Python
+---
+
+# Lists
+Much like `ArrayList`, but it can hold multiple datatypes.
+
+Sytax: `a_list = ['a', 1]`, square brackets with comma-separated list of values. To create a one-element list, use `[ val ]`. `list(val)` converts any iterable to a list, but it will fail if `val` is not iterable.
+
+An empty list is evaluted to `False`, all non-empty list are `True`.
+
+## List Operations
+* Index are zero-based.
+* Negative index is counting backwwards from the end. Much like `a_list[-n] == a_list[len(a_list)-n]`.
+* `a_list[begin:end]` is slicing. It returns a new list from `a_list[begin]` up but not including `a_list[end]`. If `begin == 0` and/or `end == len(a_list)`, they can be omitted, so `a_list[:]` returns a copy of `a_list`. Indices in slicing can also be negative.
+* `+` can be used to concatnate lists.
+* `a_list.append(var)` appends `var` to `a_list`'s end. It takes arbitrary types of variables and consider it as one. It returns `NoneType`.
+* `a_list.extend(another_list)` concatnates `another_list` to the end of `a_list`.
+* `a_list.insert(idx, var)` inserts `var` at `idx`th positions. Existing elements shifts right.
+*  `a_list.count(var)` counts the number of occurrences of `var` in `a_list`. If `var` is not present, it returns 0.
+*  `var in a_list` returns `True` if `a_list` contains `var`. It's faster than `count()`.
+*  `a_list.index(var)` returns the index of first occurrence of `var`. Optional paramters of start and end of search range can be specified. It throws an `ValueError` if `var` is not in `a_list`.
+*  `del a_list[idx]` removes the `idx`th element. The gap is filled by shifting all elements on the right left by 1.
+*  `a_list.remove(var)` removes first occurrence of `var`. It raises a `ValueError` if `var` is not in `a_list`.
+*  `a_list.pop()` removes the last element in `a_list` and returns it. It raises and `IndexError` if the list is empty.
+*  `a_list.sort()` sorts the list in-place, while `sorted(a_list)` makes a new list for sorted results. An optional parameter `key` specifies a **function** of one argument to extract the sorting key, and optional `reverse` makes the result in descending order if set to `True`.
+
+# Tuples
+*Immutable* list. It provides a write-protect mechanism to your data.
+
+Syntax: `a_tuple = ('a', 1)`, an empty tuple is `()`.
+
+Note: an additional commma is required to create a tuple with exactly **ONE** elements. `a_tuple = (1)` assigns `1` to `a_tuple` (which is an `int`), but `a_tuple = (1,)` creates a tuple.
+
+`[]` is used to index tuples. For example, `t[-1]` gets the last element in tuple `t`.
+
+All **modification** methods in list are not valid. Access methods are still valid.
+
+Tuples can be used to return multiple values from a function through multiple assignments.
+
+```python
+v = ('a', 2, True)
+(x, y, z) = v # x == 'a', y == 2, z == True
+```
+So a function returns a tuple can actually assign multiple return values at once.
+
+An empty tuple is evaluated to `False`, non-empty tuples are evaluated to `True`.
+
+## Methods on lists, tuples, and strings
+`len(s)`: returns the number of elements in `s`.
+
+`min(s)`: returns the minimal element in `s`.
+
+`max(s)`: returns the maximal element in `s`.
+
+`all(s)`: `True` if all elements are evaluated to `True`.
+
+`any(s)`: `True` if at least one element is evaluated to `True`.
+
+## Methods on lists and tuples
+`sum(x)`: returns sum of all elements in `s`.
+
+`s.count(x)`: returns number of occurrences of `x` in `s`.
+
+`s.index(x)`: returns the index of first occurrence of `x` in `s`.
+
+# Set
+An **unordered** bag of **unique** values.
+
+Syntax: `a_set = {1}`. To create an empty set, we must call the constructor `set()`, because `{}` is an empty dictionary.
+
+An empty set is evaluated to `False`.
+
+Python set is implemented as dictionary with hash code as the key.
+
+## Set Operations
+* `a_set.add(var)`: add `var` to `a_set`. If `var` is already in `a_set`, nothing happens, it's just a no-op.
+* `a_set.update(another_set)`: add all members in `another_set` to `a_set`. Duplications are ignored. `update()` can take multiple *sets, lists, and tuples* as parameters.
+* To remove a `var` from `a_set`, we can use either `a_set.discard(var)` or `a_set.remove(var)`. The only difference is if `var in a_set == False`, `discard()` is a no-op, while `remove()` raises a `KeyError`.
+* `a_set.pop()` removes a random value from `a_set` and returns it. To `pop()` from an empty set will raise a `KeyError` exception.
+* `a_set.clear()` removes all members and leaves an empty set. It's equivalent to `a_set = set()`.
+* **Union**: `a_set.union(b_set)`.
+* **Intersection**: `a_set.intersection(b_set)`.
+* **Difference**: `a_set.difference(b_set)`, it returns a set containing all the elements that are in `a_set` but not `b_set`.
+* **Symmetric difference**: `a_set.symmetric_difference(b_set)` or `a_set ^ b_set`, it returns all the elements in *exactly one* of them.
+* **Subset**: `a_set.issubset(b_set)`
+* **Superset**: `a_set.issuperset(b_set)`
+
+# Dictionary
+An unordered set of key-value pairs. Dictionary is optimized to retrieve value with key, but no the other way around.
+
+Syntax: `a_dict = {'key1': 'val1', 'key2': 'val2'}`. To retrieve a value, use `a_dict['key1']` to get `'val1'`. A `KeyError` will be raised if the given key is not present.
+
+To add or change a key-value pair, use `a_dict['key3'] = 'val3'`.
+
+To delete a key-value pair, use `del a_dict['key3']`.
+
+A dictionary can be created from a list of 2-item lists.
+
+An empty dictionary is evaluated to `False`.
+
+`dic.keys()` returns all keys in `dic`.
+
+`dic.values()` returns all values in `dic`.
+
+`dic.items()` returns all key-value pairs (as tuples) in `dic`.
+
+In Python2, `dic.keys()`, `dic.values()` and `dic.items()` are lists. In Python3, are view objects, meaning they'll reflect changes to `dic`.
+
+`dict.fromkeys(seq, value=None)` creates a dictionary that maps items in `seq` to `value`, default to `None`. It is a class method.
+
+# Comprehension
+## List comprehension
+Syntax: `[<expression> for var in list_var if condiition]`
+
+`<expression>`: can be any Python expression, it will be the result of each element after list comprehension
+
+`var`: temporary variable to hold a single variable in the list
+
+`list_var`: the original list
+
+`if condition`: optional, only the elements with `condition=true` will be kept in the final list
+
+## Dictionary comprehension
+
+Syntax: `{<key>:<value> for var in list_var if condition}`
+
+Note: it is enclosed in `{}` and returns a dictionary
+
+`<key>`: expression of keys in dictionary
+
+`<value>`: expression of values in dictionary
+
+Note: to get both keys and values from a dictionary, we can use `{... for key, value in dict.items()}`.
+
+## Set comprehension
+Syntax: `{<expression> for var in set_var if condition}`. Set comprehension can take set (as well as list) as input.
