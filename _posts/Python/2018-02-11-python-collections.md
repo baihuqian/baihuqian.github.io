@@ -33,7 +33,7 @@ An empty list is evaluted to `False`, all non-empty list are `True`.
 
 Syntax: `a_tuple = ('a', 1)`, an empty tuple is `()`.
 
-Note: an additional commma is required to create a tuple with exactly **ONE** elements. `a_tuple = (1)` assigns `1` to `a_tuple` (which is an `int`), but `a_tuple = (1,)` creates a tuple.
+Note: an additional comma is required to create a tuple with exactly **ONE** elements. `a_tuple = (1)` assigns `1` to `a_tuple` (which is an `int`), but `a_tuple = (1,)` creates a tuple.
 
 `[]` is used to index tuples. For example, `t[-1]` gets the last element in tuple `t`.
 

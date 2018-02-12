@@ -5,14 +5,24 @@ date: "2018-02-11 10:55"
 tags: Python
 ---
 
-# Syntax
 `def fun(parameter1, parameter2=1):`, all lines of function body are indented.
 
 * Use keyword `def` to define functions.
 * Parameters can have default values, and this parameter becomes optional.
-* Python functions don't need to declare return values. If there are no explict return values in function body, *`None`* is returned.
-* Functions are also *objects*. So a function name contains not only the function declaration, but also its implementation with any parameters. And you can pass functions as parameters into any funtions or store it in any data structures.
+* Python functions don't need to declare return types. If there are no explicit return values in function body, *`None`* is returned.
+* Functions are also *objects*. So a function name contains not only the function declaration, but also its implementation with any parameters. And you can pass functions as parameters into any functions or store it in any data structures.
 
+Though Python does not require declaring types of parameters and return values, they can be specified as *function argument annotations*:
+
+```python
+def add(x:int, y:int) -> int:
+	return x + y
+```
+
+Note: they are not type checks, nor do they make Python behave any differently than it did before. Function annotations are merely stored in a function’s `__annotations__` attribute.
+
+# Parameters
+## Parameter Packing and Unpacking
 If the number of parameters are not known when function is defined, we can use **packing**:
 
 ```python
@@ -37,6 +47,19 @@ func2(a=1,b=2,c=3)
 
 Then `dict` is a dictionary with key as argument name. `func` takes only **keyword** arguments.
 
+Note: A `**` argument can only appear as the last argument, while a `*` argument can only appear as the last positional argument in a function definition. A subtle aspect of function definitions is that arguments can still appear after a `*` argument. This can be used to implement functions that only accept keyword arguments:
+
+```python
+def mininum(*values, clip=None):
+	m = min(values)
+	if clip is not None:
+	m = clip if clip > m else m
+	return m
+
+minimum(1, 5, 2, -5, 10) # Returns -5
+minimum(1, 5, 2, -5, 10, clip=0) # Returns 0
+```
+
 `*` and `**` can be used as **unpacking**, i.e. pass a tuple (or a dictionary) to a function, and let each element in the tuple be a positional argument (or each key-value pair in the dictionary be a keyword argument). For example,
 
 ```python
@@ -50,6 +73,23 @@ func(*args)		# 1 passed to a, 2 passed 2 b, etc
 dict = {'a':1, 'b', 2, 'c', 3}
 func(**dict)
 ```
+
+## Default value
+Defining a function with optional arguments is easy: simply assign values in the definition and make sure that default arguments appear last. However, there are two gotchas:
+
+* If the default value is supposed to be a mutable container, such as a list, set, or dictionary, use `None` as the default value. This avoids unwanted behavior if the mutable container escapes the scope and get mutated.
+* The default values assigned are bound only once at the time of function definition. If a local variable `x` is used as default value, the default value is assigned to the value of `x` at function definition, and does not change when `x` is changed.
+
+# Return Values
+To return multiple values from a function, simply return a tuple:
+
+```python
+def myfun():
+	return 1, 2, 3
+
+a, b, c = myfun()
+```
+Though it looks peculiar, but it's actually the comma that forms a tuple, not the parentheses.
 
 # Function call
 When calling a function, parameters can be:
@@ -66,17 +106,19 @@ Documentation string is the first multiline string after the function definition
 You can build dynamic functions with a function by passing different parameters into it. This technique of using the values of outside parameters within a dynamic function is called *closures*. For example,
 
 ```python
-import re
+from urllib.request import urlopen
 
-def build_match_and_apply_functions(pattern, search, replace):
-	def matches_rule(word):
-		return re.search(pattern, word)
-	def apply_rule(word):
-		return re.sub(search, replace, word)
-	return (matches_rule, apply_rule)
+def urltemplate(template):
+	def opener(**kwargs):
+		return urlopen(template.format_map(kwargs))
+	return opener
+
+# Example use
+yahoo = urltemplate('http://finance.yahoo.com/d/quotes.csv?s={names}&f={fields}')
+for line in yahoo(names='IBM,AAPL,FB', fields='sl1c1v'):
+	print(line.decode('utf-8'))
 ```
-
-the funtion `build_mach_and_apply_functions()` takes three parameters and build two dynamic functions `matches_rule()` and `apply_rules()`. The generated functions will contain outside parameters after they being generated.
+A key feature of a closure is that it remembers the environment in which it was defined. Thus, in the solution, the `opener()` function remembers the value of the `template` argument, and uses it in subsequent calls. It is more elegant to use Closure instead of Single Method Class (besides `__init__`).
 
 
 # Generators
@@ -151,6 +193,16 @@ Usage: create anonymous functions for functions like `filter()`, `map()` and `re
 * `filter(function, iter)`: returns an iterator with elements in `iter` evaluated as `True` by `function`.
 * `map(function, iter)`: returns an iterator with return values by applying `function` on each element in `iter`.
 * `reduce(function, iter)`: aggregates return values from `function` with each element in `iter` as argument.
+
+If `lambda` expression refers to a free variable outside the function, the value of the free variable is bounded at runtime, not definition time. If you want an anonymous function to capture a value at the point of definition and keep it, include the value as a default value, like this:
+
+```python
+x = 10
+a = lambda y: x + y
+b = lambda y, x=x: x + y
+```
+
+The `x` in `b`'s body is a local variable with default value of the free variable `x`. Because default value are bound at definition time, it will not change at runtime.
 
 # Decorator
 Decorator can add additional functionality to existing functions. It takes a function and returns a new function:
