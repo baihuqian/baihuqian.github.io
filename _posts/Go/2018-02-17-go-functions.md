@@ -32,7 +32,7 @@ This is more than a convention. `_`, the blank identifier, is special in that th
 
 ### Named return values
 
-Go's return values may be named. If so, they are treated as variables defined at the top of the function. These names should be used to document the meaning of the return values.
+Go's return values may be named. If so, they are treated as variables defined at the top of the function, and initialized to the zero values for their types. These names should be used to document the meaning of the return values.
 
 A return statement without arguments returns the named return values. This is known as a "naked" return. Naked return statements should be used only in short functions, as with the example shown here. They can harm readability in longer functions.
 
@@ -62,3 +62,34 @@ func adder() func(int) int {
 	}
 }
 ```
+## Function Type
+
+Functions are first-class types:
+
+```go
+type Add func(a int, b int) int
+```
+
+which can then be used anywhere -- as a field type, as a parameter, as a return value.
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+type Add func(a int, b int) int
+
+func main() {
+  fmt.Println(process(func(a int, b int) int{
+      return a + b
+  }))
+}
+
+func process(adder Add) int {
+  return adder(1, 2)
+}
+```
+
+Using functions like this can help decouple code from specific implementations much like we achieve with interfaces.

@@ -23,6 +23,8 @@ Go uses suffix by dropping the colon:
 x int
 ```
 
+# Declaration and Assignment
+
 The `var` statement declares a variable, or a list of variables. Note the type is at last.
 
 ```go
@@ -34,13 +36,30 @@ By default, Go assigns a zero value to variables. Integers are assigned `0`, boo
 ```go
 var power int = 9000
 var c, python, java = true, false, "no!"
+var (
+	ToBe   bool       = false
+	MaxInt uint64     = 1<<64 - 1
+	z      complex128 = cmplx.Sqrt(-5 + 12i)
+)
+
 ```
+
+Variable declarations may be "factored" into blocks, as with import statements.
 
 If an initializer is present, the type can be omitted; the variable will take the type of the initializer.
 
 A `var` statement can be at package or function level. Inside a function, the `:=` short assignment statement can be used to declare a variable and assign initial value to it. The type in `:=` statement is inferred.
 
 Like imports, Go won't let you have unused variables. Declared by unused variables will cause compile error.
+
+## Redeclaration and Reassignment
+In a `:=` declaration a variable `v` may appear even if it has already been declared, provided:
+
+* this declaration is in the same scope as the existing declaration of `v` (if `v` is already declared in an outer scope, the declaration will create a new variable),
+* the corresponding value in the initialization is assignable to `v`, and
+* there is at least one other variable in the declaration that is being declared anew.
+
+A main usage is error handling: `err` variable can be redeclared many times by reassigning to it.
 
 ## Constants
 Constants are declared like variables, but with the `const` keyword.
