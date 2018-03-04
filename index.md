@@ -21,7 +21,7 @@ Before joining AWS, I received Master's degree from [Department of Electrical an
 
 I currently hold the following certifications:
 
-![junos]({{ "/img/juniper-networks-certified-associate-junos-jncia-junos.png" }}){:height="250px"}
-![aws]({{ "/img/aws-certified-developer-associate.jpeg" }}){:height="250px"}
+![junos]({{ "/assets/index/juniper-networks-certified-associate-junos-jncia-junos.png" }}){:height="250px"}
+![aws]({{ "/assets/index/aws-certified-developer-associate.jpeg" }}){:height="250px"}
 
 I love food, photography, cars, and biking.

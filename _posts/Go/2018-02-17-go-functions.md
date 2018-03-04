@@ -30,6 +30,11 @@ if exists == false {
 
 This is more than a convention. `_`, the blank identifier, is special in that the return value isn't actually assigned. This lets you use `_` over and over again regardless of the returned type.
 
+## Varargs
+Type `...T` can be used for a function's final argument to specify that an arbitrary number of parameters of type `T` can appear in the argument list. The argument variable `v` is of type `[]T`.
+
+A variable `v` of type `[]T` can be passed as a list of arguments using `v...` instead of a single slice argument.
+
 ### Named return values
 
 Go's return values may be named. If so, they are treated as variables defined at the top of the function, and initialized to the zero values for their types. These names should be used to document the meaning of the return values.
