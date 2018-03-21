@@ -2,7 +2,7 @@
 layout: "post"
 title: "Remove Non-Deductible Traditional IRA Contribution"
 date: "2018-03-13 23:07"
-tags: tax
+tags: Tax Life
 ---
 
 If you make a traditional IRA contribution before doing your tax for the year hoping you can deduct the contribution, but only to find your income is too high to deduct the contribution, you will want to remove non-deductible contributions from the Traditional IRA and invest the money in a taxable account for the following reasons:
@@ -18,9 +18,9 @@ The following are stated in [IRA Publication 590A, Contributions to Individual R
 # Contributions Returned Before Due Date of Return
 
 If you made IRA contributions in 2016, you can withdraw them tax free by the due date of your return. If you have an extension of time to file your return, you can withdraw them tax free by the extended due date. You can do this if, for each contribution you withdraw, both of the following conditions apply.
-You did not take a deduction for the contribution.
 
-You withdraw any interest or other income earned on the contribution. You can take into account any loss on the contribution while it was in the IRA when calculating the amount that must be withdrawn. If there was a loss, the net income earned on the contribution may be a negative amount.
+- You did not take a deduction for the contribution.
+- You withdraw any interest or other income earned on the contribution. You can take into account any loss on the contribution while it was in the IRA when calculating the amount that must be withdrawn. If there was a loss, the net income earned on the contribution may be a negative amount.
 
 # Note
 

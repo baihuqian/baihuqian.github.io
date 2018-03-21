@@ -1,7 +1,8 @@
----
+eliminated---
 layout: "post"
 title: "Udacity OS Course"
 date: "2018-03-03 22:04"
+tags: CS, notes
 ---
 
 {{:toc}}
@@ -781,4 +782,92 @@ When should page be swapped out by page(out) daemon?
 - when *CPU usage* is below threshold
 
 Which pages should be swapped out?
+
 Pick Least-recently used pages. It uses the Access bit to track if page is referenced. Other choices are pages that don't need to be written out, which can be tracked using the dirty bit.
+
+## Other Memory Optimization
+### Copy-on-Write
+MMU can perform other functionalities and optimizations beyond address translation, access tracking, and protection enforcement. One example is copy-on-write (COW).
+
+In some cases, memory copy is required, but data may be identical and unchanged. Thus, on copying, MMU can map new VA to the original page and write protect the original page. However, on write, a page fault is generated and page is copied. In this way, copy cost is only paid if necessary.
+
+### Checkpointing
+It is a failure and recovery management technique. It periodically saves process state, so that when failure happens, the process can restart from checkpoint (instead of the beginning), so recovery can be much faster.
+
+### Memory Debugging
+A technique called Rewind-Replay is to rewind to a recent checkpoint and replay memory access from there.
+
+### Process Migration
+A process can be migrated to another machine for disaster recovery or consolidation purposes. Fast checkpoints are made and copied until a pause-and-copy opportunity becomes available.
+
+# Inter-Process Communication
+OS-supported mechanisms for interaction among processes. The most common IPC mechanism includes message passing (via sockets, pipes, message queues), and memory-based IPC (shared memory, memory mapped files). IPC can also provide higher-level semantics on the communication protocol, such as files or Remote Procedure Calls (RPC). IPC also provides synchronization primitives.
+
+## Message-Base IPC
+OS creates and maintains a *channel* (buffer or FIFO queue) and an interface to processes, called *port*. Processes send (write) and receive (read) messages from a port. OS kernel establishes communication and perform each IPC operation, this means both send and receive requires a system call and data copy, and a request-response operation invokes 4 user/kernel crossings and 4 data copies.
+
+Thus, while it is simple for processes, the overhead of kernel operations is large.
+
+* Pipes: carry byte stream between 2 processes. For example, a pipe is used to connect the output of a process to the input of another process.
+* Message queues: carry "messages" among processes. OS manages priorities, message delivery scheduling, and exposes operations via APIs (SysV "System-Five" or POSIX).
+* Sockets: a message queue. The interface is called "socket", and `send()` and `recv()` methods pass message through buffers. Kernel associates necessary kernel-level processing to a socket (e.g. TCP/IP). If a socket is used to communicate between different machines, it is a channel between a process and a network device. If used on the same machine, the full protocol stack can be bypassed.
+
+## Shared-Memory IPC
+Processes read and write to a shared memory region. OS establishes shared channel between the processes by mapping virtual address space for both processes onto the same physical page. Also the physical memory does not have to be contiguous.
+
+System calls are invoked only for setup of the channel, and data copies can be potentially reduced (but not eliminated as processes need to copy memory to separate locations). The disadvantage is that it requires explicit synchronization, communication protocol must be defined in the processes, and management of the shared buffer is in the processes.
+
+Unix and Linux OS supports SysV and POSIX APIs.
+
+Shared memory is organized into "segments". Segments are not necessarily contiguous physical pages. It is system-wide, and any processes can refer to them. OS limits on the number of segments and the total size of all segments.
+
+The lifecycle of a segment is as follows:
+1. Create: OS allocates a memory space and assigns a unique key to the segment.
+2. Attach: processes attach to a segment by referring to its key. OS maps the process's virtual page to the physical address of the segment.
+3. Detach: OS invalidates the address mapping in the process's page table. However, the segment still exists in memory.
+4. Destroy: OS releases the physical memory of the segment.
+
+## Synchronization
+### Shared-Memory
+Accesses to shared state in a single address space by multiple processes must be synchronized. Synchronization mechanism must coordinate number of concurrent accesses to the shared segment, and signal when data is available and ready for consumption.
+
+Mechanisms:
+- process threading library (e.g. pthreads). Note synchronization data structures must be shared as well!
+- OS-supported IPC for synchronization
+
+### Other IPC
+Synchronization in message queues can be implemented via send/receive pair. For example, P1 writes data to shared memory and sends ready to the queue; P2 receives the message, reads data from the shared memory and sends OK message back.
+
+Semaphores can also be used. A binary semaphore is like a mutex: when its value is 0, access is blocked; when the value is 1, then decrement (lock) the value and proceed the operation.
+
+## IPC Command Line Tools
+* `ipcs`: list all IPC facilities. `-m` displays info on shared memory IPC only.
+* `ipcrm`: delete IPC facility. `-m [shmid]` deletes shm segment with given ID.
+
+# Synchronization Constructs
+[Reference](https://s3.amazonaws.com/content.udacity-data.com/courses/ud923/references/ud923-anderson-paper.pdf)
+
+## Spinlock
+Spinlock is a basic sync construct like a mutex. It provides mutual exclusion and lock/unlock operations. However, unlike mutex blocks a thread when a lock cannot be acquired, spinlock keeps the thread running in CPU to periodically check whether the lock is released. The thread continues to run until it is preempted.
+
+## Semaphores
+Semaphore is a common sync construct in OS kernels. It is like a traffic light that signals threads to STOP or Go. It is more generalized than mutex.
+
+Semaphore is an integer value. It allows certain number of concurrent access. Upon initialization, it is assigned a max value (a positive integer). On try, if the value is not zero, its value is decremented and access is granted. When its value is zero, it blocks access. On exit, the integer value is incremented.
+
+## Reader Writer Locks
+Syncing can be done differently based on types of accesses. For example, shared access is granted to read operation, and exclusive access is granted to write operations. A Reader-Writer Lock specifies the type of access and lock behave accordingly.
+
+Rwlock is supported in many platforms, such as Windows (.NET), Java, POSIX, etc. Sometimes it is called shared/exclusive locks. However, there are semantic differences among implementations. For example, different processes can have different priorities, and priorities can be upgraded/downgraded. Also scheduling policy can be implemented on rwlock so that read is blocked if higher priority writer is waiting.
+
+## Monitors
+Low-level synchronization constructs place the burden of implementing locking and waiting on the developers. It is often error-prone, or inefficient, to use low-level constructs.
+
+Monitor is a high-level construct that helps with this. It specifies a shared resource protected by a synchronization construct, all possible entry procedures, and possible condition variables. On entry, lock and check will be performed automatically by the monitor. Similarly, unlock, check, signal will be performed on exit.
+
+In Java, synchronized methods generate monitor code, but `notify()` must be called explicitly.
+
+## Other Synchronization Constructs
+Serializers, path expressions, barriers, rendzvous points, optimistic wait-free sync.
+
+All synchronization constructs require hardware support.

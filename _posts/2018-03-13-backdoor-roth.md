@@ -2,10 +2,17 @@
 layout: "post"
 title: "Backdoor Roth"
 date: "2018-03-13 22:54"
-tags: tax
+tags: Tax Life
 ---
 
 This is the notes I gathered when researching how to make Backdoor Roth contribution, how to gather tax documents and report contributions and conversions in tax filing using TurboTax. The content is modified from [thefinancebuff.com](https://thefinancebuff.com). See original content in reference links at the end.
+
+# What exactly is a backdoor Roth IRA?
+A backdoor Roth is a conversion of Traditional IRA assets to a Roth IRA. Currently, anyone can convert money that they have put into a Traditional IRA to a Roth IRA, no matter how much income they earn. What’s more, they can also roll as much money as they want from an existing Traditional IRA into a Roth IRA. In other words, if the Traditional IRA has more than the yearly contribution limits on IRAs, you can roll over that larger sum into a Roth at one time.
+
+Keep in mind: This isn’t a tax dodge. You will need to pay taxes on any money in your Traditional IRA that hasn’t already been taxed. The funds that you convert to a Roth IRA will most likely count as income, which could kick you into a higher tax bracket in the year you do the conversion. On the other hand, if your income happens to be unusually low in a particular year—perhaps you had a gap in employment—you could take advantage of that situation by making the Roth conversion then. Timing is important. Carefully calculate the tax implications of a Roth IRA conversion before you decide.
+
+You can do a backdoor Roth IRA in one of two ways. The first method is to contribute money to an existing Traditional IRA, sell shares, and then roll over the money to a Roth IRA account. Or, you can convert an entire Traditional IRA account to a Roth IRA account. Your bank or brokerage should be able to help you with the mechanics. Your Traditional IRA doesn’t have to be new. You can roll over existing Traditional IRA money—or an old Traditional IRA account—into a Roth.
 
 # Who should consider the Backdoor Roth?
 If your income is “too high” for contributing to a Roth IRA, you should consider the Backdoor Roth. The IRS publishes the income limit for contributing to a Roth IRA every year.
@@ -49,7 +56,7 @@ Having the money sit in a traditional IRA for a short period of time is not goin
 # Step 4 – Convert the traditional IRA to Roth IRA
 Ask your IRA provider how to do this. Some can do it online. Some will want a signed form. There is no income limit for the conversion. Because your Roth IRA conversion comes primarily from your non-deductible contributions, there will be very little taxes on the conversion.
 
-Be sure to specify you want to *convert* money in your traditional IRA to a Roth IRA, not *recharacterize* your contribution. The two are not the same. Using the wrong term can lead to bad consequences. See Traditional and Roth IRA: Recharacterize vs Convert.
+Be sure to specify you want to *convert* money in your traditional IRA to a Roth IRA, not *recharacterize* your contribution. The two are not the same. Using the wrong term can lead to bad consequences.
 
 Also be sure to choose “no tax withholding” for your conversion. This way 100% of the money goes into your Roth account.
 
@@ -96,8 +103,6 @@ If the front door is wide open and everyone can contribute directly to a Roth IR
 
 # Will they close the backdoor?
 It’s possible the backdoor will be closed. The President already included in his budget proposal to close it although it’s hard to get it passed by Congress. If you are afraid the backdoor will be closed, you should do it now when the backdoor is still open.
-
-
 
 # Reference
 1. [Backdoor Roth: A Complete How-To](https://thefinancebuff.com/the-backdoor-roth-ira-a-complete-how-to.html)
