@@ -26,12 +26,11 @@ navbar-links:
   Posts: "blog"
   Tag Index: "tags"
   Resume: "assets/Baihu_Qian_resume.pdf"
-  Photos: "photos"
-  # Resources:
-  #   - Beautiful Jekyll: "http://deanattali.com/beautiful-jekyll/"
-  #   - Learn markdown: "http://www.markdowntutorial.com/"
-  #   - GitHub Pages: "https://pages.github.com/"
-  # Author's home: "http://deanattali.com"
+  Photos:
+    - Flowers: "photos/flowers"
+    - Hangzhou: "photos/hangzhou"
+    #- China: ""
+    - USA: "photos/usa"
 
 # Image to show in the navigation bar - image must be a square (width = height)
 # Remove this parameter if you don't want an image in the navbar

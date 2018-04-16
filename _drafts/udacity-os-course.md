@@ -850,6 +850,15 @@ Semaphores can also be used. A binary semaphore is like a mutex: when its value 
 ## Spinlock
 Spinlock is a basic sync construct like a mutex. It provides mutual exclusion and lock/unlock operations. However, unlike mutex blocks a thread when a lock cannot be acquired, spinlock keeps the thread running in CPU to periodically check whether the lock is released. The thread continues to run until it is preempted.
 
+Spinlock requires hardware support. The check of lock state and acquiring the lock must happen atomically. Such hardware support is atomic instructions. Atomic instructions are hardware specific, and some common operations are test-and-set, read-and-increment, and compare-and-swap. They guarantee atomicity, mutual exclusion, and queueing all concurrent instructions but one. Thus, atomic instructions are used in the critical section with hardware-supported synchronization.
+
+With atomic instruction, spinlock can be implemented as follows:
+
+```
+spinlock_lock(lock):
+	while(test_and_set(lock) == busy);
+```
+
 ## Semaphores
 Semaphore is a common sync construct in OS kernels. It is like a traffic light that signals threads to STOP or Go. It is more generalized than mutex.
 
@@ -871,3 +880,30 @@ In Java, synchronized methods generate monitor code, but `notify()` must be call
 Serializers, path expressions, barriers, rendzvous points, optimistic wait-free sync.
 
 All synchronization constructs require hardware support.
+
+## Shared-Memory Multiprocessors
+Multiple CPUs access one or more shared memory spaces via a bus (only in-flight one access at a time) or interconnect (only one access to a memory). Such system is called Shared-Memory Multiprocessors, Symmetric Multiprocessors, or simply SMPs. Each CPU has its local cache to hide memory latency, but memory is "further away" from the CPU due to contention.
+
+Write operations to cached memory can have different mechanisms:
+* no-write: write operation applies to memory and invalidates the cache;
+* write-through: write operation applies to both memory and cache;
+* write-back: write operation applies to cache, and write to memory can be delayed.
+
+### Cache Coherence
+A piece of memory can present in multiple places: one in memory, multiple in caches of different CPUs. Cache coherence is or is not supported by hardware. If cache coherence is done in software, the architecture is called non-cache coherent (NCC); if hardware maintains cache coherence, such architecture is called cache coherent.
+
+Two main cache coherence mechanisms in hardware are write-invalidate and write-update. Write-invalidate invalidates other cache references of a memory space once its updated. The benefit is low memory bandwidth usage (only the memory address is sent over), and potentially cost can be amortized by invalidating once for multiple updates. Write-update updates other cache references when the value is written. The benefit is the update becomes available immediately for other CPU.
+
+### Cache Coherence and Atomics
+Because it's difficult to achieve atomicity across multiple caches of multiple CPUs, atomics are always issued to the memory controller. This ensures all references can be ordered and synchronized. But it takes much longer, and generates coherence traffic to all caches regardless of change. Thus, atomic operations are expensive.
+
+Because `test_and_set()` is expensive, we can add a simple test so that if lock is not free, no atomic operations are issued:
+
+```
+spinlock_lock(lock):
+	while(lock == busy OR test_and_set(lock) == busy);
+```
+
+But many threads see the lock is free at the same time, so contention can happen. Delay can be introduced between when lock is free and `test_and_set(lock)` is issued.
+
+# I/O Management
