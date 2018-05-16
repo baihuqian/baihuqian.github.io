@@ -21,7 +21,7 @@ String provides modification methods. They destroy old strings and replace with 
 * `s.replace(old, new)`: create a **copy** of `s`and replace substring `old` in `s` with `new`.
 * `s.count(ss)`: count occurrence of a substring `ss` in `s`.
 * `s.find(ss)`: returns the index of first occurrence from left of a substring `ss`. If none exist, return -1. `s.rfind(ss)` searches from right.
-* `s.index(ss)` returns the index of first occurrence from left of a substring `ss`. If none exist, exception is raised. `s.rfind(ss)` searches from right.
+* `s.index(ss)` returns the index of first occurrence from left of a substring `ss`. If none exist, `ValueError` exception is raised. `s.rindex(ss)` searches from right.
 * `ord(char)`: returns the integer value of a character. It is the inverse of `chr()`.
 * `str.translate(trans_table)`: it takes a dictionary that maps the **byte representation** of one character to that of another, and replaces all occurrences of the keys of the translation table with corresponding values. To delete a character, map it to `None`.
 * `s.ljust(width)`, `s.rjust(width)`, `s.center(width)` aligns `s` to left, right, and center. It takes an optional fill character. It is the same as `format(s, '<20')`, `format(s, '>20')`, `format(s, '=^20')` (`'='` is the fill character). `format` works with more than strings.
@@ -44,8 +44,8 @@ There are two ways of formatting a string.
 Or, use `%` to format a string:
 
 ```python
-str % (var1, var2, ...)					# 1
-str % {key1: val1, key2: val2, ...}		# 2
+str % (var1, var2, ...)  # 1
+str % {key1: val1, key2: val2, ...}  # 2
 ```
 
 In 1, a template `str` is given, it's like C-type string formatter: `"I'm %s. I'm %d year old"`. A tuple of matching replacers are given follow the `%` operator.
@@ -66,6 +66,3 @@ Use `html.escape(s)` in `html` module. To unescape it (given a bare text), use `
 It provides a `fill(str, width)` method to convert a string to a multi-line string with given column width. Its optional parameter `initial_indent` and `subsequent_indent` specifies the indent for first and rest of lines, respectively.
 
 To make it terminal-friendly, you can use `os.get_terminal_size().columns` to get the width of the terminal.
-
-### File Name Match `fnmatch`
-`fnmatch` module provides utilities to do file name match for strings like in shell. `fnmatch(str, pattern)` follows the same rule as the underlying OS for case-sensitivity, while `fnmatchcase(str, pattern)` is always case-sensitive.

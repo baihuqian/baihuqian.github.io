@@ -1,32 +1,40 @@
 ---
 layout: "post"
-title: "Python Notes: Collections"
+title: "Python Notes: Lists, Tuples, Sets, and Dicts"
 date: "2018-02-11 10:54"
 tags: Python
 ---
+{:toc}
 
 # Lists
 Much like `ArrayList`, but it can hold multiple datatypes.
 
-Sytax: `a_list = ['a', 1]`, square brackets with comma-separated list of values. To create a one-element list, use `[ val ]`. `list(val)` converts any iterable to a list, but it will fail if `val` is not iterable.
+Syntax: `a_list = ['a', 1]`, square brackets with comma-separated list of values. To create a one-element list, use `[ val ]`. `list(val)` converts any iterable to a list, but it will fail if `val` is not iterable.
 
-An empty list is evaluted to `False`, all non-empty list are `True`.
+An empty list is evaluated to `False`, all non-empty lists are `True`.
 
 ## List Operations
 * Index are zero-based.
-* Negative index is counting backwwards from the end. Much like `a_list[-n] == a_list[len(a_list)-n]`.
+* Negative index is counting backwards from the end. Much like `a_list[-n] == a_list[len(a_list)-n]`.
 * `a_list[begin:end]` is slicing. It returns a new list from `a_list[begin]` up but not including `a_list[end]`. If `begin == 0` and/or `end == len(a_list)`, they can be omitted, so `a_list[:]` returns a copy of `a_list`. Indices in slicing can also be negative.
-* `+` can be used to concatnate lists.
+* `+` can be used to concatenate lists.
 * `a_list.append(var)` appends `var` to `a_list`'s end. It takes arbitrary types of variables and consider it as one. It returns `NoneType`.
-* `a_list.extend(another_list)` concatnates `another_list` to the end of `a_list`.
+* `a_list.extend(another_list)` concatenates `another_list` to the end of `a_list`.
 * `a_list.insert(idx, var)` inserts `var` at `idx`th positions. Existing elements shifts right.
 *  `a_list.count(var)` counts the number of occurrences of `var` in `a_list`. If `var` is not present, it returns 0.
 *  `var in a_list` returns `True` if `a_list` contains `var`. It's faster than `count()`.
-*  `a_list.index(var)` returns the index of first occurrence of `var`. Optional paramters of start and end of search range can be specified. It throws an `ValueError` if `var` is not in `a_list`.
+*  `a_list.index(var)` returns the index of first occurrence of `var`. Optional parameters of start and end of search range can be specified. It throws an `ValueError` if `var` is not in `a_list`.
 *  `del a_list[idx]` removes the `idx`th element. The gap is filled by shifting all elements on the right left by 1.
 *  `a_list.remove(var)` removes first occurrence of `var`. It raises a `ValueError` if `var` is not in `a_list`.
 *  `a_list.pop()` removes the last element in `a_list` and returns it. It raises and `IndexError` if the list is empty.
 *  `a_list.sort()` sorts the list in-place, while `sorted(a_list)` makes a new list for sorted results. An optional parameter `key` specifies a **function** of one argument to extract the sorting key, and optional `reverse` makes the result in descending order if set to `True`.
+
+## Named Slices
+```python
+PRICE = slice(20,32)
+record[PRICE] # same as record[20:32]
+```
+This is useful to name magic numbers.
 
 # Tuples
 *Immutable* list. It provides a write-protect mechanism to your data.
@@ -39,15 +47,15 @@ Note: an additional comma is required to create a tuple with exactly **ONE** ele
 
 All **modification** methods in list are not valid. Access methods are still valid.
 
-Tuples can be used to return multiple values from a function through multiple assignments.
+Tuples can be used to return multiple values from a function through **unpacking** (see [Python Iterator post for more information]({{ site.baseurl }}{% post_url /Python/2018-02-04-python-iterator %})):
+
+An empty tuple is evaluated to `False`, non-empty tuples are evaluated to `True`.
 
 ```python
 v = ('a', 2, True)
 (x, y, z) = v # x == 'a', y == 2, z == True
 ```
 So a function returns a tuple can actually assign multiple return values at once.
-
-An empty tuple is evaluated to `False`, non-empty tuples are evaluated to `True`.
 
 ## Methods on lists, tuples, and strings
 `len(s)`: returns the number of elements in `s`.
@@ -82,9 +90,9 @@ Python set is implemented as dictionary with hash code as the key.
 * To remove a `var` from `a_set`, we can use either `a_set.discard(var)` or `a_set.remove(var)`. The only difference is if `var in a_set == False`, `discard()` is a no-op, while `remove()` raises a `KeyError`.
 * `a_set.pop()` removes a random value from `a_set` and returns it. To `pop()` from an empty set will raise a `KeyError` exception.
 * `a_set.clear()` removes all members and leaves an empty set. It's equivalent to `a_set = set()`.
-* **Union**: `a_set.union(b_set)`.
-* **Intersection**: `a_set.intersection(b_set)`.
-* **Difference**: `a_set.difference(b_set)`, it returns a set containing all the elements that are in `a_set` but not `b_set`.
+* **Union**: `a_set.union(b_set)` or `a_set | b_set`.
+* **Intersection**: `a_set.intersection(b_set)` or `a_set & b_set`.
+* **Difference**: `a_set.difference(b_set)` or `a_set - b_set`, it returns a set containing all the elements that are in `a_set` but not `b_set`.
 * **Symmetric difference**: `a_set.symmetric_difference(b_set)` or `a_set ^ b_set`, it returns all the elements in *exactly one* of them.
 * **Subset**: `a_set.issubset(b_set)`
 * **Superset**: `a_set.issuperset(b_set)`
@@ -112,9 +120,20 @@ In Python2, `dic.keys()`, `dic.values()` and `dic.items()` are lists. In Python3
 
 `dict.fromkeys(seq, value=None)` creates a dictionary that maps items in `seq` to `value`, default to `None`. It is a class method.
 
+## Default Values
+The `defaultdict(default_factory)` method in `collections` module returns a `dict`-like object, with a factory method for missing values. For example, `defaultdict(list)` returns a dict that inserts an empty list when missing keys are accessed.
+
+## Ordered Dict
+The `OrderedDict` class from the `collections` module is a dict that remembers the order that keys were inserted. If a new entry overwrites an existing entry, the original insertion position is left unchanged. This is achieved by maintaining a doubly linked list that orders the keys according to insertion order. Be aware that the size of an OrderedDict is more than twice as large as a normal dictionary due to the extra linked list that’s created.
+
+## Combined Dict
+The `ChainMap` class in the `collections` module takes multiple mappings and makes them logically appear as one. However, the mappings are not literally merged together. Instead, a ChainMap simply keeps a list of the underlying mappings and redefines common dictionary operations to scan the list.
+
+An alternative is to use `dict.update(another_dict)` method to actually perform the merge.
+
 # Comprehension
 ## List comprehension
-Syntax: `[<expression> for var in list_var if condiition]`
+Syntax: `[<expression> for var in list_var if condition]`
 
 `<expression>`: can be any Python expression, it will be the result of each element after list comprehension
 

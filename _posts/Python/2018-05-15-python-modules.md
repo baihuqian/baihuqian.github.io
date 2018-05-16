@@ -1,61 +1,9 @@
 ---
-title: Python Notes
+layout: "post"
+title: "Python Notes: Modules"
+date: "2018-05-15 21:36"
 tags: Python
 ---
-
-
-
-## Data Structure Libraries
-### Heap/Priority Queue
-`heapq` module provides an array-based implementation of **min** heap , where `heap[k] <= heap[2*k+1]` and `heap[k] <= heap[2*k+2]` for all `k`, counting elements from zero.
-
-To create a heap, use a list initialized to [], or you can transform a populated list into a heap via function `heapify()`.
-
-* `heapq.heappush(heap, item)`: push `item` into `heap`.
-* `heapq.heappop(heap)`: pop and return the smallest item from the heap. To access the root of heap, use `heap[0]`.
-* `heapq.heappushpop(heap, item)`: push then pop.
-* `heapq.heapreplace(heap, item)`: pop then push.
-* `heapq.heapify(x)`: transform list x into a heap, in-place, in linear time.
-
-Some general-purpose methods based on heap:
-* `heapq.merge(*iterables, key=None, reverse=False)`: Merge multiple sorted inputs into a single sorted output (for example, merge timestamped entries from multiple log files). Returns an iterator over the sorted values.
-* `heapq.nlargest(n, iterable, key=None)` and `nsmallest` returns n largest/smallest items in a list from iterable. They perform best for smaller values of n. For larger values, it is more efficient to use the `sorted()` function. Also, when `n==1`, it is more efficient to use the built-in `min()` and `max()` functions.
-
-
-
-
-
-# Standard input, output, and error
-They are defined in `sys` module.
-
-`sys.stdout` and `sys.stderr` are stream objects, but they are write-only. To redirect them to other streams, simply assign the target to them.
-
-# HTTP Web Services
-## Standard Python libraries
-
-* `http.client` implements the low-level HTTP Protocol. You won't interact with it directly.
-* `urllib.request`: standard API for accessing HTTP and FTP servers.
-	* `urllib.request.urlopen(url)` takes a `url` string and returns a file-like object so that methods dealing with stream objects can be used.
-	* `urllib.parse.urlencode(dic)` takes a dictionary and transforms it into a *URL-encoded* string. The string can be used as a payload in POST request.
-	* It's very inefficient.
-
-Note: HTTP servers don't deal with abstractions so data you get is in `bytes` format.
-
-## Third Party
-
-`httplib2`: The one to use.
-
-* `http = httplib2.HTTP(dir)` `HTTP` object: the primary interface to `httplib2`. Pass a directory (caching) name to it (even it doesn't exist). You only need **ONE** `HTTP` object unless you're absolutely knows why.
-* `httplib2.debuglevel` is 1 means printing all the data exchange between the server and local machine. After altering this value, create a **new** `HTTP` object.
-* `http.request(url, type, payload)` issues an HTTP request for given `url`.
-	* It returns two values: `response` contains all headers the server returned in a dictionary; `content` contains the actual data server returned in a `bytes` object.
-	* The second parameter is the `type` of HTTP request, default is GET.
-	* The third parameter is the `payload` to send to the server.
-	* Optional `headers` parameter takes a dictionary with specified HTTP headers.
-* `response.status` is the HTTP status code.
-* `response.fromcache`tells if the response is from cache, not the server.
-* `http.add_credentials(username, password, domain)` stores authentication information for a certain `domain` in `HTTP` object.
-
 
 # Modules
 ## `sys`

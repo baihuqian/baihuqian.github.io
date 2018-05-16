@@ -184,6 +184,18 @@ A generator expression is like a generator function without the function. It loo
 
 Syntax: `(<expression> for var in list_var)`. It returns an iterator.
 
+Generator expressions can be passed directly to a data reduction function (e.g., `sum()`, `min()`, `max()`):
+
+```python
+s = sum(x * x for x in nums)
+```
+
+This is equivalent to
+
+```python
+s = sum((x * x for x in nums)) # Pass generator-expr as argument
+s = sum([x * x for x in nums]) # Use list comprehension
+```
 
 # `lambda` function
 Syntax: `func = lambda x, y: x + y` defines a function `func` with argument `x` and `y`, and returns `x + y`.
