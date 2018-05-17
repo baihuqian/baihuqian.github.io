@@ -83,6 +83,14 @@ Python uses `if... elif... else` for conditions, an there's a comma following th
 ### `for` loop
 Syntax: `for var in iter`, where `iter` is an iterator.
 
+To get Java-style loop over a range: `for(int i = 0; i < 5; i++)`, use `range(start, stop, step)` to generate an iterator of indexes.
+
+To loop over an iterator with its index, use `enumerate()` (see [Python Iterator post for more information]({{ site.baseurl }}{% post_url /Python/2018-02-04-python-iterator %})):
+
+```python
+for idx, item in enumerate(iter):
+```
+
 ### `while` loop
 ```python
 while expression:
