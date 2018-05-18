@@ -16,40 +16,39 @@ Notes: It is intended for this problem to be specified vaguely (ie, no given inp
 # Solution
 
 ```python
-import re
-
-class Solution(object):
+class Solution:
     def myAtoi(self, str):
         """
         :type str: str
         :rtype: int
         """
-        str = str.lstrip()
-        if len(str) == 0:
+        str = str.lstrip(' ')
+        if str is None or len(str) == 0:
             return 0
+
         sign = 1
+        res = 0
         if str[0] == '+':
+            sign = 1
             str = str[1:]
         elif str[0] == '-':
-            str = str[1:]
             sign = -1
-        i = 0
-        while i < len(str) and str[i] == '0':
-            i = i + 1
-        str = str[i:]
-        if len(str) == 0:
+            str = str[1:]
+        if len(str) == 0 or not str[0].isdigit():
             return 0
-        match = re.search(r'^[1-9]\d*', str)
-        if match == None:
-            return 0
-        else:
-            result = sign * int(match.group(0))
 
-        if result > 2147483647:
-            return 2147483647
-        elif result < -2147483648:
-            return -2147483648
-        else:
-            return result
+        for s in str:
+            if s.isdigit():
+                res = res * 10 + int(s)
+            else:
+                break
 
+        res *= sign
+
+        if res < -1 * 2 ** 31:
+            return -1 * 2 ** 31
+        elif res > 2 ** 31 - 1:
+            return 2 ** 31 - 1
+        else:
+            return res
 ```

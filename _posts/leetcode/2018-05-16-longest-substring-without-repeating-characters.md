@@ -2,6 +2,7 @@
 layout: "post"
 title: "Leetcode 3: Longest Substring Without Repeating Characters"
 date: "2018-05-16 22:17"
+tags: Leetcode
 ---
 
 # Question
@@ -25,7 +26,7 @@ By using Set as a sliding window, checking if a character in the current can be 
 
 A sliding window is an abstract concept commonly used in array/string problems. A window is a range of elements in the array/string which usually defined by the start and end indices, i.e. $$[i, j)$$. A sliding window is a window "slides" its two boundaries to the certain direction. For example, if we slide $$[i, j)$$ to the right by $$1$$ element, then it becomes $$[i+1, j+1)$$.
 
-Back to our problem. We use HashSet to store the characters in current window $$[i, j)$$ ($$j = i + 1$$ initially). Then we slide the index $$j$$ to the right. If it is not in the HashSet, we slide $$j$$ further. Doing so until `s[j]` is already in the HashSet. At this point, we found the maximum size of substrings without duplicate characters start with index $$i$$. Next, to include $$j$$ in the substring, we need to slide $$i$$ further until `s[j]` is not in the set, or when $$i == j$$ (when `s[j]` is the same as `s[j-1]`). In the latter case, we slide both $$i$$ and $$j$$ further and repeat. We maintain $$ 0 \leq i \lt j \lt len(s)$$ relationship. 
+Back to our problem. We use HashSet to store the characters in current window $$[i, j)$$ ($$j = i + 1$$ initially). Then we slide the index $$j$$ to the right. If it is not in the HashSet, we slide $$j$$ further. Doing so until `s[j]` is already in the HashSet. At this point, we found the maximum size of substrings without duplicate characters start with index $$i$$. Next, to include $$j$$ in the substring, we need to slide $$i$$ further until `s[j]` is not in the set, or when $$i == j$$ (when `s[j]` is the same as `s[j-1]`). In the latter case, we slide both $$i$$ and $$j$$ further and repeat. We maintain $$ 0 \leq i \lt j \lt len(s)$$ relationship.
 
 ```python
 class Solution:

@@ -8,7 +8,7 @@ Python3's string is UTF-8 encoded by default, Python2's is not. To change the en
 
 String can be defined using single quotes (`'`) or double quotes(`"`). Multiline strings are enclosed in triple quotes (`'''` or `"""`). Prefix an `r` to a string makes it a *raw* string in Python. A raw string means Python will not escape anything.
 
-A string is like **a tuple of characters**. But strings can be concatenated using `+` operator. String cannot concatenate with numbers without converting numbers to strings using `str()` first.
+A string is like **a tuple of characters**. Each character can be obtained by indexing. But strings can be concatenated using `+` operator. String cannot concatenate with numbers without converting numbers to strings using `str()` first. To convert a list of characters to string, use `''.join(char_list)`.
 
 String provides modification methods. They destroy old strings and replace with a new, modified string. The commonly-used APIs are:
 
