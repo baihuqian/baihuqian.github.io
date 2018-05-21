@@ -27,7 +27,10 @@ Using `deque(maxlen=N)` creates a fixed-sized queue. When new items are added an
 12. `rotate()` :- This function rotates the deque by the number specified in arguments. If the number specified is negative, rotation occurs to left. Else rotation is to right.
 
 # Heap
+## `PriorityQueue`
+Python's `queue` module defines a `PriorityQueue` class.
 
+## `heapq` Module
 Heaps are binary trees for which every parent node has a value less than or equal to any of its children. This is also called min heap. This implementation uses arrays for which `heap[k] <= heap[2*k+1]` and `heap[k] <= heap[2*k+2]` for all `k`, counting elements from zero. For the sake of comparison, non-existing elements are considered to be infinite. The interesting property of a heap is that its smallest element is always the root, `heap[0]`.
 
 Python's `heapq` provides an implementation of the heap queue algorithm, which provides min heap operations on top of a list.
