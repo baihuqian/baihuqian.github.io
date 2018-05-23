@@ -1,7 +1,9 @@
 ---
 layout: "post"
-title: "Generate Parentheses"
+title: "Leetcode 22: Generate Parentheses"
 date: "2018-05-20 22:53"
+tags:
+  - Leetcode
 ---
 
 # Question
@@ -86,4 +88,4 @@ class Solution:
         return ans
 ```
 
-# Solution 3: 
+# Solution 3:

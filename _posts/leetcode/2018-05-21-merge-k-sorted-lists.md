@@ -1,7 +1,9 @@
 ---
 layout: "post"
-title: "Merge k Sorted Lists"
+title: "Leetcode 21: Merge k Sorted Lists"
 date: "2018-05-21 23:43"
+tags:
+  - Leetcode
 ---
 
 # Question

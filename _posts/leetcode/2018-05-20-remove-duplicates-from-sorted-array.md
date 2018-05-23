@@ -2,6 +2,8 @@
 layout: "post"
 title: "Leetcode 26: Remove Duplicates from Sorted Array"
 date: "2018-05-20 16:36"
+tags:
+  - Leetcode
 ---
 
 # Question

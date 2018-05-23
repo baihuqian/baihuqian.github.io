@@ -2,6 +2,8 @@
 layout: "post"
 title: "Leetcode 21: Merge Two Sorted Lists"
 date: "2018-05-20 16:01"
+tags:
+  - Leetcode
 ---
 
 # Question

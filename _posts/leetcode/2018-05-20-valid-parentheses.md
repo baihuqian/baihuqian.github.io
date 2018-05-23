@@ -2,6 +2,8 @@
 layout: "post"
 title: "Leetcode 20: Valid Parentheses"
 date: "2018-05-20 16:50"
+tags:
+  - Leetcode
 ---
 
 # Question
@@ -69,5 +71,5 @@ class Solution:
                     return False
 
         return len(stack) == 0
-        
+
 ```

@@ -2,6 +2,8 @@
 layout: "post"
 title: "Leetcode 27: Remove Element"
 date: "2018-05-21 23:52"
+tags:
+  - Leetcode
 ---
 
 # Question
