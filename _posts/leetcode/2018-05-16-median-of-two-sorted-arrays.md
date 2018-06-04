@@ -1,8 +1,10 @@
 ---
-layout: "post"
-title: "Leetcode 4: Median of Two Sorted Arrays"
-date: "2018-05-16 23:32"
-tags: Leetcode
+layout: post
+title: 'Leetcode 4: Median of Two Sorted Arrays'
+date: '2018-05-16 23:32'
+tags:
+  - Leetcode
+  - Hard
 ---
 
 # Question

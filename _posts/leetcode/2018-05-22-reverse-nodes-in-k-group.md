@@ -1,9 +1,10 @@
 ---
-layout: "post"
-title: "Leetcode 25: Reverse Nodes in k-Group"
-date: "2018-05-22 21:55"
+layout: post
+title: 'Leetcode 25: Reverse Nodes in k-Group'
+date: '2018-05-22 21:55'
 tags:
   - Leetcode
+  - Hard
 ---
 
 # Question
