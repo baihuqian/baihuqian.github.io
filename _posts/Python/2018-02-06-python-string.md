@@ -37,11 +37,13 @@ String provides modification methods. They destroy old strings and replace with 
 ## String Formatting
 There are two ways of formatting a string.
 
+### `str.format` Method
 `a_string.format(var1, var2, ...)`: format string with placeholders.
 
 `a_string` contains placeholder in a format of `{i}`, `i=0,1,...`, and `{0}` is replaced by the first argument `var1`, `{1}` is replaced by `var2` etc. **We can skip the number `i` in curly brackets and just use `{}` for placeholder.** `var1` etc. can be a list too, so placeholder becomes `{0[0]}`, etc. The placeholder can be any datatypes. If `var1` is a dictionary, to access value from a string-type key, quotes a omitted, for example, `{0[key]}` instead of `{0['key']}`. Format Specifiers, e.g. `{0:.1f}`, can be used to specify the format of the variable. A colon marks the start of the format specifier.
 
-Or, use `%` to format a string:
+### `%` Operator
+Use `%` to format a string:
 
 ```python
 str % (var1, var2, ...)  # 1

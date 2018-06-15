@@ -145,7 +145,7 @@ highlighter: rouge
 permalink: /:year-:month-:day-:title/
 
 # pagination for blogs
-paginate: 5
+paginate: 15
 paginate_path: "blog/page:num"
 
 kramdown:

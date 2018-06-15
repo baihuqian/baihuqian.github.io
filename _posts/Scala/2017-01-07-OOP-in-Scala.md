@@ -2,7 +2,6 @@
 title: Learning Scala - Object-Oriented Programming in Scala
 tags:
  - Scala
- - OOP
 ---
 
 This article outlines classes, objects, and traits, and Object-Oriented Programming in Scala.
@@ -181,8 +180,8 @@ class Ant extend {
 	override val range = 2
 } with Creature
 ```
-	
-	
+
+
 # Abstract class
 You can use `abstract` keyword to denote a class that cannot be instantiated. Unlike traits, the constructor of abstract classes can have arguments.
 
@@ -202,7 +201,7 @@ Same to abstract methods, no override methods is required when you define a fiel
 Like Java, Scala does not allow multiple inheritance. It is similar to Java interface as one class can extend multiple traits. It's an enhancement of Java Interface, and allows both abstract methods (like in Java) and concrete methods to be defined.
 
 ## Definition
-	
+
 ```scala
 trait Logger {
 	def log(msg: String)
@@ -320,4 +319,3 @@ trait LoggedException {
 }
 ```
 This is known as *structural type*.
-
