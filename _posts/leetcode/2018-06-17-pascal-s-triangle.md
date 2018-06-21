@@ -1,7 +1,9 @@
 ---
 layout: "post"
-title: "Pascal's Triangle"
+title: "Leetcode: Pascal's Triangle"
 date: "2018-06-17 22:25"
+tags:
+  - Leetcode
 ---
 
 # Question
@@ -46,5 +48,5 @@ class Solution:
             prev_row = row
 
         return ret
-                    
+
 ```
