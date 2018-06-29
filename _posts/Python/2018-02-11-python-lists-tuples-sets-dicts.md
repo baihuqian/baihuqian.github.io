@@ -27,7 +27,7 @@ An empty list is evaluated to `False`, all non-empty lists are `True`.
 *  `del a_list[idx]` removes the `idx`th element. The gap is filled by shifting all elements on the right left by 1.
 *  `a_list.remove(var)` removes first occurrence of `var`. It raises a `ValueError` if `var` is not in `a_list`.
 *  `a_list.pop()` removes the last element in `a_list` and returns it. It raises and `IndexError` if the list is empty.
-*  `a_list.sort()` sorts the list in-place, while `sorted(a_list)` makes a new list for sorted results. An optional parameter `key` specifies a **function** of one argument to extract the sorting key, and optional `reverse` makes the result in descending order if set to `True`.
+*  `a_list.sort()` sorts the list in-place, while `sorted(a_list)` makes a new list for sorted results. An optional parameter `key` specifies a **function** of one argument to extract the sorting key, and optional `reverse` makes the result in descending order if set to `True`, an optional `cmp` specifies a **function** of two arguments as a comparison function for more advanced custom sorting.
 
 ## Named Slices
 ```python

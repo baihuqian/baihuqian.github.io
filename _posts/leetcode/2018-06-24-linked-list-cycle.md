@@ -1,7 +1,9 @@
 ---
-layout: "post"
-title: "Leetcode 141: Linked List Cycle"
-date: "2018-06-24 16:24"
+layout: post
+title: 'Leetcode 141: Linked List Cycle'
+date: '2018-06-24 16:24'
+tags:
+  - Leetcode
 ---
 
 # Question
