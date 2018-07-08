@@ -44,7 +44,7 @@ Use backtracking. A partial solution is 0 or more candidates with a sum smaller 
 
 For more information on backtracking, see [this note](http://jeffe.cs.illinois.edu/teaching/algorithms/notes/03-backtracking.pdf).
 
-Python objects are passed by reference. Thus, to make a copy of a list when a solution is found, use `list(a_list)` or `a_list[:]` to copy a new reference before adding to the result set.
+Python objects are passed by reference. Thus, to make a copy of a list when a solution is found, use `list(a_list)` or `a_list[:]` to copy a new reference before adding to the result set. Or create a new list for every recursion with `progress + [c]`.
 
 ```python
 class Solution:
