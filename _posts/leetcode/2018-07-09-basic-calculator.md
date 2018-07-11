@@ -1,7 +1,9 @@
 ---
-layout: "post"
-title: "Leetcode 224: Basic Calculator"
-date: "2018-07-09 21:40"
+layout: post
+title: 'Leetcode 224: Basic Calculator'
+date: '2018-07-09 21:40'
+tags:
+  - Leetcode
 ---
 
 # Question

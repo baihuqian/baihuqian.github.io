@@ -2,6 +2,8 @@
 layout: "post"
 title: "Leetcode 227: Basic Calculator II"
 date: "2018-07-09 22:18"
+tags:
+  - Leetcode
 ---
 
 # Question
@@ -91,5 +93,5 @@ class Solution(object):
 
         res += stack.pop()
         return res
-        
+
 ```

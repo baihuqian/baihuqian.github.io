@@ -1,7 +1,9 @@
 ---
 layout: "post"
-title: "Leetcode234: Palindrome Linked List"
+title: "Leetcode 234: Palindrome Linked List"
 date: "2018-07-09 22:47"
+tags:
+  - Leetcode
 ---
 
 # Question
