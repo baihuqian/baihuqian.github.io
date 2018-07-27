@@ -1,10 +1,11 @@
 ---
-layout: "post"
-title: "Leetcode 229: Majority Element II"
-date: "2018-07-10 21:24"
+layout: post
+title: 'Leetcode 229: Majority Element II'
+date: '2018-07-10 21:24'
 tags:
   - Leetcode
   - Review
+published: true
 ---
 
 # Question
@@ -25,7 +26,9 @@ Output: [1,2]
 ```
 
 # Solution
-Use modified Boyer-Moore algorithm. There are at most two majority elements, and the number of non-majority elements must be fewer than either of them. Thus, we can maintain two counters. If a number equals to one of the candidates, the corresponding counter +1 while the other does not change; if a number does not equal to either of them, both counters -1. If a counter is 0, replace the candidate with the next number.
+Use modified Boyer-Moore algorithm. There are at most two majority elements, and the number of non-majority elements must be fewer than either of them. Thus, we can maintain two counters. If a number equals to one of the candidates, the corresponding counter +1 while the other does not change; if a number does not equal to either of them, both counters -1. If a counter is 0, replace the candidate with the next number. At the end, verify both of them occurred more than ⌊ n/3 ⌋ times, because some times there is only one majority element.
+
+The overall time complexity is $$O(n)$$ (one pass for finding the majority candidates, and one pass for verification).
 
 ```python
 class Solution(object):
