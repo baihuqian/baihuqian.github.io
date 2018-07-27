@@ -5,6 +5,7 @@ date: '2018-06-28 22:23'
 tags:
   - DataStructure
   - DSU
+published: true
 ---
 
 A Disjoint Set Union (DSU) data structure can be used to maintain knowledge of the connected components of a graph, and query for them quickly. In particular, we would like to support two operations:
@@ -61,5 +62,10 @@ class DSU(object):
         return True
 ```
 
+# Complexity
+Using both path compression, splitting, or halving and union by rank or size ensures that the amortized time per operation is only $$O(\alpha (n))}$$, which is optimal, where $$\alpha (n)$$ is the inverse Ackermann function. This function has a value $$ \alpha (n)<5$$ for any value of n that can be written in this physical universe, so the disjoint-set operations take place in essentially constant time.
+
+The space complexity is $$O(n)$$ because of the extra space used by `parent` and `rank`. Fore more information, see [wikipedia](https://en.wikipedia.org/wiki/Disjoint-set_data_structure#Time_complexity).
+
 # Questions
-* {{ site.baseurl }}{% post_url /leetcode/2018-06-28-number-of-islands %}
+* {{ site.baseurl }}{% post_url /2018-06-28-number-of-islands %}
