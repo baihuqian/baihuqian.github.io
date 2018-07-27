@@ -1,6 +1,6 @@
 ---
 layout: "post"
-title: "Strobogrammatic Number II"
+title: "Leetcode 247: Strobogrammatic Number II"
 date: "2018-07-10 22:27"
 tags:
   - Leetcode

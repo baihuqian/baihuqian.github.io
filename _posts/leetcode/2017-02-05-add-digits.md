@@ -19,6 +19,11 @@ Could you do it without any loop/recursion in O(1) runtime?
 
 
 # Solution
+12,345 = 1 × (9,999 + 1) + 2 × (999 + 1) + 3 × (99 + 1) + 4 × (9 + 1) + 5.
+
+12,345 = (1 × 9,999 + 2 × 999 + 3 × 99 + 4 × 9) + (1 + 2 + 3 + 4 + 5).
+
+Thus, add digits is the same as modulo 9 except when the modulo is 0, the sum is 9.
 
 ```python
 class Solution(object):
