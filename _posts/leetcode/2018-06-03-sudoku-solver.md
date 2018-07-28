@@ -6,6 +6,7 @@ tags:
   - Leetcode
   - Backtracking
   - Hard
+  - Review
 ---
 
 # Question
@@ -26,7 +27,7 @@ Note:
 * The given board size is always 9x9.
 
 # Solution
-Use backtracking to try each number. Before backtracking, iterate through positions where only one possible option can be found.
+There are 27 constraints: 9 rows, 9 columns, and 9 sub-boxes. Use a set for each constraint to represent possible values so far. Use backtracking to try each number. Before backtracking, iterate through positions where only one possible option can be found.
 
 ```python
 class Solution:
