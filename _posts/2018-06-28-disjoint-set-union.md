@@ -3,6 +3,7 @@ layout: post
 title: Disjoint Set Union
 date: '2018-06-28 22:23'
 tags:
+  - Algorithm
   - DataStructure
   - DSU
 published: true
