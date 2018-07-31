@@ -1,10 +1,11 @@
 ---
-layout: "post"
-title: "Topological Sorting"
-date: "2018-07-29 15:00"
+layout: post
+title: Topological Sorting
+date: '2018-07-29 15:00'
 tags:
   - Algorithm
   - TopologicalSort
+published: true
 ---
 
 Topological sorting for Directed Acyclic Graph (DAG) is a linear ordering of vertices such that for every directed edge `(u, v)`, vertex `u` comes before `v` in the ordering. Topological Sorting for a graph is not possible if the graph is not a DAG. The first vertex in topological sorting is always a vertex with in-degree as 0 (a vertex with no incoming edges).
@@ -17,12 +18,12 @@ Topological sorting for Directed Acyclic Graph (DAG) is a linear ordering of ver
 We can store each vertex's in-degree in an array. While there are vertices remaining in the array, find one with in-degree zero and output it, and reduce in-degrees of all vertices adjacent to it by 1, and then delete the vertex (or mark its in-degree to -1).
 
 Time complexity:
-* Initialize in-degree array: $$O(|E|)$$;
-* Find vertex with in-degree 0: $$O(|V|)$$ to search for one. It performs $$|V|$$ times for a total of $$O(|V|^2)$$.
-* Reduce in-degree of all vertices adjacent to a vertex: $$O(|E|)$$;
-* Output and mark vertex: $$(O|V|)$$
+* Initialize in-degree array: $$O(E)$$;
+* Find vertex with in-degree 0: $$O(V)$$ to search for one. It performs $$V$$ times for a total of $$O(V^2)$$.
+* Reduce in-degree of all vertices adjacent to a vertex: $$O(E)$$;
+* Output and mark vertex: $$O(V)$$
 
-For a total of $$O(|V|^2 + |E|)$$. To improve the time complexity, we can memorize the vertices with in-degree of 0 in a queue or stack while decrementing in-degrees of adjacent vertices. This way we can reduce the time complexity to $$O(|V| + |E|)$$.
+For a total of $$O(V^2 + E)$$. To improve the time complexity, we can memorize the vertices with in-degree of 0 in a queue or stack while decrementing in-degrees of adjacent vertices. This way we can reduce the time complexity to $$O(V + E)$$.
 
 ```python
 from collections import defaultdict
