@@ -6,6 +6,7 @@ tags:
   - Leetcode
   - Hard
   - Review
+published: true
 ---
 
 # Question
@@ -31,7 +32,7 @@ You can assume that you can always reach the last index.
 # $$O(n)$$ Greedy Solution
 This solution maintains three variables:
 1. the maximum index reachable from `0` to `i`, denoted as `max_reachable`;
-2. the furthest we can reach with can reach within the current number of jumps, denoted as `furthest`. In other words, you can go `0` to `j` where `j <= furthest` in `jumps` steps.
+2. the furthest we can reach within the current number of jumps, denoted as `furthest`. In other words, you can go `0` to `j` where `j <= furthest` in less than or equal to `jumps` steps.
 3. the number of jumps made so far, denoted as `jumps`.
 
 When `i == furthest`, we have to make another jump, and the furthest within that jump is the current `max_reachable`. If `max_reachable` is beyond the last index, then we know we can reach the last index within the next jump.
