@@ -17,7 +17,7 @@ Follow up:
 
 Can you solve it without using extra space?
 
-# Solution
+# Solution: Floyd's Tortoise and Hare
 To find whether there is a circle, we can use two pointers, hare and tortoise, one advances twice as fast as the other. There exists a cycle when tortoise and hare reaches the same point, or hare reaches the end of the linked list.
 
 Two pointers, one at head and the other at the meeting point of hare and tortoise, will meet at the start of the cycle if they travel at the same speed.
