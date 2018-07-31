@@ -7,6 +7,7 @@ tags:
   - DP
   - Hard
   - Review
+published: true
 ---
 
 # Question
@@ -22,7 +23,7 @@ Explanation: The palindrome partitioning ["aa","b"] could be produced using 1 cu
 ```
 
 # Solution
-Use Dynamic Programming to store the minimum cuts needed up to an index. Evaluate strings centered at each index to minimize number of passes needed for palindromes.
+Use Dynamic Programming to store the minimum cuts needed up to an index, i.e. `dp[i]` is the mininum number of cuts for `s[:i+1]`. From each index, evaluate palimdrones centered at it (for odd-length palimdrones) or between it and its right neighbor (for even length palimdrones)  to minimize number of passes needed for palindromes. Do not forget to evaluate a single-character palimdrone for odd-length ones.
 
 ```python
 class Solution(object):
@@ -42,6 +43,7 @@ class Solution(object):
                 cuts[i + j] = min(cuts[i + j], prev_cuts + 1)
                 j += 1
 
+			# Even size palindrome
             j = 0
             while i - j >= 0 and i + j + 1 < length and s[i - j] == s[i + j + 1]:
                 prev_cuts = cuts[i - j - 1] if i - j - 1 >= 0 else -1
