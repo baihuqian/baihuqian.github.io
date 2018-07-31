@@ -6,6 +6,7 @@ tags:
   - Leetcode
   - DP
   - Review
+published: true
 ---
 
 # Question
@@ -40,8 +41,8 @@ If `n == 1`, there would be `k`-ways to paint.
 
 if `n == 2`, there would be two situations:
 
-* 2.1 You paint same color with the previous post: k*1 ways to paint, named it as same
-8 2.2 You paint differently with the previous post: k*(k-1) ways to paint this way, named it as diff
+* 2.1 You paint same color with the previous post: `k*1` ways to paint, named it as `same`
+* 2.2 You paint differently with the previous post: `k*(k-1)` ways to paint this way, named it as `diff`
 
 So, you can think, if `n >= 3`, you can always maintain these two situations, You either paint the same color with the previous one, or differently.
 
@@ -52,7 +53,7 @@ We can further analyze:
 * from 2.1, since previous two are in the same color, next one you could only paint differently, and it would form one part of "paint differently" case in the `n == 3` level, and the number of ways to paint this way would equal to `same*(k-1)`.
 * from 2.2, since previous two are not the same, you can either paint the same color this time (`diff*1`) ways to do so, or stick to paint differently (`diff*(k-1)`) times.
 
-Here you can conclude, when seeing back from the next level, ways to paint the same, or variable `same` would equal to `diff*1 = diff`, and ways to paint differently, variable `diff`, would equal to `same*(k-1)+dif*(k-1) = (same + dif)*(k-1)`.
+Here you can conclude, when seeing back from the next level, ways to paint the same, or variable `same` would equal to `diff*1 = diff`, and ways to paint differently, variable `diff`, would equal to `same * (k - 1) + dif * (k - 1) = (same + dif) * (k - 1)`.
 
 ```python
 class Solution(object):
