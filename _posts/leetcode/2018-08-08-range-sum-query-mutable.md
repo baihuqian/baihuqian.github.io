@@ -1,7 +1,10 @@
 ---
-layout: "post"
-title: "Leetcode 307: Range Sum Query - Mutable"
-date: "2018-08-08 23:20"
+layout: post
+title: 'Leetcode 307: Range Sum Query - Mutable'
+date: '2018-08-08 23:20'
+tags:
+  - Leetcode
+  - Review
 ---
 
 # Question
@@ -77,6 +80,66 @@ class NumArray(object):
         return sum(self.blocks[start_block:end_block + 1]) + \
                sum(self.nums[i: self.block_size * start_block]) + \
                sum(self.nums[self.block_size * (end_block + 1): j + 1])
+
+
+# Your NumArray object will be instantiated and called as such:
+# obj = NumArray(nums)
+# obj.update(i,val)
+# param_2 = obj.sumRange(i,j)
+```
+
+# Segment Tree Solution
+```python
+class NumArray(object):
+
+    def __init__(self, nums):
+        """
+        :type nums: List[int]
+        """
+        self.n = len(nums)
+        self.tree = [0] * (2 * self.n)
+        if self.n > 0:
+            for i, n in enumerate(nums):
+                self.tree[self.n + i] = n
+            for i in range(self.n - 1, 0, -1):
+                self.tree[i] = self.tree[2 * i] + self.tree[2 * i + 1]
+
+
+    def update(self, i, val):
+        """
+        :type i: int
+        :type val: int
+        :rtype: void
+        """
+        i += self.n
+        self.tree[i] = val
+        i //= 2
+        while i > 0:
+            self.tree[i] = self.tree[i * 2] + self.tree[i * 2 + 1]
+            i //= 2
+
+
+    def sumRange(self, i, j):
+        """
+        :type i: int
+        :type j: int
+        :rtype: int
+        """
+        i += self.n
+        j += self.n
+        s = 0
+        while i <= j:
+            if i % 2 == 1:
+                s += self.tree[i]
+                i += 1
+            if j % 2 == 0:
+                s += self.tree[j]
+                j -= 1
+            i //= 2
+            j //= 2
+
+        return s
+
 
 
 # Your NumArray object will be instantiated and called as such:
