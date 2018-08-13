@@ -5,6 +5,7 @@ date: '2018-08-08 23:20'
 tags:
   - Leetcode
   - Review
+published: true
 ---
 
 # Question
@@ -30,7 +31,7 @@ Note:
 # Sqrt Decomposition Solution
 The idea is to split the array in blocks with length of $$\sqrt{n}$$. Then we calculate the sum of each block and store it in auxiliary memory `b`. To query `RSQ(i, j)`, we will add the sums of all the blocks lying inside and those that partially overlap with range $$[i \ldots j]$$.
 
-Time complexity : $$O(n)$$ - preprocessing, $$O(\sqrt{n})$$ - range sum query, $$O(1)$$O(1) - update query
+Time complexity : $$O(n)$$ - preprocessing, $$O(\sqrt{n})$$ - range sum query, $$O(1)$$ - update query
 
 For range sum query in the worst-case scenario we have to sum approximately $$3 \sqrt{n}$$ elements. In this case the range includes $$\sqrt{n} - 2$$ blocks, which total sum costs $$\sqrt{n} - 2$$ operations. In addition to this we have to add the sum of the two boundary blocks. This takes another $$2 (\sqrt{n} - 1)$$ operations. The total amount of operations is around $$3 \sqrt{n}$$.
 
