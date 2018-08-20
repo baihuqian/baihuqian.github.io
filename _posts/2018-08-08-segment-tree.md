@@ -2,6 +2,8 @@
 layout: "post"
 title: "Segment Tree"
 date: "2018-08-08 23:25"
+tags:
+  - Algorithm
 ---
 
 A segment tree is a binary tree where each node represents an interval. Generally a node would store one or more properties of an interval which can be queried later.
@@ -37,7 +39,7 @@ Do we actually need to pad `arr[]` with zeros?
 No, not really. Just ensure that `tree[]` is large enough and always zero-initialized and you don't need to worry about extra leaf nodes not being processed.
 
 ## Build Tree
-We will use a very effective bottom-up approach to build segment tree. We already know from the above that if some node pp holds the sum of $$[i \ldots j]$$ range, its left and right children hold the sum for range $$[i \ldots \frac{i + j}{2}]$$ and $$[\frac{i + j}{2} + 1, j]$$ respectively.
+We will use a very effective bottom-up approach to build segment tree. We already know from the above that if some node `p` holds the sum of $$[i \ldots j]$$ range, its left and right children hold the sum for range $$[i \ldots \frac{i + j}{2}]$$ and $$[\frac{i + j}{2} + 1, j]$$ respectively.
 
 Therefore to find the sum of node `p`, we need to calculate the sum of its right and left child in advance.
 
@@ -114,7 +116,7 @@ We can find range sum query $$[L, R]$$ using segment tree in the following way:
 
 Algorithm hold loop invariant:
 
-l$$ \le r$$ and sum of $$[L \ldots l]$$ and $$[r \ldots R]$$ has been calculated, where $$l$$ and $$r$$ are the left and right boundary of calculated sum. Initially we set $$l$$ to the leaf at $$L$$ and $$r$$ to leaf at $$R$$. Range $$[l, r]$$ shrinks on each iteration till range borders meets after approximately $$\log n$$ iterations of the algorithm.
+$$l \le r$$ and sum of $$[L \ldots l]$$ and $$[r \ldots R]$$ has been calculated, where $$l$$ and $$r$$ are the left and right boundary of calculated sum. Initially we set $$l$$ to the leaf at $$L$$ and $$r$$ to leaf at $$R$$. Range $$[l, r]$$ shrinks on each iteration till range borders meets after approximately $$\log n$$ iterations of the algorithm.
 
 * Loop till $$l \le r$$
  * Check if l is right child of its parent P
