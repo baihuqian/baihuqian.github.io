@@ -25,7 +25,7 @@ Output: 6
 ```
 
 # Solution
-Reuse the $$O(n)$$ solution from [Largest Rectangle in Histogram]({{ site.baseurl }}{% post_url leetcode/2018-08-15-largest-rectangle-in-histogram %}. Maintain an array of size of width of the array that stores the height of 1's at each index at row `i`. Therefore, we can run the stack solution to find the largest rectangle at row `i`. Then for next row, if an index `j` is '1', then we increment the height of the 1s; otherwise we reset the height to 0.
+Reuse the $$O(n)$$ solution from [Largest Rectangle in Histogram]({{ site.baseurl }}{% post_url leetcode/2018-08-15-largest-rectangle-in-histogram %}). Maintain an array of size of width of the array that stores the height of 1's at each index at row `i`. Therefore, we can run the stack solution to find the largest rectangle at row `i`. Then for next row, if an index `j` is '1', then we increment the height of the 1s; otherwise we reset the height to 0.
 
 The time complexity if $$O(mn)$$.
 
