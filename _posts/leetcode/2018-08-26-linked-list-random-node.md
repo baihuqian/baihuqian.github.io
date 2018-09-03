@@ -69,6 +69,7 @@ for(int j = k; k < n; k++) {
 return reservoir;
 ```
 
+The solution of this question is as follows:
 
 ```java
 /**

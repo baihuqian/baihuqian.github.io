@@ -24,7 +24,7 @@ Note:
 * If there is such window, you are guaranteed that there will always be only one unique minimum window in S.
 
 # Solution
-Use a sliding window with two pointers, assisted with a Hash Map.
+Use a sliding window with two pointers, assisted with a Hash Map. If the string is ascii-encoded, we can replace the hashmap with an array of size 128.
 ```java
 class Solution {
     public String minWindow(String s, String t) {
@@ -55,7 +55,9 @@ class Solution {
 }
 ```
 
-For most substring problem, we are given a string and need to find a substring of it which satisfy some restrictions. A general way is to use a hash map assisted with two pointers. The template is given below.
+For most substring problem, we are given a string and need to find a substring of it which satisfy some restrictions. A general way is to use a hash map assisted with two pointers. The template is given below. The idea is to extend the window to the right until the restrictions are satisfied. Then shrink the window from the left until the restrictions are not satisfied.
+
+The correctness of this solution can be proven by contradiction.
 
 ```java
 public int findSubstring(String s) {
