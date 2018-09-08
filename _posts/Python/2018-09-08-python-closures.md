@@ -1,9 +1,41 @@
 ---
 layout: "post"
-title: "Python Trick: Simulate Classes Using Closures"
-date: "2018-02-11 23:47"
-tags: Python Trick
+title: "Python Notes: Closures"
+date: "2018-09-08 16:26"
+tags: Python
 ---
+
+You can build dynamic functions with a nested function by passing different parameters into it. This technique of using the values of outside parameters within a dynamic function is called *closures*. For example,
+
+```python
+from urllib.request import urlopen
+
+def urltemplate(template):
+    def opener(**kwargs):
+        return urlopen(template.format_map(kwargs))
+    return opener
+
+# Example use
+yahoo = urltemplate('http://finance.yahoo.com/d/quotes.csv?s={names}&f={fields}')
+for line in yahoo(names='IBM,AAPL,FB', fields='sl1c1v'):
+    print(line.decode('utf-8'))
+```
+A key feature of a closure is that it remembers the environment in which it was defined. Thus, in the solution, the `opener()` function remembers the value of the `template` argument, and uses it in subsequent calls.
+
+# Closure with State
+Closure is useful to replace single-method classes, because in many cases, the only reason you might have a single-method class is to store additional state for use in the method. You can store states in the outer method of a closure like this:
+
+```python
+def make_handler():
+    sequence = 0
+    def handler(result):
+        nonlocal sequence # Required for assignment to outers scope
+        sequence += 1
+        print('[{}] Got: {}'.format(sequence, result))
+    return handler
+```
+
+# Advanced Usage: Simulate a Class with Closure
 
 ```python
 # Simple tool for making class-like objects using nested scopes and closures in Python 3
@@ -163,7 +195,7 @@ if __name__ == '__main__':
     help(PriorityQueue)
     help(todo.add)
 ```
-There are two main features that make this recipe work. First, `nonlocal` declarations make it possible to write functions that change inner variables. Second, function attributes allow the accessor methods to be attached to the closure function in a straight‐ forward manner where they work a lot like instance methods (even though no class is involved).
+There are two main features that make this work. First, `nonlocal` declarations make it possible to write functions that change inner variables. Second, function attributes allow the accessor methods to be attached to the closure function in a straightforward manner where they work a lot like instance methods (even though no class is involved).
 
 Interestingly, this code runs a bit faster than using a normal class definition.
 

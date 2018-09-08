@@ -33,7 +33,21 @@ A module can be a single Python file (in this case, module name is the file name
 from . import othermodule
 ```
 
-`__init__.py` can contain nothing, some functions, or all functions. Mainly it is used as entry point of the module.
+The `.` and `..` syntax on the import statement might look funny, but think of it as specifying a directory name. `.` means look in the current directory and `..B` means look in the `../B` directory. This syntax only works with the `from` form of import.
+
+`__init__.py` can contain nothing, some functions, or all functions. Mainly it is used as entry point of the module. If a module is spitted into multiple files but you want it to be a single coherent module, import everything from different files in the `__init__.py` file.
+
+To unify separate directories under a common namespace, you organize the code just like a normal Python package, but you omit `__init__.py` files in the directories where the components are going to join together. To illustrate, suppose you have two different directories of Python code like this:
+```
+foo-package/
+    spam/
+        blah.py
+bar-package/
+    spam/
+        grok.py
+```
+
+In these directories, the name spam is being used as a common namespace. Observe that there is no __init__.py file in either directory. This feature is known as "**namespace package**".
 
 # Python Package Index
 Python 3 comes with a packaging framework: Distutils.

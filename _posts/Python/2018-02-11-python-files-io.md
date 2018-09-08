@@ -22,10 +22,10 @@ Python3 operates in "universal newline support" (specified as `'U'` in Python2),
 
 # `with` statement
 ```python
-with open(filename, encoding = 'utf-8') as a_file
+with open(filename, encoding = 'utf-8') as a_file:
 	doSomething()
 
-doElse()			# a_file is closed
+doElse() # a_file is closed
 ```
 
 Use a `with` statement, which creates a runtime context. When exiting `with` block, the stream object `a_file` will automatically call its own `close()` method. The `as` clause assign the `with` context to a variable, but it's optional.
@@ -51,7 +51,8 @@ Objects such as arrays and C structures can be used for writing without any kind
 
 ```python
 import array
-nums = array.array('i', [1, 2, 3, 4]) with open('data.bin','wb') as f:
+nums = array.array('i', [1, 2, 3, 4])
+with open('data.bin','wb') as f:
     f.write(nums)
 ```
 

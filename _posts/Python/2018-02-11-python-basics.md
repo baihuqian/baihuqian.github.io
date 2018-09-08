@@ -6,7 +6,7 @@ tags: Python
 ---
 
 * Everything is an object.
-* Python source code is UTF-8 encoded by default. To change it, put an encoding declarartion in the first line of the file: `# -*- coding: windows-1252 -*-`, or the second line if the first line is hash-bang.
+* Python source code is UTF-8 encoded by default. To change it, put an encoding declaration in the first line of the file: `# -*- coding: windows-1252 -*-`, or the second line if the first line is hash-bang.
 * Install third-party library: in the root folder of the library, run the following command:
 
 ```bash
@@ -19,7 +19,7 @@ sudo python3 setup.py install
 # Memory Management
 Python is a dynamic-binding, object-oriented language, so variable names are just the references to actual objects.
 
-To find what a variable refers, we can use `id(var)` to get the adress of the referring object in memory (use `hex()` to convert the address to hexidecimal).
+To find what a variable refers, we can use `id(var)` to get the address of the referring object in memory (use `hex()` to convert the address to hexadecimal).
 
 Python will cache integers and short strings and reuse them, so
 
@@ -57,7 +57,7 @@ When reference count decreases to 0, the object should be garbage collected. Pyt
 ## Built-in Functions
 * `print(str)` prints `str` to `sys.stdout`. It takes an optional `file` parameter, which defaults to `sys.stdout`. When overriden, the output is redirected to the stream object. It takes additional `sep` and `end` parameters to specify different separation (default to `' '`) and end (default to `'\n'`).
 * `input(str)` prints `str` as a hint and wait user to input a string. It returns the input as a string.
-* `dir(obj)` prints all methods and variables of object `obj` (or class).
+* `dir(obj)` prints all methods and variables of object `obj` (or class). It basically prints all the keys in an object's dict.
 * `help(class)` goes to the manual of the class.
 * `locals()` returns the current local symbol table.
 
@@ -77,7 +77,7 @@ else:
 	print('zero')
 ```
 
-Python uses `if... elif... else` for conditions, an there's a comma following the evaluation.
+Python uses `if... elif... else` for conditions, and there's a comma following the evaluation.
 
 ## Loop
 ### `for` loop

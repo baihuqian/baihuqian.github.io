@@ -2,6 +2,7 @@
 layout: "post"
 title: "Java 8 Stream"
 date: "2018-08-23 21:59"
+tags: Java
 ---
 
 Before we look into Java Stream API Examples, let's see why it was required. Suppose we want to iterate over a list of integers and find out sum of all the integers greater than 10.

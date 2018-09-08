@@ -68,3 +68,8 @@ c - d                           # subtract (keeping only positive counts)
 c & d                           # intersection:  min(c[x], d[x])
 c | d                           # union:  max(c[x], d[x])
 ```
+
+# Custom Containers
+To implement custom containers that share some features with built-in container type, such as lists and dictionaries, we can extend abstract base classes defined in the `collections.abc` module, which defines which special methods we should implement. For example, `collections.abc.Iterable` requires the implementation of the `__iter__()` method.
+
+Many of the abstract base classes in `collections.abc` also provide default implementations of common container methods.

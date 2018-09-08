@@ -54,4 +54,4 @@ if re.search(regexp, exr):
 * `groups` returns a tuple containing all the subgroups of the match, from 1 up. it takes a `default` parameter to define unfound match value (default to `None`).
 * `groupdict` returns a dictionary containing all the **named** (`?P<name>...`) subgroups of the match, keyed by the subgroup name.
 * `start` and `end` returns the indices of the start or end of the match. It takes the optional group ID.
-* `span` returns the returns the indices of the start and end of the match in a tuple.
+* `span` returns the indices of the start and end of the match in a tuple.

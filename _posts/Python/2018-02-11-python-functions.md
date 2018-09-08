@@ -47,10 +47,10 @@ func2(a=1,b=2,c=3)
 
 Then `dict` is a dictionary with key as argument name. `func` takes only **keyword** arguments.
 
-Note: A `**` argument can only appear as the last argument, while a `*` argument can only appear as the last positional argument in a function definition. A subtle aspect of function definitions is that arguments can still appear after a `*` argument. This can be used to implement functions that only accept keyword arguments:
+Note: A `**` argument can only appear as the last argument, while a `*` argument can only appear as the last positional argument in a function definition. A subtle aspect of function definitions is that arguments can still appear after a `*` argument. This can be used to implement functions that only accept certain keyword arguments:
 
 ```python
-def mininum(*values, clip=None):
+def mininum(*values, clip=None): # clip is keyword-only
 	m = min(values)
 	if clip is not None:
 	m = clip if clip > m else m
@@ -68,7 +68,7 @@ def func(a, b, c)
 	doSomething()
 
 args = (1, 2, 3)
-func(*args)		# 1 passed to a, 2 passed 2 b, etc
+func(*args)		# 1 passed to a, 2 passed to b, etc
 
 dict = {'a':1, 'b', 2, 'c', 3}
 func(**dict)
@@ -85,7 +85,7 @@ To return multiple values from a function, simply return a tuple:
 
 ```python
 def myfun():
-	return 1, 2, 3
+    return 1, 2, 3
 
 a, b, c = myfun()
 ```
@@ -102,24 +102,31 @@ When calling a function, parameters can be:
 # docstring
 Documentation string is the first multiline string after the function definition. It is automatically assigned to `__doc__` variable of the function.
 
-# Closures
-You can build dynamic functions with a function by passing different parameters into it. This technique of using the values of outside parameters within a dynamic function is called *closures*. For example,
+# Argument Annotation
+Function argument annotations can be a useful way to give programmers hints about how a function is supposed to be used. For example, consider the following annotated function:
 
 ```python
-from urllib.request import urlopen
-
-def urltemplate(template):
-	def opener(**kwargs):
-		return urlopen(template.format_map(kwargs))
-	return opener
-
-# Example use
-yahoo = urltemplate('http://finance.yahoo.com/d/quotes.csv?s={names}&f={fields}')
-for line in yahoo(names='IBM,AAPL,FB', fields='sl1c1v'):
-	print(line.decode('utf-8'))
+def add(x:int, y:int) -> int:
+	return x + y
 ```
-A key feature of a closure is that it remembers the environment in which it was defined. Thus, in the solution, the `opener()` function remembers the value of the `template` argument, and uses it in subsequent calls. It is more elegant to use Closure instead of Single Method Class (besides `__init__`).
 
+The Python interpreter does not attach any semantic meaning to the attached annotations. They are not type checks, nor do they make Python behave any differently than it did before. Function annotations are merely stored in a function’s `__annotations__` attribute. However, they might give useful hints to others reading the source code about what you had in mind.
+
+# Partially-Applied Functions
+Sometimes a callable is passed into other functions as a parameter. However, the number of arguments may not match. `functools.partial()` can be used to create a partially-applied function from a function:
+
+```python
+from functools import partial
+
+def spam(a, b, c, d):
+	print(a, b, c, d)
+
+s1 = partial(spam, 1) # a = 1
+s2 = partial(spam, d=42) # d = 42
+s3 = partial(spam, 1, 2, d=42) # a = 1, b = 2, d = 42
+```
+
+`partial()` applies positional arguments as well as keyword arguments.
 
 # Generators
 A function that contains the `yield` keyword will make it as a resumable function. Unlike a normal function, a generator only runs in response to iteration, so one can call `next(gen)` on it. The generator function pauses on **yield**. Repeated calling `next(generator)` will resume and pause again on **yield**.
@@ -180,9 +187,9 @@ def gen_concatenate(iterators):
 ```
 
 ## Generator expressions
-A generator expression is like a generator function without the function. It looks like a list comprehension but is enclosed in parentheses (note there are no *tuple comrehensions*!).
+A generator expression is like a generator function without the function. It looks like a list comprehension but is enclosed in parentheses (note there are no *tuple comprehensions*!).
 
-Syntax: `(<expression> for var in list_var)`. It returns an iterator.
+Syntax: `(<expression> for var in list_var)`. It returns an **iterator**.
 
 Generator expressions can be passed directly to a data reduction function (e.g., `sum()`, `min()`, `max()`):
 
@@ -210,29 +217,8 @@ If `lambda` expression refers to a free variable outside the function, the value
 
 ```python
 x = 10
-a = lambda y: x + y
-b = lambda y, x=x: x + y
+a = lambda y: x + y # x is bounded at runtime
+b = lambda y, x=x: x + y # the default value of x is bounded at definition time
 ```
 
 The `x` in `b`'s body is a local variable with default value of the free variable `x`. Because default value are bound at definition time, it will not change at runtime.
-
-# Decorator
-Decorator can add additional functionality to existing functions. It takes a function and returns a new function:
-
-```python
-def decor(F):
-	def new_F(a, b):
-		print("input", a, b)
-		return F(a, b)
-	return new_F
-```
-
-So the decorator `decor` adds a `print()` before the execution of the original function `F`. To apply decoration, we can:
-
-```python
-@decor
-def sum(a, b):
-	return a + b
-```
-
-So now the function `sum()` will print out the input. It passes the original `sum()` function to the decorator and assign the return function to the name `sum`.

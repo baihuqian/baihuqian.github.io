@@ -16,19 +16,19 @@ class Fib:
 	''' Generate Fibonacci series '''
 
 	def __init__(self, max):
-		self.max = max		# class variable
+		self.max = max # class variable
 
 	def __iter__(self):
-		self.a = 0			# perform initialization
+		self.a = 0 # perform initialization
 		self.b = 1
 		return self
 
 	def __next__(self):
 		fib = self.a
 		if fib > self.max
-			raise StopIteration		# stop
+			raise StopIteration # stop
 		self.a, self.b = self.b, self.a + self.b
-		return fib			# next value
+		return fib # next value
 ```
 
 To use iterator in `for` loop:
@@ -42,7 +42,7 @@ for n in Fib(1000):
 
 There are several special methods with iterator:
 * `__reversed__`: return a reversed iterator. The built-in `reversed()` function calls that. Reversed iteration only works if the object in question has a size that can be determined or `__reversed__`is implemented.
-* `enumerate(iter)`returns an instance of an `enumerate` object, which is an iterator that returns successive tuples consisting of a counter(index) and the value returned by calling `next()` on the sequence you’ve passed in. It is useful to keep track of indexes in iteration.
+* `enumerate(iter)`returns an instance of an `enumerate` object, which is an iterator that returns successive tuples consisting of a counter (index) and the value returned by calling `next()` on the sequence you’ve passed in. It is useful to keep track of indexes in iteration.
 * `zip(a, b)` creates an iterator that produces tuples `(x, y)` where x is taken from a and y is taken from b. One can iterate over multiple iterators at the same time. Iteration stops whenever one of the input sequences is exhausted. If this behavior is not desired, use `itertools.zip_longest()` instead. `zip` can also be used to create dictionary from two iterators: `dict(zip(headers,values))`.
 
 ## `iter` method
@@ -90,7 +90,7 @@ To unpack an iterable longer than the number of variables, use "star expression"
 ```python
 first, *middle, last = iterable
 ```
-It’s worth noting that the `middle` variable will always be a list, regardless of how many items are unpacked (including none). There is a certain similarity between star unpacking and list-processing features of var‐ ious functional languages. For example, if you have a list, you can easily split it into head and tail components:
+It’s worth noting that the `middle` variable will always be a list, regardless of how many items are unpacked (including none). There is a certain similarity between star unpacking and list-processing features of various functional languages. For example, if you have a list, you can easily split it into head and tail components:
 
 ```python
 head, *tail = items

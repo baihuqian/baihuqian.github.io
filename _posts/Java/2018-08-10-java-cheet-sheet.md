@@ -2,6 +2,7 @@
 layout: "post"
 title: "Java Cheet Sheet"
 date: "2018-08-10 22:24"
+tags: Java
 ---
 
 # Data Structure

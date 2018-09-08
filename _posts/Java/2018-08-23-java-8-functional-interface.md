@@ -2,6 +2,7 @@
 layout: "post"
 title: "Java 8 Functional Interface"
 date: "2018-08-23 22:02"
+tags: Java
 ---
 
 If we look into some other programming languages such as C++, JavaScript; they are called functional programming language because we can write functions and use them when required. Some of these languages support Object Oriented Programming as well as Functional Programming.

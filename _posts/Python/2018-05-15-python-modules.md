@@ -20,16 +20,9 @@ Functions to convert between different time representations.
 
 `time.sleep(sec)`: sleeps for some seconds.
 
-## `commands` module
-Runs an external command.
+## `subprocess` module
 
-`(status, output) = command.getstatusoutput(cmd)` runs the command and return the status code and output as a tuple.
-
-`output = command.getoutput(cmd)` omits the status code.
-
-Don't use `command.getstatus()`!!
-
-`os.system(cmd)` dumps output to Python's stdout and returns the status code.
+The subprocess module allows you to spawn new processes, connect to their input/output/error pipes, and obtain their return codes.
 
 ## `unittest` module
 For unit testing in Python.
@@ -91,7 +84,7 @@ except ImportError:
 For encoding detection, designed for Python 2.
 
 ### `random` module
-* Set the random seed: `random.seed()`. It takes an integer, byte data, or use system clock.
+* Set the random seed: `random.seed()`. It takes an integer, byte data, or use system clock if nothing is specified as the seed.
 * Pick a random item from an iterable, use `random.choice(iter)`.
 * Shuffle an iterable in place, use `random.shuffle(iter)`.
 * Produce random integers from `start` to `stop` inclusive, use `random.randint(start, stop)`.
@@ -103,4 +96,4 @@ It is used for date and time manipulations. If it's not suffice, use `dateutil` 
 
 * `datetime.timedelta` represents a time interval.
 * `datetime.datetime` represents a time.
-* `datetime.strptime(str, format)` and datetime.strftime(datetime_obj, `format`) converts a string to a datetime object and vice versa.
+* `datetime.strptime(str, format)` and `datetime.strftime(datetime_obj, format)` converts a string to a datetime object and vice versa.

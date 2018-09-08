@@ -13,6 +13,13 @@ Syntax: `a_list = ['a', 1]`, square brackets with comma-separated list of values
 
 An empty list is evaluated to `False`, all non-empty lists are `True`.
 
+## How are lists implemented in CPython?
+CPython’s lists are really variable-length arrays, not Lisp-style linked lists. The implementation uses a contiguous array of references to other objects, and keeps a pointer to this array and the array’s length in a list head structure.
+
+This makes indexing a list a[i] an operation whose cost is independent of the size of the list or the value of the index.
+
+When items are appended or inserted, the array of references is resized. Some cleverness is applied to improve the performance of appending items repeatedly; when the array must be grown, some extra space is allocated so the next few times don’t require an actual resize.
+
 ## List Operations
 * Index are zero-based.
 * Negative index is counting backwards from the end. Much like `a_list[-n] == a_list[len(a_list)-n]`.
@@ -133,6 +140,11 @@ The `OrderedDict` class from the `collections` module is a dict that remembers t
 The `ChainMap` class in the `collections` module takes multiple mappings and makes them logically appear as one. However, the mappings are not literally merged together. Instead, a ChainMap simply keeps a list of the underlying mappings and redefines common dictionary operations to scan the list.
 
 An alternative is to use `dict.update(another_dict)` method to actually perform the merge.
+
+## How are dictionaries implemented in CPython?
+CPython’s dictionaries are implemented as resizable hash tables. Compared to B-trees, this gives better performance for lookup (the most common operation by far) under most circumstances, and the implementation is simpler.
+
+Dictionaries work by computing a hash code for each key stored in the dictionary using the hash() built-in function. The hash code varies widely depending on the key; for example, “Python” hashes to -539294296 while “python”, a string that differs by a single bit, hashes to 1142331976. The hash code is then used to calculate a location in an internal array where the value will be stored. Assuming that you’re storing keys that all have different hash values, this means that dictionaries take constant time – O(1), in computer science notation – to retrieve a key. It also means that no sorted order of the keys is maintained, and traversing the array as the .keys() and .items() do will output the dictionary’s content in some arbitrary jumbled order.
 
 # Comprehension
 ## List comprehension
