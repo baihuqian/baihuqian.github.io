@@ -247,6 +247,3 @@ plugins:
   - jekyll-paginate
   - jekyll-seo-tag
   - jekyll-sitemap
-
-# Allow incremental build for faster regeneration
-incremental: true

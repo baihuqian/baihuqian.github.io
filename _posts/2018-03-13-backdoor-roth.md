@@ -2,7 +2,8 @@
 layout: "post"
 title: "Backdoor Roth"
 date: "2018-03-13 22:54"
-tags: Tax Life
+tags:
+  - "Personal Finance"
 ---
 
 This is the notes I gathered when researching how to make Backdoor Roth contribution, how to gather tax documents and report contributions and conversions in tax filing using TurboTax. The content is modified from [thefinancebuff.com](https://thefinancebuff.com). See original content in reference links at the end.

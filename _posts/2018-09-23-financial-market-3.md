@@ -2,6 +2,8 @@
 layout: "post"
 title: "Financial Market - 3"
 date: "2018-09-23 13:29"
+tags:
+ - "Financial Markets"
 ---
 
 This is third of the note series I took when studying for [Financial Markets](https://www.coursera.org/learn/financial-markets-global/home/welcome) by Prof. Robert Shiller, offered by Coursera. This covers the content for Week 3.

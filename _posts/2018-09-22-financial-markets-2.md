@@ -2,6 +2,8 @@
 layout: post
 title: Financial Markets - 2
 date: '2018-09-22 13:29'
+tags:
+ - "Financial Markets"
 ---
 
 This is second of the note series I took when studying for [Financial Markets](https://www.coursera.org/learn/financial-markets-global/home/welcome) by Prof. Robert Shiller, offered by Coursera. This covers the content for Week 2.

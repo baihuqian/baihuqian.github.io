@@ -2,7 +2,8 @@
 layout: "post"
 title: "Remove Non-Deductible Traditional IRA Contribution"
 date: "2018-03-13 23:07"
-tags: Tax Life
+tags: 
+  - "Personal Finance"
 ---
 
 If you make a traditional IRA contribution before doing your tax for the year hoping you can deduct the contribution, but only to find your income is too high to deduct the contribution, you will want to remove non-deductible contributions from the Traditional IRA and invest the money in a taxable account for the following reasons:
