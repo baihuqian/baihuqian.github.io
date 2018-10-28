@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Financial Market - 4
+title: Financial Markets - 4
 date: '2018-10-06 01:01'
 tags:
  - "Financial Markets"
