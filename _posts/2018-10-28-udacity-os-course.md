@@ -1,11 +1,13 @@
-eliminated---
-layout: "post"
-title: "Udacity OS Course"
-date: "2018-03-03 22:04"
-tags: CS, notes
+---
+layout: post
+title: Udacity OS Course
+date: '2018-10-28 20:26'
+tags:
+ - Computer Science
 ---
 
-{{:toc}}
+* TOC
+{:toc}
 
 # Introduction to Operating System
 
@@ -21,14 +23,15 @@ OS mechanisms: create, schedule, open, write, allocate
 
 OS policies: least-recently-used, earliest deadline first, etc.
 
-#### OS design principles
+### OS design principles
 - Separation of mechanism and policy (implement flexible mechanisms to support many policies)
 - Optimize for common case
 
-#### OS protection boundary
+### OS protection boundary
 Privilege mode in kernel mode has direct access to hardware. User-kernel switch is supported by modern hardware. For example, there is a privilege bit in CPU and can be set by OS. If it is set in user mode, trap instructions are triggered and CPU is switched to privileged mode to allow OS to check whether this privileged access is allowed.
 
-User level application can request OS to perform some privileged operation for them such as mmap (allocate memory). This is system call. It will involve mode change from user -> kernel -> user, and context switch requires saving state for user mode, swapping hardware cache, and executing a number of instructions.
+User level application can request OS to perform some privileged operation for them such as `mmap` (allocate memory). This is system call. It will involve mode change from *user -> kernel -> user*, and context switch requires saving state for user mode, swapping hardware cache, and executing a number of instructions.
+
 In short, user/kernel switch is not cheap.
 
 OS services are made available via system calls. Examples of OS services:
@@ -40,7 +43,7 @@ OS services are made available via system calls. Examples of OS services:
 - Communication
 - Protection
 
-#### OS type
+### OS type
 - Monolithic OS: one piece OS that contains everything
 - Modular OS (Linux): more common. OS requires a certain interface that any modules should implement
 - Microkernel: very basic kernel with only address space and threads. Everything else like file system, disk driver, runs out of kernel as user process. It requires a lot of inter-process interaction.
@@ -89,7 +92,7 @@ Context switch is expensive:
 
 ####  Process Lifecycle
 Processes can be running or idle (ready). Scheduler can dispatch it to CPU so it becomes running, and running processes can be interrupted. Process lifecycle is shows as follows:
-![Alt text]({{ "/img/posts/udacity-os-cource/process_lifecycle.png" | absolute_url }})
+![]({{ "/assets/posts/udacity-os-course/process_lifecycle.png" | absolute_url }})
 
 Process can create other processes, forming a tree of processes. Process is created by fork or exec:
 - Fork: copies the parent PCB into new child PCB. Child continues execution at instruction after fork (PC is copied into child PCB)
@@ -102,14 +105,14 @@ On the Android OS, `zygote` is the parent of all app processes.
 A CPU scheduler determines *which one* of the currently ready processes will be *dispatched* to the CPU to start running, and *how long* it should run for.
 - Preempt: interrupt and save the current context
 - Schedule: run scheduler to choose the next process
-- Dispatch: dispatch the chosen process nad switch into its context
+- Dispatch: dispatch the chosen process and switch into its context
 
 **Efficiency**:
 
-$ \eta_{CPU}=\frac{T_{processing}}{T}=\frac{T_{process}}{T_{process}+T_{scheduler}}$
+$$\eta_{CPU}=\frac{T_{processing}}{T}=\frac{T_{process}}{T_{process}+T_{scheduler}}$$
 
 Scheduler design questions:
-- What are appropriate timeslice ($T_{process}$) values?
+- What are appropriate timeslice ($$T_{process}$$) values?
 - Metrics to choose next process to run?
 
 #### Inter Process Communication (IPC)
@@ -394,7 +397,9 @@ Given the complexity of the data structure, it makes more sense to break PCB int
 
 ### Case study: Solaris
 #### User-level Thread Data Structures
+
 ![Alt text]({{ "/assets/posts/udacity-os-course/Solaris-user-level-thread-ds.png" | absolute_url }})
+
 * not POSIX threads, but similar
 * thread creation returns thread ID (tid), which is the index into a table of pointers to the actual thread data structure
 * stack growth is unbounded -> dangerous! -> red zone -> system error when reaching the red zone
@@ -409,6 +414,7 @@ It is divided into four parts: process (PCB), light-weight process (LWP), kernel
 ![Alt text]({{ "/assets/posts/udacity-os-course/Solaris-kernel-level-thread-ds.png" | absolute_url }})
 
 ![Alt text]({{ "/assets/posts/udacity-os-course/Solaris-kernel-level-thread-ds2.png" | absolute_url }})
+
 This one doesn't show the corresponding CPU.
 
 
@@ -724,7 +730,7 @@ Each entry has multiple flags besides PFN.
 OS uses flags to determine the validity of access. Faults will be placed onto kernel stack and trap the CPU into kernel mode to handle the fault.
 
 ### Page Table Size
-In 32-bit architecture, Page Table Entry (PTE) is 4 bytes, including PFN and flags. Virtual Page Number (VPN) is $2^32$ / page size. Common page size is 4 KB. So the size of the page table is 4 MB (per process).
+In 32-bit architecture, Page Table Entry (PTE) is 4 bytes, including PFN and flags. Virtual Page Number (VPN) is $$2^32$$ / page size. Common page size is 4 KB. So the size of the page table is 4 MB (per process).
 
 In 64-bit architecture, Page Table Entry (PTE) is 8 bytes. If the page size is still 4KB, the page table will be 32 PB.
 
@@ -907,3 +913,216 @@ spinlock_lock(lock):
 But many threads see the lock is free at the same time, so contention can happen. Delay can be introduced between when lock is free and `test_and_set(lock)` is issued.
 
 # I/O Management
+Operating System provides I/O management by:
+- Having protocols, i.e. interfaces for device I/O;
+- Having dedicated handlers, such as device drivers, interrupt handlers;
+- Decoupling I/O details from core processing, so that it abstracts I/O device details from applications.
+
+I/O devices have a lot of variety, including disk, Ethernet/Wifi card, USB devices, GPU, etc. Thus, it is important to identify the key features of I/O devices that enable the integration into the system.
+
+### I/O Device Features
+
+[Reference](http://pages.cs.wisc.edu/~remzi/OSTEP/file-devices.pdf), as part of [Operating Systems: Three Easy Pieces](http://pages.cs.wisc.edu/~remzi/OSTEP/).
+An I/O device can be divided into two parts: interface and internals.
+
+Interface provides control registers that OS can access.
+* Command
+* Data transfers
+* Status
+
+Internal components include micro-controller (which is the device's CPU), on-device memory, and other logic (in hardware-specific chips, such as Analog-Digital Converters).
+
+### CPU-Device Interconnect
+Device-specific controllers and CPU are connected to an interconnect. Peripheral Component Interconnect, or PCI, is the most common type of such interconnect. Right now the standard is PCI Express (PCIe), which precedes PCI-X (or PCI Extended) and PCI.
+
+Other types of interconnects are SCSI bus, peripheral bus (parallel port or serial port, used to connect keyboard and mouse).
+
+The controller of the device determines which type of interconnect it can directly attach to. There are bridge controllers that can handle different kinds of interconnects.
+
+### Device Drivers
+OS supports devices via device drivers. This diagram shows how device drivers integrate with OS and the devices:
+
+![Alt text]({{ "/assets/posts/udacity-os-course/device-drivers.png" | absolute_url }})
+
+Device drivers are device-specific, so OS must include device drivers for each type. They are responsible for device access, management, and control. They are provided by device manufacturers per OS/version, and each OS provides standardizes interfaces for device drivers. In this way, OS can be independent from devices, and can support a diversity of devices.
+
+### Types of Devices
+* Block: usually disk devices, it supports read/write blocks of data and direct access to arbitrary block.
+* Character: usually keyboards, it supports get/put on a sequence of characters.
+* Network devices: between block and character devices, it supports a stream of data in arbitrary sizes.
+
+OS represents a device as a special device file, and read/write operations to these files are translated into device-specific operations. In Unix-like systems, these files are stored in `/dev` directory, using special file systems such as `tmpfs` or `devfs`.
+
+### CPU-Device Interactions
+CPU accesses device registers in the same way as memory operations. This is called memory-mapped I/O. Therefore, a part of the "host" physical memory is dedicated for device interactions. The memory layout of device registers for each device is stored in "Base Address Registers".
+
+Another way for CPU to interact with devices is via dedicated in/out instructions for device access, specified in the CPUs ISA. This model is called "I/O port", because target device is specified in the instruction as an I/O port. The values in device register and data for I/O are also passed in as parameters of the instruction.
+
+The interaction from device to CPU can either via interrupts or CPU polling the device register. As other interrupts, it involves in overheads for interrupt handling steps and cache pollution, but it can be generated as soon as possible. Polling is more convenient for the CPU, but it can either waste CPU cycles or introduces delay.
+
+### Programmed I/O
+With the basic support from an interconnect such as PCI controller on the device, a system can access or request an operation from a device using Programmed I/O (PIO), without any additional support. It involves CPU to "program" the device by writing into the command registers of the device and control the data movement of the data register.
+
+For example, in a NIC, data register is used for network packets. To send a packet, CPU writes to command register to request packet transmission, and copy packet to data registers as many times as necessary until the whole packet is sent. It looks like a series of store operations from the CPU because device registers are mapped to the memory.
+
+### Direct Memory Access (DMA)
+The DMA controller provides a different way of moving data to/from the device. With DMA controller, CPU still programs the device by writing to the command register, but the data is sent via DMA controller. The opposite path from device to CPU can be done via DMA controller as well.
+
+For the same example of a NIC, CPU writes to command register to request packet transmission, but then configures the DMA controller with the in-memory address and the size of the packet buffer. From the CPU's perspective, it requires only one store operation and one DMA configure, but DMA configure is more complex and can take more cycles.
+
+Note that for DMA, the data buffer must be in the physical memory until transfer completes. This means the memory area must be pinned and not swappable.
+
+### Typical Device Access
+A typical device access involves the following steps:
+1. The user process issues a system call to perform the device access;
+2. The kernel performs the necessary operations in preparation of this operation. This is often referred as in-kernel stack.
+3. The kernel invokes the driver.
+4. The driver configures the device with this request.
+5. Device performs the request.
+6. Any response will traverse back through the call chain to the user process.
+
+### OS Bypass
+For some devices, the device registers and data are directly accessible from the user space, thus OS configurations can be out of the way. This is referred as OS bypass. This requires the device driver to be made available at user level, i.e. as a library.
+
+However, OS still maintains some coarse-grain control of the device, such as device status, permission, etc. This relies on the device to provide sufficient registers for kernel and user separately. And in order to support multiple processes having access to the device simultaneously, the device must have demultiplex capability to send the data arriving at the device to the right process.
+
+### Sync vs. Async Access
+For synchronous I/O operations, the user process blocks until the operation is complete. For asynchronous I/O operations, the process continues after the I/O operation is issued, and it can either periodically checks and retrieves the result from the I/O operation, or it is notified that the operation is completed and the results are ready.
+
+### Block Device Stack
+Block devices are typically used to store files, a logical storage unit introduced by the the OS through file system and used by processes.
+
+Kernel file system defines where, and how to find and access file. OS specifies an interface, such as POSIX API, for multiple file systems to abstract away the underlying file system from user processes.
+
+There can be multiple types of block devices, each with protocol-specific APIs. To abstract them, there is usually a "generic block layer" between the kernel and the device driver, which is an OS-standardized block interface. It will resolve the "generic" read/write operations from the kernel to those for a specific block device type.
+
+![Alt text]({{ "/assets/posts/udacity-os-course/file-system-stack.png" | absolute_url }})
+
+### Virtual File System
+To address the following scenarios:
+* files are on more than one device;
+* devices work better with different file system implementations;
+* files are not on a local device (such as network attached storage);
+
+OS like Linux uses a virtual file system layer. The virtual file system hides the underlying file system from the user layer so that user processes access a single file system using the same API, and the virtual file system handles the translation to the underlying file system.
+
+Virtual file system provides the following abstractions:
+* file: elements on which the VFS operates;
+* file descriptor: OS representation of a file, and operations, such as open, read, write, send file, lock, or close, are defined on file descriptors.
+* inode: a persistent data structure of the file "index", including a list of all data blocks (index node of a file), device, permissions, size, etc.
+* dentry (directory entry): corresponds to a single path component being traversed to reach a particular file. For example, directory `/users/baihu` consists of `/`, `/users`, and `/users/baihu` dentries.
+* superblock: file system-specific information regarding the layout of the file system.
+
+Thus, these abstractions are persisted on the disk as follows:
+* file: a number of blocks;
+* inode: tracks file's blocks, and also resides on the disk in some blocks;
+* superblock: overall map of the disk blocks, so that the OS can tell the content of each block to be inode/data/free block. This is used for allocation and block lookup.
+
+#### Inode
+Inode is the index of all disk blocks corresponding to a file, and a file is identified by an inode. Inode contains a list of all data blocks in a sequential manner. This allows easy access both sequentially and randomly, but it puts a limit on the file size. For example, for 128 Bytes inode, with 4 Byte block pointer, it allows 32 addressable blocks. If each block is 1 KB, then the maximum file size is 32 KB.
+
+One way to overcome this file limit is to have indirect pointers, that points to blocks of pointers. Each block of pointers can support 256KB per entry (1KB/4B = 256 entries). It can also have double indirect pointers (pointers of pointers), triple indirect pointers, etc. The benefit of indirect pointers is to support large file size with small inode, but the access to the file slows down with multiple disk accesses.
+
+#### ext2: Second Extended File System
+It was a common file system in Linux, and was superseded by ext3 and then ext2.
+
+The first block is often not used by Linux, it is used to boot up the computer. The rest of the disks are organized into a series of block groups. Each block group is as follows from the start to the end:
+* superblock: number of inodes, number of disk blocks, and the start of free blocks
+* group descriptor: the location of bitmaps, number of free nodes, and number of free directories (because ext2 tries to balance it across block groups);
+* bitmaps (for data blocks and inodes): tracks free blocks and inodes;
+* inodes: numbered from 1 to a max number, each of 128 Bytes and describes exactly one file;
+* data blocks: file data.
+
+### Reducing File Access Overheads
+OS supports multiple mechanisms to reduce file access overheads.
+
+Caching/buffering in memory is to reduce number of disk accesses.
+* Buffer cache presents in main memory
+* Read/write happens from cache
+* OS periodically flushes cache to disk via the `fsync()` system call..
+
+I/O scheduling is to reduce disk head movement by maximizing sequential access over random access.
+
+Prefetching is to increase cache hits by leveraging locality. This is to fetch subsequent blocks when a block is read and cache them in main memory.
+
+Journaling/logging is to reduce random access but ensure no losses of data (as I/O scheduling would result in loss of data). It "describes" write operations in log in a sequential manner, such as block ,offset, value, etc. and then periodically apply them to proper disk locations. Ext3 and ext4 uses journaling.
+
+# Virtualization
+[Reference](https://s3.amazonaws.com/content.udacity-data.com/courses/ud923/references/ud923-rosenblum-garfinkel-paper.pdf)
+
+It originates at IBM in the 1960s, virtualization allows concurrent execution of multiple OSs (and their applications) on the same physical machine. Each OS thinks that it "owns" hardware resources through virtual resources. A virtual machine (VM), or guest, is the OS, its applications and its virtual resources. And the virtualization layer, including virtual machine monitor or hypervisor, manages the physical hardware and provide isolation to guests.
+
+A virtual machine is an efficient, isolated duplicate of the real machine. It is supported by a virtual machine monitor (HMM), which provides:
+1. fidelity: provides environment essentially identical with the original machine.
+1. performance: programs show at worst only minor decrease in speed compared to a physical machine with the same hardware.
+1. safety and isolation: VMM is in complete control of system resources, and policies to resources cannot be altered by guests.
+
+The benefits of virtualization include:
+1. Consolidation: decrease cost, improve manageability;
+2. Migration: availability and reliability. VMs can be migrated from physical hardware to another, or pause and clone.
+3. Security;
+4. Easy to debug;
+5. Support for legacy OSs.
+
+### Two Main Virtualization Models
+There are two main models of virtualization:
+1. Bare-metal or hypervisor-based (type 1);
+2. Hosted (type 2).
+
+In bare-metal model, VMM (hypervisor) manages all hardware resources and supports execution of VMs, but this requires hardware manufacturers to provide device drivers to all types of hypervisors. To address this, one way is to run a privileged, service VM on top of VMM to deal with devices, and other configuration and management tasks. This model is adopted by Xen (open-source or Citrix XenServer) and ESX (VMware). In Xen, the service (or privileged) VM is called dom0 and guest VMs are called domUs. By definition, device drivers runs in dom0. ESX targets mainly server markets, which have fewer types of devices. Because of VMware's market share, it mandates vendors to provide drivers for its VMM, and it runs drivers in VMM. ESX provides many open APIs for management and configuration. It used to have Linux-based control core (service VM), but now it provides remote APIs to configure VMM.
+
+In hosted model, there is a normal OS called host OS, which owns all the physical hardware and runs all device drivers. The host OS runs a VMM module that provides hardware interfaces to VMs and deals with VM context switching. Because the host OS is a normal OS, native applications can be run in it along with guest VMs. One example of hosted model is KVM (kernel-based VM) based on Linux. KVM achieves virtualization by a combination of the KVM kernel module in the host Linux OS and QEMU for hardware virtualization, which exposes emulated hardware to guest VMs.
+
+### Hardware Protection levels
+Commodity hardware has more than 2 protection levels. For example, x86 has 4 protection levels (rings): ring 0 provides the highest privilege (and OS runs in ring 0); ring 3 runs applications with the least privilege. In virtualization, ring 0 runs the hypervisor, ring 1 runs the guest OSs, and ring 3 runs applications. Recent x86 architecture introduces 2 protection modes, root and non-root. Then hypervisor runs in ring 0 of root mode, and VMs run in non-root mode (in which certain operations are not allowed) with OSs run in ring 0 and applications run in ring 3.
+
+Attempts by the guest OS to run privileged operations cause traps called VMexit which triggers the switch and passes the control to hypervisor. When the operation completes, VMenter is triggered to enter non-root mode.
+
+### Processor Virtualization
+To achieve great efficiency, guest instructions are executed directly by the hardware. Non-privileged operations run at hardware speed to achieve efficiency, and privileged operations trap to the hypervisor. Hypervisor determines whether the attempts of privileged operations are legal. If not, then the VM is terminated; if so, it emulates the behavior the guest OS expects from the hardware. This trap-and-emulate is key to achieve efficiency in processor virtualization.
+
+However, before 2005, x86 does not provide protection modes, causing issues with trap-and-emulate. There are 17 privileged operations that cannot be issued from other than ring 0 and are failed silently. In other words, guest OSs (in ring 1) assumes operations are successful, but hypervisor does not receive trap and thus performs no operations.
+
+There are two ways of address this issue, binary translation and paravirtualization.
+
+The goal for binary translation is to achieve full virtualization, that guest OSs can run in the virtualized environment without any modification. Binary translation dynamically rewrites the VM binary to never issue those 17 instructions.
+1. Capture and inspect code blocks that is to be executed.
+2. If needed, translate to alternate instruction sequence, e.g. to emulate desired behavior possibly even avoiding trap.
+3. Otherwise, run them at hardware speed.
+
+Generally, binary translation has overheads. But overheads can be amortized by caching translated blocks.
+
+The goal of paravirtualization is to achieve high performance by giving up unmodified guests. Guest OSs are modified so that:
+1. it knows that it is running in a virtualized environment;
+2. it makes explicit calls to the hypervisor (hypercalls) instead of direct hardware manipulations.
+3. Hypercall is similar to system call, which packages context information in the guest OS, specifies desired hypercall, and traps to VMM.
+
+Paravirtualization originates from the Xen hypervisor.
+
+### Memory Virtualization
+In full virtualization, all guests expect contiguous physical memory starting at 0. There are three notions of memory: virtual (application memory space), physical (address space of a guest OS), and machine. Both addresses and page frame numbers must be translated. Note that hypervisor still leverages hardware features such as MMU and TLB. One option is that guest OSs continues to map virtual memory to physical memory, hypervisor must map physical memory for each guest OS to the machine memory. This option is too expensive as every memory operation must be translated twice. Another option is for hypervisor to maintain a shadow page table between the virtual memory to the machine memory. This requires hypervisor to maintain consistency such as to invalidate on context switch, write-protects guest page table to track new mappings.
+
+In paravirtualization, guest OS no longer strictly requires contiguous physical memory space starting at 0. It can explicitly registers page tables with the hypervisor, so that there is only one level of memory mapping. The guest OS can "batch" page table updates to reduce VM exits to amortized cost and improve performance.
+
+### Device Virtualization
+For CPUs and memory, there is less diversity because of the existence of ISA. However, devices are of high diversity with lack of standard specification of device interface and behavior. There are three models.
+
+In the passthrough model, the VMM-level driver configures device access permissions. VMs are provided with exclusive access to the device and it can directly access the device (and this is why this model is also called VMM-bypass). But the disadvantages are significant:
+* device sharing is difficult;
+* VMM must have exact type of device as what VM expects;
+* VM migration is tricky because device states in guest OSs are maintained by hypervisors and must be copied over during migration.
+
+In Hypervisor-direct model, VMM intercepts all devices accesses, and emulate device operations by translating the operation to generic I/O operations and traversing it through VMM-resident I/O stack, and invoking VMM-resident driver. The advantage of this model is that VMs are decoupled from physical devices, resulting in ease of sharing, migration, and dealing with device specifications. The disadvantage is it adds latency to device operations, and hypervisor is now exposed to the complexity of all device drivers.
+
+In split-device driver model, device access control is split between two drivers: front-end driver in guest VMs that provides device API, and back-end driver in service VM or host, which should be stock device driver for the service/host OS. The front-end driver must be modified to pass device operations to the back-end driver, limiting it to paravirtualized guests. The advantage is that it eliminates emulation overhead, and allows for better management of shared devices.
+
+### Hardware Virtualization
+AMD Pacifica and Intel Vanderpool Technology (Intel-VT) started to add hardware support for virtualization around 2005.
+* It fixed the "holes" in the x86 ISA by correctly trapping the 17 instructions during virtualization.
+* It introduced root/non-root mode (or host/guest mode) as additional protection.
+* It supports the VM control structure so that the hardware understands the state of the virtualized processor, or vCPU, to reduce virtualization overhead.
+* It improves memory management by supporting extended page tables and tagged TLB with VM ids.
+* Additional support in the hardware such as multi-queue devices (devices with multiple logical interfaces to different VMs) and interrupt routing which interrupts the core where the corresponding VM runs.
+* Security and management support.
+
+These features are achieved by additional instructions to x86 ISA.
