@@ -3,7 +3,8 @@ layout: post
 title: Udacity OS Course
 date: '2018-10-28 20:26'
 tags:
- - Computer Science
+  - Computer Science
+published: true
 ---
 
 * TOC
@@ -12,20 +13,20 @@ tags:
 # Introduction to Operating System
 
 OS abstracts and arbitrates the computer hardware.
-- have direct privileged access to the underlying hardware
-- hide hardware complexity
-- resource management
-- provide isolation & protection between different processes
+- have direct privileged access to the underlying hardware;
+- hide hardware complexity;
+- resource management;
+- provide isolation & protection between different processes.
 
-OS abstraction: process, thread, file, socket, memory page
+OS abstraction: process, thread, file, socket, memory page.
 
-OS mechanisms: create, schedule, open, write, allocate
+OS mechanisms: create, schedule, open, write, allocate.
 
-OS policies: least-recently-used, earliest deadline first, etc.
+OS policies: least-recently-used, earliest deadline first, etc..
 
 ### OS design principles
-- Separation of mechanism and policy (implement flexible mechanisms to support many policies)
-- Optimize for common case
+- Separation of mechanism and policy (implement flexible mechanisms to support many policies).
+- Optimize for common case.
 
 ### OS protection boundary
 Privilege mode in kernel mode has direct access to hardware. User-kernel switch is supported by modern hardware. For example, there is a privilege bit in CPU and can be set by OS. If it is set in user mode, trap instructions are triggered and CPU is switched to privileged mode to allow OS to check whether this privileged access is allowed.
@@ -46,26 +47,26 @@ OS services are made available via system calls. Examples of OS services:
 ### OS type
 - Monolithic OS: one piece OS that contains everything
 - Modular OS (Linux): more common. OS requires a certain interface that any modules should implement
-- Microkernel: very basic kernel with only address space and threads. Everything else like file system, disk driver, runs out of kernel as user process. It requires a lot of inter-process interaction.
+- Microkernel: very basic kernel with only address space and threads. Everything else, like file system and disk driver, runs out of kernel as user processes. It requires a lot of inter-process interaction.
 
 # Process and Process Management
 Process: instance of an executing program, similar to "task", "job".
-- State of execution: program counter, stack
-- parts & temporary holding area: data
-- May require special hardware: I/O
+- State of execution: program counter, stack.
+- parts & temporary holding area: data.
+- May require special hardware: I/O.
 
 Application v.s. process:
-- Application is static, stored in memory
-- Process is dynamic, a representative of an running application
+- Application is static, stored in memory.
+- Process is dynamic, a representative of an running application.
 
-Address space, represented from $V_0$ to $V_{max}$ (virtual address), is used to represent the "in-memory" state of a process.
-- Text and data: static state when process first loads. It starts from $V_0$.
+Address space, represented from $$V_0$$ to $$V_{max}$$ (virtual address), is used to represent the "in-memory" state of a process. Address space of a process is divided into:
+- Text and data: static state when process first loads. It starts from $$V_0$$.
 - Heap: dynamically created during execution. It is after text and data.
-- Stack: LIFO queue, grows from $V_{max}$ downwards.
+- Stack: LIFO queue, grows from $$V_{max}$$ downwards.
 
 Page tables map virtual address to physical address located in the physical memory.
 
-#### Process Execution State
+### Process Execution State
 The OS maintains a Process Control Block (PCB). It is a data structure that OS maintains for every process.
 
 - Process state
@@ -83,29 +84,29 @@ The OS maintains a Process Control Block (PCB). It is a data structure that OS m
 
 PCB is created when process is created. Certain fields are updated when process state changes, but other fields change too frequently (like PC). CPU has a PC register that holds the PC for the current running process. It is the OS's job to update PC in its PCB when a process is no longer running on the CPU.
 
-#### Context Switch
+### Context Switch
 Switching the CPU from the context of one process to the context of another.
 
 Context switch is expensive:
-- Direct costs: number of cycles for load & store PCB
-- Indirect costs: cold cache that leads to cache misses
+- Direct costs: number of cycles for load & store PCB;
+- Indirect costs: cold cache that leads to cache misses.
 
-####  Process Lifecycle
+###  Process Lifecycle
 Processes can be running or idle (ready). Scheduler can dispatch it to CPU so it becomes running, and running processes can be interrupted. Process lifecycle is shows as follows:
 ![]({{ "/assets/posts/udacity-os-course/process_lifecycle.png" | absolute_url }})
 
 Process can create other processes, forming a tree of processes. Process is created by fork or exec:
-- Fork: copies the parent PCB into new child PCB. Child continues execution at instruction after fork (PC is copied into child PCB)
+- Fork: copies the parent PCB into new child PCB. Child continues execution at instruction after fork (PC is copied into child PCB).
 - Exec: create a new PCB and load a new program and start from first instruction.
 
 On UNIX-based OSs, `init` is the "parent of all processes".
 On the Android OS, `zygote` is the parent of all app processes.
 
-#### Scheduler
+### Scheduler
 A CPU scheduler determines *which one* of the currently ready processes will be *dispatched* to the CPU to start running, and *how long* it should run for.
-- Preempt: interrupt and save the current context
-- Schedule: run scheduler to choose the next process
-- Dispatch: dispatch the chosen process and switch into its context
+- Preempt: interrupt and save the current context;
+- Schedule: run scheduler to choose the next process;
+- Dispatch: dispatch the chosen process and switch into its context.
 
 **Efficiency**:
 
@@ -115,7 +116,7 @@ Scheduler design questions:
 - What are appropriate timeslice ($$T_{process}$$) values?
 - Metrics to choose next process to run?
 
-#### Inter Process Communication (IPC)
+### Inter Process Communication (IPC)
 - Transfer data/info between address spaces
 - Maintain protection and isolation
 - Provide flexibility and performance
@@ -131,19 +132,16 @@ Scheduler design questions:
 # Threads and Concurrency
 [Reference](https://s3.amazonaws.com/content.udacity-data.com/courses/ud923/references/ud923-birrell-paper.pdf)
 
-#### Process vs. Thread
-- Process is defined by a PCB.
-- Threads share the same code, data, and files, but they execute different pieces of the program, so each one of them has its own registers (such as PC) and stack.
-- PCB for multi-threaded application is more complex. It has shared data, and per-thread exec context.
+A process is defined by a PCB. Threads in the same process share the same code, data, and files, but they execute different pieces of the program, so each one of them has its own registers (such as PC) and stack. Thus, PCB for multi-threaded application is more complex. It has shared data, and per-thread exec context.
 
-#### Benefits
-- Parallelization: speed up the application
-- Specialization: each thread dedicates to a small task, so its easy to manage, and cache efficiency can be improved
+Threads provide the following benefits:
+- Parallelization: speed up the application;
+- Specialization: each thread dedicates to a small task, so its easy to manage, and cache efficiency can be improved;
 - Compared to multi-processes application, multi-threaded application is more memory efficient, and inter-thread communication is much more efficient than inter-process alternatives.
 - Context switch for threads is quicker than that for processes.
 - Multi-threaded OS can run execution contexts for multiple processes at the same time, and run OS-level services like daemons and drivers concurrently, on multi-processor hardware.
 
-## Thread Mechanisms
+### Thread Mechanisms
 #### Creation
 Three key abstractions: thread type, fork, and join.
 
@@ -185,18 +183,16 @@ Solution: resource counter
 * reading: resource_counter > 0
 * writing: resource_counter = -1
 
-Resource variable is a proxy to the actual resource. Instead of controlling the resource, the resource variable is controlled.
+Resource counter is a proxy to the actual resource. Instead of controlling the resource, the resource counter is controlled through a proxy (i.e. transform multiple states into a state variable guarded by a single mutex).
 
-#### Critical Section Structure
-
-If a proxy is used (i.e. transform multiple states into a state variable guarded by a single mutex), the code block becomes:
+The code block becomes:
 ```
 // ENTER CRITICAL SECTION
 perform_critical_operation
 // EXIT CRITICAL SECTION
 ```
 
-A piece of critical section code is executed when entering and exiting the *actual critical section*. But the actual critical section is not locked.
+A piece of critical section code is executed when entering and exiting the *actual critical section*. But the actual critical operation is not locked.
 ```
 // ENTER CRITICAL SECTION
 Lock(mutex) {
@@ -224,15 +220,16 @@ Lock(mutex) {
 } // unlock
 ```
 
-## Deadlock
+### Deadlock
 Two or more competing threads are waiting on each other to complete, but none of them ever do.
 
 A cycle in the wait graph is necessary and sufficient for a deadlock to occur. Edges in wait graph is from thread waiting on a resource to thread owning a resource.
 
-## Kernel v.s. User-Level Threads
+### Kernel v.s. User-Level Threads
 User-level threads must be associated with Kernel-level threads in order to execute. Kernel level scheduler schedules kernel-level threads onto the actual CPU.
 
-### Relationship model between Kernel and User-Level Threads
+There are multiple Relationship models between Kernel and User-Level threads.
+
 #### One-to-One Model
 User-level threads are directly mapped to kernel-level threads.
 
@@ -249,7 +246,7 @@ Cons:
 All threads of a process are mapped onto a single kernel-level threads. There is a user-level thread management library to manage threads in this process.
 
 Pros:
-* Total portable, independent to OS;
+* Totally portable, independent to OS;
 * Fewer user-kernel switch.
 
 Cons:
@@ -1126,3 +1123,61 @@ AMD Pacifica and Intel Vanderpool Technology (Intel-VT) started to add hardware 
 * Security and management support.
 
 These features are achieved by additional instructions to x86 ISA.
+
+# Data Center Technologies
+### Internet Services Architecture
+Internet Services refer to any type of services provided via a web interface. It can be divided in to three parts:
+* presentation: static content
+* business logic: dynamic content
+* database tier: data store.
+
+There may be a middleware layer, which are supporting, integrative, or value-added software technologies.
+
+They are not necessarily separate processes on separate machines. In multi-process configurations, some form of IPC is used, including RPC, shared memory, etc.
+
+To provide Internet services at scale, applications must be multi-process, multi-node, in a "scale-out" architecture. For example,
+1. Boss-worker: front-end distributes requests to worker nodes;
+2. All equal: all nodes execute any possible step in request processing for any request;
+3. Specialized nodes: some nodes execute some specific step(s) in request processing for some request types.
+
+They can be classified as homogeneous or heterogeneous architectures.
+
+### Cloud Computing
+The traditional IT approach is to buy and configure resources by determining capacity based on expected, peak demand. Cloud computing can provide:
+* on-demand, elastic resources (infrastructure) and services (software);
+* fine-grained pricing based on usage;
+* professionally managed and hosted;
+* API-based access.
+
+Customers of cloud computing pay a fee. The billing service comes with many models (spot, reservation) at discrete quantities (small, medium, large).
+
+The business of Cloud Computing benefits from two facts:
+* The law of large numbers: the computing demand from many customers are roughly constant.
+* Economy at scale: buying resources at bulk is cheaper compared to individual customers.
+
+Cloud can be classified as public or private based on its deployment model:
+* public: third-party customers/tenants;
+* private: leverage the cloud technology internally;
+* hybrid: public + private, public resources are used for failover, dealing with spikes, or testing;
+* community: a type of public cloud used by certain type of users (instead of arbitrary users).
+
+Cloud can also be classified based on services:
+* on-premises: everything is managed in house;
+* Infrastructure: everything below OS is managed by the cloud provider;
+* Platform: application and data is managed by user, and runtime environment and below are managed by provider;
+* Software: everything is managed by the provider.
+
+Requirements for the cloud provider are:
+* Resources must be "fungible", meaning they can be easily reprovisioned for a different customer or a different purpose;
+* Elastic, dynamic resource allocation methods;
+* Operate at scale;
+* Dealing with failures;
+* Provide performance and isolation in a multi-tenant enviornment;
+* Security.
+
+Cloud-enabling technologies include:
+* Virtualization;
+* Resource provisioning ansd scheduling;
+* Software-defined networking, storage, data centers;
+* Big data storage and processing, distributed file system, NoSQL database, distributed in-memory caches;
+* Monitoring and real-time log processing.
