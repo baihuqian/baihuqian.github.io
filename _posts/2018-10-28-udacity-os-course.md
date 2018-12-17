@@ -727,7 +727,7 @@ Each entry has multiple flags besides PFN.
 OS uses flags to determine the validity of access. Faults will be placed onto kernel stack and trap the CPU into kernel mode to handle the fault.
 
 ### Page Table Size
-In 32-bit architecture, Page Table Entry (PTE) is 4 bytes, including PFN and flags. Virtual Page Number (VPN) is $$2^32$$ / page size. Common page size is 4 KB. So the size of the page table is 4 MB (per process).
+In 32-bit architecture, Page Table Entry (PTE) is 4 bytes, including PFN and flags. Virtual Page Number (VPN) is $$2^{32}$$ / page size. Common page size is 4 KB. So the size of the page table is 4 MB (per process).
 
 In 64-bit architecture, Page Table Entry (PTE) is 8 bytes. If the page size is still 4KB, the page table will be 32 PB.
 
@@ -760,10 +760,10 @@ Efficient memory allocation algorithm limits the possibility of external fragmen
 
 ### Linux Allocator
 #### Buddy Allocator
-It starts with $2^x$ area. On allocation request, it subdivides the memory space into $2^x$ chunks and find the smallest $2^x$ chunk that can satisfy the request. Fragmentation still exists, but on free it is easy to check to see if neighbors can be aggregated into a larger chunk, so aggregation works well and fast.
+It starts with $$2^x$$ area. On allocation request, it subdivides the memory space into $$2^x$$ chunks and find the smallest $$2^x$$ chunk that can satisfy the request. Fragmentation still exists, but on free it is easy to check to see if neighbors can be aggregated into a larger chunk, so aggregation works well and fast.
 
 #### Slab Allocator
-Internal fragmentation occurs when allocation requests are not close to $2^x$. Slab allocator builds caches for certain-size objects on top of contiguous memory, so that internal fragmentation can be avoided, and external fragmentation is no longer an issue. Each allocation request will get a space on the cache, or new cache will be created.
+Internal fragmentation occurs when allocation requests are not close to $$2^x$$. Slab allocator builds caches for certain-size objects on top of contiguous memory, so that internal fragmentation can be avoided, and external fragmentation is no longer an issue. Each allocation request will get a space on the cache, or new cache will be created.
 
 ### Demand Paging
 Because virtual memory is much larger than the physical memory, virtual memory page is not always in physical memory, and physical page frame can be saved and restored to/from secondary storage.
@@ -895,7 +895,7 @@ Write operations to cached memory can have different mechanisms:
 ### Cache Coherence
 A piece of memory can present in multiple places: one in memory, multiple in caches of different CPUs. Cache coherence is or is not supported by hardware. If cache coherence is done in software, the architecture is called non-cache coherent (NCC); if hardware maintains cache coherence, such architecture is called cache coherent.
 
-Two main cache coherence mechanisms in hardware are write-invalidate and write-update. Write-invalidate invalidates other cache references of a memory space once its updated. The benefit is low memory bandwidth usage (only the memory address is sent over), and potentially cost can be amortized by invalidating once for multiple updates. Write-update updates other cache references when the value is written. The benefit is the update becomes available immediately for other CPU.
+Two main cache coherence mechanisms in hardware are **write-invalidate** and **write-update**. Write-invalidate invalidates other cache references of a memory space once its updated. The benefit is low memory bandwidth usage (only the memory address is sent over), and potentially cost can be amortized by invalidating once for multiple updates. Write-update updates other cache references when the value is written. The benefit is the update becomes available immediately for other CPU.
 
 ### Cache Coherence and Atomics
 Because it's difficult to achieve atomicity across multiple caches of multiple CPUs, atomics are always issued to the memory controller. This ensures all references can be ordered and synchronized. But it takes much longer, and generates coherence traffic to all caches regardless of change. Thus, atomic operations are expensive.
@@ -1124,6 +1124,174 @@ AMD Pacifica and Intel Vanderpool Technology (Intel-VT) started to add hardware 
 
 These features are achieved by additional instructions to x86 ISA.
 
+# Remote Procedure Calls
+[Reference](https://s3.amazonaws.com/content.udacity-data.com/courses/ud923/references/ud923-birrell-nelson-paper.pdf)
+
+Inter-process communication is a mechanism to move data between address spaces. It is a low-level mechanism and it does not specify the protocol for data exchange. Among different applications, there are common steps related to remote IPC, which is captured by remote procedure calls.
+
+RPC is intended to simplify the development of cross-address space and cross-machine interactions. It provides benefits such as:
+* High-level interface for data movement and communication;
+* Error handling;
+* Hiding complexities of cross-machine interactions from applications.
+
+RPC requires:
+* Interactions between two processes follow client-server model;
+* Follows the procedure call interface, i.e. synchronous-call semantics. This is because when RPC is proposed, the programming languages are procedural languages.
+* Performs type checking. It provides error handling and bytes interpretation.
+* Cross-machine conversion such big/small endian, floating points, negative numbers;
+* Provides higher-level protocol such as access control and fault tolerance.
+
+An RPC call contains the following steps:
+1. register: server "registers" the supported procedure, argument types, its location, so that clients can discover it.
+1. bind: client finds and "binds" to the desired server. For a TCP-based protocol it involves the creation of a connection.
+2. call: client makes a RPC call. The control is passed to the client stub and client code blocks.
+3. marshal: client stub "marshals" arguments (serialize arguments, which is distributed in the client's memory space) into a buffer.
+4. send: client stub sends the message to the server.
+5. receive: server receives the message, performs optional access control, and passes the message to the server stub.
+6. unmarshal: server stub "unmarshals" arguments by extracting arguments from the message and create structs in the local memory.
+7. actual call: server stub calls the local procedure implementation.
+8. result: server performs the operation and computes the result of the RPC implementation.
+9. return: it performs similar steps to return the result back to the client.
+
+### Interface Definition Language
+Client and server can be developed independently with different languages and requires the interface to be defined. An Interface Definition Language (IDL) is used to describe the interface a server exports:
+* procedure name, argument and return types;
+* version number.
+
+Version number is required so that the server and client can be upgraded separately.
+
+IDL can be language agnostic (such as XDR in SunRPC) or language specific (such as Java in Java RMI). Note that the IDL language is only used by the RPC system to generate stubs, perform discovery, etc. It does not dictate the actual implementation.
+
+### Marshalling and Unmarshalling
+When an RPC call is made on the client side, variables in the client application's memory space is passed to it as arguments, and they are not continuous in the memory. However, at the lowest level, a `send()` call is issued to the socket to send the message across the network, and the `send` call requires a buffer of continuous memory. The marshalling code will create a buffer, copy arguments from various memory locations into the buffer, as well as other supporting information such as operation name, size of the argument, etc., using a pre-defined structure. It also performs encoding if necessary.
+
+Unmarshalling performs the opposite operation. It decodes the message, extracts arguments from the message and allocate them into the local memory space, in preparation for invoking the implementation of the RPC call.
+
+Note that marshal/unmarshal routes are provided by the RPC system compiler that generates the code from IDL to a specific language.
+
+One tricky issue is the usage of pointers. RPC protocol can either prohibit the usage of pointers, or implement marshalling/unmarshalling for pointers so that the referenced data structure is included in the buffer.
+
+### Binding and Registry
+During the binding step, client determines which server it should connect to based on the service name, version number, etc., and how to connect to the server, based on IP address, transport protocol, etc. The client requires information of available servers to perform binding.
+
+A registry is a database of services available to a client. It includes service names and connection details so that client can perform binding. Registry can be distributed for any RPC service to register, or machine-specific so that only local clients or clients that know the machine address to query them.
+
+### Error Handling
+There are a lot of ways that an RPC call can fail. RPC provides special notification, such as signal or exception that catches all possible ways in which an RPC call can (partially) fail and signal the client application of possible failures.
+
+### Encoding
+Besides the actual data of the RPC, arguments or results, being encoded into a bytestream depending on the data type, there are other data fields encoded into the actual data buffer.
+
+* RPC header: service procedure ID, version number, request ID, etc.
+* Transport header: TCP, UDP, etc.
+
+# Distributed File System
+[Reference](https://s3.amazonaws.com/content.udacity-data.com/courses/ud923/references/ud923-nelson-paper.pdf)
+
+With the help of Virtual File System, the file system can be on a different machine in the network. Distributed File System includes:
+1. Client/server model where the file system is on one machine and the client that accesses the file system is on another machine;
+2. File server is distributed on multiple machines.
+    1. Files can be replicated and each server has all files for better redundancy;
+    2. Files can be partitioned and each server has part of files for better scalability.
+1. Files are stored on and served from all machines, which act like peers. This blurs the distinction between clients and servers.
+
+Operations on the file system can be split between the client (locally) and the server (remotely). One extreme is all operations are done locally. This is used in FTP, SVN, etc. The benefit is that reads/writes are done locally, but the entire file must be downloaded/uploaded even for small access, and server gives up the control, limiting the possibility of concurrent operations.
+
+Another extreme is true remote access. Every operation is done remotely. The benefit is that file accesses are done in a centralized manner so it is easy to reason about consistency, but every operation pays the network cost, and the load on the server is much higher, limiting the scalability of the server.
+
+A more practical design is something in between:
+* Allow clients to cache parts (blocks) of files locally, to achieve low latency on file operations and reduced server load (and thus higher server scalability).
+* Force clients to interact with server frequently. Server understands what clients are doing and has control into which accesses can be permitted, thus consistency management is easy.
+
+However, the server becomes more complicated and file sharing semantics must be defined between client and server. In addition, server now becomes stateful as it must maintain state of client operations, and client requires cache coherence mechanisms.
+
+### File Sharing Semantics
+* Unix Semantics: every write becomes visible to everyone immediately;
+* Session Semantics (one session is time between `open` and `close`):
+    - Write-back content on `close`, and update content on `open` (i.e. flush local cache and load from file system);
+    - It is easy to reason about, but may be insufficient due to long delay of changes.
+- Periodic Updates:
+    - Client writes back periodically, as if it has a "lease" on its cached data (not exclusive);
+    - Server invalidates client's cache periodically, providing an upper bound of period of inconsistency;
+    - These can be achieved by the augmented `flush` and `sync` API.
+- Immutable files: never modify, new files are created instead.
+- Transaction: all changes are made atomically.
+
+It is important to understand the access pattern before choosing the semantics. For example, files and directories have very different access patterns, and thus it is not uncommon to choose different semantics for each of them.
+
+### Replication and Partitioning
+If the file server contains multiple machines, replication and partitioning can be used to organize these machines.
+
+Replication is for each machine to host all files. It supports load balancing and has higher availability and fault-tolerant. However, the writes become more complex as either a write operations must be performed on all machines, or writes must be propagated through the system. In addition, writes must be reconciled, which is a classic problem in distributed system.
+
+Partitioning is for each machine to host a portion of files. It provides better availability compared to a single-machine DFS, higher scalability regarding the file system size, and simpler writes. However, failure handling and load balancing becomes more complex.
+
+Replication and partitioning can be used together to achieve desired performance profile.
+
+# Distributed Shared Memory
+[Reference](https://s3.amazonaws.com/content.udacity-data.com/courses/ud923/references/ud923-protic-paper.pdf)
+
+This section focuses on distributed state management and design alternatives.
+
+In the previous discussion on Distributed File System the client-server model is used, in which clients send requests to file service and servers own and manage states and provide services. This section the "peer" model is discussed, in which each node "owns" state and provides service, and potentially send requests to each other.
+
+One concrete example of "peer" distributed system is distributed shared memory, which maintains shared memory across multiple machines and provides a unified view of shared memory to applications, just like in SMP. Each node owns state (memory) and provides service (memory reads/writes from any node). Distributed shared memory permits scaling beyond the memory limit of a single machine, providing more "shared" memory at a lower cost. The disadvantage is the slower overall memory access, but with the help of commodity interconnect technologies, Remote DMA (RDMA) is supported to achieve very low latency.
+
+Hardware-supported DSM relies on the interconnect, so that the NIC is involved in all aspects of memory management and translates remove memory operations accesses into messages, while OS manages the larger physical memory across all machines.
+
+### Design Considerations: Sharing Granularity
+In SMP, memory operations are performed at cache line granularity. However, the overhead would be too high for DSM. Some alternative granularities are variable, page, or object (defined by programming languages) level.
+
+* Variable is too small, too, as the smallest unit of a variable is only a few bytes in most languages.
+* OS manages memory by page, so it makes sense to support OS-level DSM at page level.
+* Object granularity can be supported by language runtime.
+
+As the granularity of sharing increases, the probability of so-called "false sharing" increases as well. False sharing occurs when two concurrent operations happen on two independent memory locations that can be issued concurrently, but due to the memory location, they have to be issued sequentially.
+
+### Design Considerations: Access Algorithm
+Understanding the access algorithm is equivalent to understanding the applications that use DSM.
+
+* Single Reader/Single Writer (SRSW): DSM only supplies the capability of accessing remote memory;
+* Multiple Readers/Single Writer (MRSW)
+* Multiple Readers/Multiple Writers (MRMW)
+
+### Design Considerations: Performance
+The performance metric of a DSM is the access latency. Migration and Replication can be used to achieve low latency. Migration improves memory locality but requires data movement, and replication (or caching) requires consistency management.
+
+### Design Considerations: Consistency Management
+In SMP, write-invalidate and write-update are used to maintain consistency. However, such operations are performed on every write operation and thus the overhead is too high for DSM. Thus, we look to the consistency mechanisms discussed in DFS.
+
+There are two main ways:
+* Push invalidations upon written.
+* Pull modifications info periodically or on-demand.
+
+But when these methods get triggered depends on the consistency model of the shared state.
+
+### DSM Architecture
+A DSM system consists of multiple distributed nodes, each contributes a portion of its own main memory to the DSM. Other local memory can be used for caching, replication, or metadata. The global shared memory space consists of pool of pages from all notes, and every address in this memory space can be uniquely identified by the ID of the machine and page frame number.
+
+If Multiple Readers/Multiple Writers (MRMW) is supported, local cache is required to improve performance. The home node, the node where the page is physically located, or the manager node, drives the coherent operations. All nodes are responsible for part of the state management of the distributed memory.
+
+To manage the state, the home node should keep the state of its pages: pages accessed/modified, cache enabled/disabled, locked, etc. However, every operation will require communication to the home node. Another way is to designate an "owner" for a memory page among nodes with the page cached, and the owner can be different from the home node. The owner can drive the state update and consistency operations. Then home node manages accesses and track page ownership instead.
+
+In addition, instead of caching, pages can be replicated for load balancing, performance improvement, and reliability.
+
+### Indexing of Distributed State
+The address of a page in a DSM consists of the node ID and the physical page frame number, so each node knows the home node for all pages. Another way is to have a global map between page ID and manager node ID and replicate it across all nodes. But the metadata for each page is located on the manager node. In other words, metadata for local pages are partitioned.
+
+### DSM Implementation
+DSM must intercept accesses to DSM state in order to 1) send remote messages requesting access, and 2) to trigger coherence messages. However, such overhead should be avoided for local, non-shared pages. OS thus must dynamically engage and disengage DSM when necessary. This is achieved by hardware MMU support, which traps and passes control to DSM when remote address or cached content are accessed.
+
+In addition, other MMU information, such as dirty page, is useful when implementing DSM.
+
+### Consistency Model
+Consistency Model is the agreement between the state of the distributed system and the software systems that access it. In terms of DSM, it means memory (state) guarantees to behave correctly if access ordering and propagation of updates are done in a pre-defined way.
+
+* Strict consistency: updates visible everywhere immediately. In a single SMP, there's no guarantee of strict consistency without extra locking and synchronization. In distributed systems, latency and message reorder and loss make this impossible to guarantee.
+* Sequential consistency: memory updates from different processors may be arbitrarily interleaved, but all processes will see the *same* interleaving. But operations from the same process always appear in order they were issued.
+* Causal consistency: if writes are causally related (subsequent writes depend on previous writes to be observed), they are guaranteed to be ordered. But there is no guarantee on unrelated, or "concurrent" writes.
+* Weak consistency: synchronization points, an operation made available to call, so that all updates prior to a synchronization point will be visible but there is no guarantee to what happens in between. In order for a write operation guaranteed to be visible to a reader, the writer and reader must both perform synchronization. There are other variations to this, such as separate sync per subset of states, or separate "entry/acquire" (sync changes made by others) and "exit/release" (sync others with changes made by the current process) operations.
+
 # Data Center Technologies
 ### Internet Services Architecture
 Internet Services refer to any type of services provided via a web interface. It can be divided in to three parts:
@@ -1172,12 +1340,12 @@ Requirements for the cloud provider are:
 * Elastic, dynamic resource allocation methods;
 * Operate at scale;
 * Dealing with failures;
-* Provide performance and isolation in a multi-tenant enviornment;
+* Provide performance and isolation in a multi-tenant environment;
 * Security.
 
 Cloud-enabling technologies include:
 * Virtualization;
-* Resource provisioning ansd scheduling;
+* Resource provisioning and scheduling;
 * Software-defined networking, storage, data centers;
 * Big data storage and processing, distributed file system, NoSQL database, distributed in-memory caches;
 * Monitoring and real-time log processing.
