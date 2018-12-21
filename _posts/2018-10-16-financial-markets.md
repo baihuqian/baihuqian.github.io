@@ -267,9 +267,9 @@ EONIA (European Over Night Index Average, the European counter part to Fed funds
 Eugen von Bohn-Bawerk: Capital and Interest, 1884: interest rate is close to the rate of technological progress, people's time preference of having it now versus later, and thus the return in the future must be higher than present value, and advantages from delayed but more productive manufacture processes.
 
 ### Compound Interest
-If annual rate is $$r$$, compounding once per yaer, balance is $$(1 + r)^t$$ after $$t$$ years.
+If annual rate is $$r$$, compounding once per year, balance is $$(1 + r)^t$$ after $$t$$ years.
 
-If compounded $$n$$ times per year, balance is $$(i + \frac{r}{n})^{nt}$$ after $$t$$ years.
+If compounded $$n$$ times per year, balance is $$(1 + \frac{r}{n})^{nt}$$ after $$t$$ years.
 
 Continuous compounding, balance is $$e^{rt}$$.
 
@@ -376,7 +376,7 @@ Share repurchase is like paying dividends, but share repurchase provides tax bre
 Share repurchase instead of dividends has behavior finance consequences.
 
 ### Stock Price as PDV of Expected Dividends
-In the long-term, investment is stocks is about dividends. The meaning of equity is the right to its dividends. By this logic, the price of a stock is the PDV of all future dividends. With Gordon Model, we have $$P/E=1/(r-g)$$. The efficient markets theory purports to explain why P/E varies across stocks in terms of $$r$$ and $$g$$. Lower p/E does not mean that the stock is a "bargain", it only means that earnings are rationally forecasted to decrease in the future (i.e. low $$g$$) or that risk is high (i.e. high $$r$$).
+In the long-term, investment is stocks is about dividends. The meaning of equity is the right to its dividends. By this logic, the price of a stock is the PDV of all future dividends. With Gordon Model, we have $$P/E=1/(r-g)$$. The efficient markets theory purports to explain why P/E varies across stocks in terms of $$r$$ and $$g$$. Lower P/E does not mean that the stock is a "bargain", it only means that earnings are rationally forecasted to decrease in the future (i.e. low $$g$$) or that risk is high (i.e. high $$r$$).
 
 Value investing instructs to invest in only low P/E stocks.
 
@@ -397,7 +397,7 @@ This module takes a look into the recent past, explores recessions, bubbles, the
 ## Recessions
 Recessions are substantially psychological, thus it is difficult for anybody, a central bank, central government to deal with them.
 
-Inverted yield curve is a situation in which short term interest rates, like overnight rates or three-month rates, are above long-term interest rates. That's not the usual situation because long term, obviously long term bonds are riskier because the payout is coming much later. So people generally demand a higher, and the market will give them a higher interest rate, but sometimes it's inverted. It's been shown statistically that that's a leading indicator of a recession.
+Inverted yield curve is a situation in which short term interest rates, like overnight rates or three-month rates, are above long-term interest rates. That's not the usual situation because obviously long term bonds are riskier because the payout is coming much later. So people generally demand a higher, and the market will give them a higher interest rate, but sometimes it's inverted. It's been shown statistically that that's a leading indicator of a recession.
 
 ### Excessive Reserves after the Financial Crisis
 Government regulators impose reserve requires that banks have to keep a certain amount of cash on reserve to meet any sudden increase in withdrawals (bank runs). For most of the time in recent history, banks don't keep excessive reserve beyond what is required by regulators. However, during or after the financial crisis, we see large amount of excessive reserves held by banks.
