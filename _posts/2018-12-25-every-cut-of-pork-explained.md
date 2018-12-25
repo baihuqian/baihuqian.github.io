@@ -1,12 +1,15 @@
 ---
 layout: post
-title: Every Cut of Pork Explained
+title: 在美国如何正确购买猪肉 Every Cut of Pork Explained
 date: '2018-12-25 15:47'
+tags:
+ - Life
+ - Cooking
 ---
 
 This post summarizes cuts of pork discussed in [this video](https://www.youtube.com/watch?v=JtnsZ2JaKso).
 
-本文详述了猪的美式分割方法，以及各部分对应的中文名称。
+本文详述了美国常见的猪肉的部分，以及各部分对应的中文名称。
 
 | English                | 中文           | 部位                               |
 |------------------------|----------------|----------------------------------------|
@@ -28,8 +31,10 @@ This post summarizes cuts of pork discussed in [this video](https://www.youtube.
 | Sirloin                | 后腰脊肉        | 腰背部的肉  |
 | Aitch bone             | 臀骨           | 脊椎和腿骨连接的骨头  |
 | Femur bone             | 大腿骨         | 大腿骨，用于取得骨髓  |
-| Top round   | 后腿的上部  |   |
-| Top cap   | Top round 的一部分  |   |
-| Bottom round   | 后腿的上部  |   |
-| Sirloin tip   | 后腿的上部  |   |
-| Eye round   | 后腿的上部  |   |
+| Top round              | 后腿的上部  |   |
+| Top cap                | Top round 的一部分  |   |
+| Bottom round           | 后腿的下部  |   |
+| Sirloin tip            | 后腿的下部  |   |
+| Eye round              | 后腿的下部  |   |
+
+注：本文未经作者许可禁止转载。No reproduction without permission.

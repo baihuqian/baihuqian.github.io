@@ -3,6 +3,9 @@ layout: post
 title: Work with NoSQL - a Few Lessons
 date: '2018-12-24 19:38'
 published: true
+tags:
+ - AWS
+ - System Design
 ---
 
 Traditional relational databases are not suitable for cloud services anymore. Its vertical scaling model imposes a relatively low scaling limit to your services. Complicated sharding and replication schemes could be used to go beyond the capacity of the largest database machine, adding complexity to your system, reducing engineering velocity, and risking your service to human-induced failure. Besides, database management for relational databases remains a complicated process, even with managed database offering from cloud providers. Expensive DBAs must be hired and trained to maintain in-house databases, and the velocity is only as fast as they can move. Even with managed database services, major version upgrades still requires manual intervention, and minor updates, though automated, still results in minor downtime and disruption to services.

@@ -2,7 +2,8 @@
 layout: post
 title: Design Consideration of a Workflow Engine
 date: '2018-03-25 15:05'
-tags: Design
+tags:
+ - System Design
 published: true
 ---
 
@@ -57,9 +58,9 @@ A workflow engine can be divided into the following functional units.
 ## Workflow Worker
 Workflow workers perform actions and state transitions.
 
-There are three paradigms of designing workflow workers. 
+There are three paradigms of designing workflow workers.
 1. "Dedicated worker" paradigm: Each worker works on only one workflow item until this item completes.
-2. "Assembly line" paradigm. Each worker works on a small set of actions, and a workflow item is sequentially worked by multiple workers in a defined order. 
+2. "Assembly line" paradigm. Each worker works on a small set of actions, and a workflow item is sequentially worked by multiple workers in a defined order.
 3. "Dumb worker" paradigm: Workers are agnostic to the workflow item or the specific action; they receive the workflow state and the action, execute the action and record the state change, and move on to the next one, which can be the same workflow item, a different workflow item in a different state, or even a different type of workflow.
 
 There are both advantages and disadvantages in all paradigms. In the dedicated worker paradigm, workflow state is maintained by a single worker, eliminating the need of passing state from one worker to the next. All the actions of this workflow must be defined in a single place, which can be good or bad depending on the situation. However, this process does not allow batch processing, and thus a workflow scheduler that distributes workflows to workers is required.
@@ -118,7 +119,7 @@ To ensure the correctness of the workflow design, the coverage of such tests sho
 In practice, the following categories of tests should be written:
 1.    Sequential workflow tests. Because the state after the previous action is the state before the current action, tests can be chained together to simulate a complete run of a particular workflow under “happy” cases.
 2.    Failure mode tests. Because various failure modes cannot be thoroughly covered in implementation and indeed be discovered at runtime, test cases should be written to cover most of them. The test should utilize the test infrastructure defined above with 1) the pre-state of the failed action, 2) the behavior of remote systems that causes the action to fail, and 3) the expected outcome of the action when correctly handling the failure.
-3.    Idempotency tests. Special tests can be written to deliberately run each action twice and validate the side effect is the same as one action, or exceptions are correctly handled. 
+3.    Idempotency tests. Special tests can be written to deliberately run each action twice and validate the side effect is the same as one action, or exceptions are correctly handled.
 4.    Race condition tests. Two different workflows should be run concurrently and all possible interleaving should be tested.
 
 # Testing - Workflow Engine
