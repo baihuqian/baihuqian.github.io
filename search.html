@@ -6,12 +6,15 @@ use-site-title: true
 
 <!-- Html Elements for Search -->
 <div id="search-container">
-<input type="text" id="search-input" placeholder="search...">
+<input type="text" id="search-input" placeholder="Search blog posts...">
+
+<article class="post-preview">
 <ul id="results-container"></ul>
+</article>
 </div>
 
 <!-- Script pointing to search-script.js -->
-<script src="/js/simple-jekyll-search.min.js" type="text/javascript"></script>
+<script src="{{ site.baseurl }}/js/simple-jekyll-search.min.js" type="text/javascript"></script>
 
 <!-- Configuration -->
 <script>
@@ -19,8 +22,8 @@ SimpleJekyllSearch({
   searchInput: document.getElementById('search-input'),
   resultsContainer: document.getElementById('results-container'),
   json: '/search.json',
-  searchResultTemplate: '<div><a href="{url}"><h1>{title}</h1></a><span>{date}</span></div>',
+  searchResultTemplate: '<div><a href="{url}"><h2 class="post-title">{title}</h2><p class="post-meta">Posted on {date}</p></div>',
   noResultsText: 'No results found!',
-  limit: 10000,
+  limit: 20,
 })
 </script>

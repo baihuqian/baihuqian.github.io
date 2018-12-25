@@ -6,10 +6,10 @@ layout: null
     {
 
       "title"    : "{{ post.title | strip_html | escape }}",
-      "url"      : "{{ site.baseurl }}{{ post.url }}",
+      "url"      : "{{ post.url | prepend: site.baseurl }}",
       "category" : "{{post.categories | join: ', '}}",
       "tags"     : "{{ post.tags | join: ', ' }}",
-      "date"     : "{{ post.date }}",
+      "date"     : "{{ post.date | date: "%B %-d, %Y" }}",
       "discription" : "{{post.description | strip_html | strip_newlines | escape }}"
 
     } {% unless forloop.last %},{% endunless %}

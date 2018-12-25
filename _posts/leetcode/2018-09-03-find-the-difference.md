@@ -1,6 +1,6 @@
 ---
 layout: "post"
-title: "Find the Difference"
+title: "Leetcode 389: Find the Difference"
 date: "2018-09-03 13:07"
 tags:
   - Leetcode

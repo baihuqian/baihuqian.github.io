@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Random Pick Index
+title: "Leetcode 398: Random Pick Index"
 date: '2018-09-04 22:54'
 tags:
   - Leetcode
