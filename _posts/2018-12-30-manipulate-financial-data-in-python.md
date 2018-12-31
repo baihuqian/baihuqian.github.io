@@ -1,18 +1,22 @@
 ---
-layout: "post"
-title: "Manipulate Financial Data in Python"
-date: "2018-12-20 22:36"
+layout: post
+title: Manipulate Financial Data in Python
+date: '2018-12-30 20:22'
+tags:
+ - Finance
 ---
 
+This is the notes for mini course 1 of [Machine Learning for Trading](https://classroom.udacity.com/courses/ud501), offered by Udacity.
+
 # Reading in a CSV file
-You can read in the contents of a CSV (comma-separated values) file into a Pandas dataframe using: `df = [pd.read_csv(<filename>)](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html)`. This creates a dataframe with default index. To specify which column should be treated as the index, specify the optional parameter `index_col=<column_name>`.
+You can read in the contents of a CSV (comma-separated values) file into a Pandas dataframe using: [`df = pd.read_csv(<filename>)`](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html). This creates a dataframe with default index. To specify which column should be treated as the index, specify the optional parameter `index_col=<column_name>`.
 
 Selecting rows from a dataframe:
 * First 5 rows: `df.head()`
 * Last 5 rows: `df.tail()`. Similarly, last n rows: `df.tail(n)`.
 * Slicing: `df[start:end]` in which `end` is exclusive.
 
-Selecting a column: `df[<column_name>]` <column_name> is a string. To select multiple columns, use `df[[col1, col2, ...]]`. It can be combined with slicing by rows: `df.ix[start:end, [col1, col2, ...]]`.
+Selecting a column: `df[<column_name>]` `<column_name>` is a string. To select multiple columns, use `df[[col1, col2, ...]]`. It can be combined with slicing by rows: `df.ix[start:end, [col1, col2, ...]]`.
 
 For more information regarding slicing data, refer to [pandas documentation on "Indexing and Selecting Data"](http://pandas.pydata.org/pandas-docs/stable/indexing.html).
 
@@ -225,3 +229,117 @@ plt.show()
 ```
 
 Note that $$\beta$$ is not the same as correlation. Higher correlation is indicated by the tighter correlations between the fitted line and the points. You can also compute the correlation among each column of the DataFrame using `df.corr()` method. It computes the Pearson correlation.
+
+# Portfolio Statistics
+You can compute the value of your portfolio as follows:
+
+```python
+start_val = 1000000 # start at $1 MM
+symbollist = ['SPY', 'XOM', 'GOOG', 'GLD']
+start_date = '2009-01-01'
+end_date = '2012-12-31'
+allocs = [0.4, 0.4, 0.1, 0.1]
+
+# Read stock data from portfolio
+idx = pd.date_range(start_date, end_date)
+df_data = get_data(symbollist, idx)
+
+# Normalize stock price
+normed = df_data / df_data.iloc[0]
+
+# Normalized price for each allocation
+alloced = normed * allocs
+
+# Position for each allocation
+pos_vals = alloced * start_val
+
+# Sum across columns (axis=1) to get the portfolio value
+port_val = pos_vals.sum(axis=1)
+```
+We can calculate the daily returns from the portfolio. Note that because the first value of daily returns is always 0, we would like to exclude that. You can do so by `daily_rets = daily_rets[1:]`. Some useful statistics are:
+* Cumulative return: `port_val[-1] / port_val[0] - 1`;
+* average daily return: `daily_rets.mean()`;
+* standard deviation of daily return: `daily_rets.std()`;
+* Sharpe ratio.
+
+Sharpe ratio quantifies risk adjusted return. Sharpe ratio is $$S = \frac{E[R_p-R_f]}{std[R_p-R_f]}$$, where $$R_p$$ is the return of the portfolio, $$R_f$$ is the risk-free rate. This is the *ex ante* form, meaning the forward-looking form. When computing Sharpe Ratio using historical data, the expectation is just the mean.
+
+Risk-free rate can be
+* LIBOR;
+* 3-month T-bill;
+
+which are usually in annual rate. To convert from annual rate to daily rate, the traditional short cut is $$\sqrt[252]{1+R_f} - 1$$. Mostly we can treat the daily return of the risk-free rate as a constant, thus Sharpe Ratio becomes $$S = \frac{E[R_p]-R_f}{std[R_p]}$$.
+
+Note, Sharpe Ratio can vary widely depending on the sample frequency. Traditionally, Sharpe ratio is an annual measure, so it must be normalized from other sampling frequency. The normalization factor is the square root of the number of samples per year. So the normalization factor is $$\sqrt{252}$$ for daily data, $$\sqrt{52}$$ for weekly data, and $$\sqrt{12}$$ for monthly data. Note that the normalization factor has nothing to do with number of samples.
+
+```python
+risk_free_rate = 0.0
+norm = sqrt(252) # Normalization factor
+mean = daily_returns.mean()
+std = daily_returns.std()
+sharpe_ratio = norm * (mean - risk_free_rate) / std
+```
+
+# Optimizers
+We can use [SciPy to minimize an objective function](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html).
+
+```python
+import scipy.optimize as spo
+# The objective function
+def f(X):
+    return (X - 1.5) ** 2 + 0.5
+
+Xguess = 2.0 # Provide an initial guess
+min_result = spo.minimize(f, Xguess, method='SLSQP', options={'disp': True})
+print("X = {}, Y = {}".format(min_result.x, min_result.fun))
+```
+
+From a given data set, we can build a parameterized model that fits the data. We need to define an error function for which the minimizer can minimize. For example, to fit a line (i.e. first-order polynomial) to a data set, we can:
+
+```python
+# Define the error function
+def error(line, data):
+    err = np.sum((data[:, 1] - (line[0] * data[:, 0] + line[1])) ** 2)
+    return err
+
+def fit_line(data, error_func):
+    # initial guess
+    l = np.float32([0, np.mean(data[:, 1])]) # a horizontal line
+
+    # minimize
+    result = spo.minimize(error_func, l, args=(data,), method = "SLSQP", options={'disp': True})
+    return result.x
+```
+
+Portfolio optimization aims to find the best allocation from a given set of assets and time period, using some criteria such as
+* Cumulative return;
+* Minimum volatility;
+* Sharpe Ratio.
+
+Cumulative return and volatility are easy to optimize, just allocate all investments into the asset with the best cumulative return or minimum volatility. Thus, we will optimize by Sharpe Ratio.
+
+So the optimization problem becomes: given an allocation $$X$$, find the optimal value that minimizes $$-S$$ (negation of Sharpe Ratio). To improve the performance of the optimizer, we can provide ranges and constraints. In this case, we have:
+* Range: $$0\leq x_i\leq 1$$;
+* Constraint: properties of $$X$$ that must be `True`. In this case, $$\sum_i x_i = 1.0$$.
+
+For `spo.minimize()`, range can be expressed by a sequence of `(min, max)` pairs for each element in `x`. `None` is used to specify no bound. Constraints are more complicated, see the documentation.
+
+```python
+# Initial guess
+allocs = np.asarray([1.0 / len(syms) for _ in syms])
+
+# Optimization function: negation of Sharpe Ratio
+def optimization_func(alloc):
+    daily_returns = compute_daily_returns(portfolio_value(alloc, normed_prices))
+    return -1 * sharpe_ratio(daily_returns)
+
+# Each allocation must be 0.0 <= x <= 1.0
+bounds = [(0.0, 1.0) for _ in syms]
+
+# Sum of the allocation must equal to 1.0
+# The lambda function must return 0 when True
+constraint = {'type': 'eq', 'fun': lambda alloc: 1.0 - alloc.sum()}
+result = spo.minimize(optimization_func, allocs, method='SLSQP', options={'disp': True}, bounds=bounds, constraints=constraint)
+allocs = result.x
+
+```

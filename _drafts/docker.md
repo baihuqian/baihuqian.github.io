@@ -6,6 +6,8 @@ date: "2018-04-16 00:18"
 
 {:toc}
 
+这是我学习《Docker —— 从入门到实践》一书的笔记。书的内容可以在 [gitbook](https://legacy.gitbook.com/book/yeasy/docker_practice/details) 上找到。
+
 # 什么是Docker
 Docker是一个开源项目，诞生于2013年初，最初是dotCloud公司内部的一个业余项目，用Go语言实现。
 
@@ -16,19 +18,19 @@ Docker的优点：
 * 资源占用少，一台主机可以运行数千个Docker容器。
 * Overhead低。容器除了运行其中应用外，基本不消耗额外的系统资源。
 
-Docker的优势：
+Docker的优势： \
 * 更快的交付和部署。一次开发可以在任何地方运行。
 * 更高的运行效率。
 * 更轻松的迁移和扩展。Docker容器可以在几乎所有的平台上运行。
 * 更简单的管理。所有的修改都以增量的方式分发和更新。
 
-Docker分成两部分：Docker engine（daemon）和可以从命令行访问的客户端工具。Docker engine提供了Docker Remote API(REST)，而命令行上的docker命令则是通过访问API来实现操作的。
+Docker分成两部分：Docker engine (daemon) 和可以从命令行访问的客户端工具。Docker engine提供了Docker Remote API (REST)，而命令行上的docker命令则是通过访问API来实现操作的。
 
 ## Docker Image
 镜像是一个只读的模板。镜像可以用来创建Docker容器。镜像的ID唯一地标识了镜像。如果两个镜像Tag指向同一个ID则说明它们是一样的。Docker运行容器前需要本地存在对应的镜像。如果不存在则会从镜像仓库下载（默认Docker Hub）。
 
 * 从仓库获取镜像：`docker pull (<registry_url>)/<repo_name>:<tag>`。如果Registry被省略，默认的Docker Registry会被使用。在获取一个镜像的同时，所有的依赖层都会被获取。
-* 显示本地镜像：`docker images`。默认（未指定）的标记为latest。该命令有强大的查找功能，使用`--filter`或者`-f`。输出结果可以使用Go的模板语法，例如：`docker images --format "{{.ID}}:{{.Repository}}`。
+* 显示本地镜像：`docker images`。默认（未指定）的标记为latest。该命令有强大的查找功能，使用`--filter`或者`-f`。输出结果可以使用Go的模板语法，例如：{% raw  %}`docker images --format "{{.ID}}:{{.Repository}}`{% endraw %}。
 * 在仓库中共享镜像：`docker push`.
 * 显示镜像的历史纪录：`docker history <标签>`
 

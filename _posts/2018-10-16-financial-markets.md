@@ -2,6 +2,8 @@
 layout: "post"
 title: "Financial Markets"
 date: "2018-10-16 20:57"
+tags:
+ - Finance
 ---
 
 This is the note series I took when studying for [Financial Markets](https://www.coursera.org/learn/financial-markets-global/home/welcome) by Prof. Robert Shiller, offered by Coursera.
