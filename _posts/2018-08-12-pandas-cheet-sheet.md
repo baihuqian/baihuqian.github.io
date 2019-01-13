@@ -2,6 +2,8 @@
 layout: "post"
 title: "Pandas Cheet Sheet"
 date: "2018-08-12 22:11"
+tags:
+ - Finance
 ---
 
 

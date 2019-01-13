@@ -8,6 +8,9 @@ tags:
 
 This is the notes for mini course 1 of [Machine Learning for Trading](https://classroom.udacity.com/courses/ud501), offered by Udacity.
 
+* TOC
+{:toc}
+
 # Reading in a CSV file
 You can read in the contents of a CSV (comma-separated values) file into a Pandas dataframe using: [`df = pd.read_csv(<filename>)`](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html). This creates a dataframe with default index. To specify which column should be treated as the index, specify the optional parameter `index_col=<column_name>`.
 

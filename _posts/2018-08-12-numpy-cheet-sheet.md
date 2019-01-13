@@ -2,13 +2,14 @@
 layout: "post"
 title: "Numpy Cheet Sheet"
 date: "2018-08-12 22:17"
+tags:
+ - Finance
 ---
 
-NumPy is the library that gives Python its ability to work with data at speed.
-Originally, launched in 1995 as 'Numeric,' NumPy is the foundation on which
-many important Python data science libraries are built, including Pandas,
-SciPy and scikit-learn.
+NumPy is the library that gives Python its ability to work with data at speed. Originally, launched in 1995 as 'Numeric,' NumPy is the foundation on which
+many important Python data science libraries are built, including Pandas, SciPy and scikit-learn.
 
+* TOC
 {:toc}
 
 ## Key and Imports
@@ -20,9 +21,9 @@ In this cheat sheet, we use the following shorthand:
 You'll also need to import numpy to get started:
 
 
-
-    import numpy as np
-
+```python
+import numpy as np
+```
 
 ## Importing/exporting
 
@@ -32,7 +33,7 @@ You'll also need to import numpy to get started:
 `np.savetxt('file.csv',arr,delimiter=',')` | Writes to a CSV file
 
 ## Creating Arrays
-
+`np.empty((1, 2))` | create an empty `1`x`2` array. The value at each position is uninitialized (random value depending on the memory location).
 `np.array([1,2,3])` | One dimensional array. Keyword argument `dtype` converts elements into specified type.
 `np.array([(1,2,3),(4,5,6)])` | Two dimensional array  
 `np.zeros(3)` | 1D array of length `3` all values `0`  
