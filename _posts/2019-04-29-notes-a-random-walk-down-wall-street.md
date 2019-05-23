@@ -1,7 +1,9 @@
 ---
-layout: "post"
+layout: post
 title: "Notes: A Random Walk Down Wall Street: The Time-Tested Strategy for Successful Investing"
-date: "2019-04-14 21:35"
+date: '2019-04-29 21:10'
+tags:
+ - Finance
 ---
 
 I view investing as a method of purchasing assets to gain profit in the form of reasonably predictable income (dividends, interest, or rentals) and/or appreciation over the long term.
@@ -24,35 +26,23 @@ The first principle of technical analysis is that all information about earnings
 
 The technician is interested only in the record of the stock’s price, whereas the fundamentalist’s primary concern is with what a stock is really worth.
 
-Determinant 1: The expected growth rate.
-
-Rule 1: A rational investor should be willing to pay a higher price for a share the larger the growth rate of dividends and earnings. To this is added an important corollary: Corollary to Rule 1: A rational investor should be willing to pay a higher price for a share the longer an extraordinary growth rate is expected to last.
-
-Determinant 2: The expected dividend payout.
-
-Rule 2: A rational investor should pay a higher price for a share, other things equal, the larger the proportion of a company’s earnings paid out in cash dividends or used to buy back stock.
-
-Determinant 3: The degree of risk.
-
-Rule 3: A rational (and risk-averse) investor should pay a higher price for a share, other things equal, the less risky the company’s stock.
-
-Determinant 4: The level of market interest rates.
-
-Rule 4: A rational investor should pay a higher price for a share, other things equal, the lower the interest rates.
-
-Caveat 1: Expectations about the future cannot be proven in the present.
-
-Caveat 2: Precise figures cannot be calculated from undetermined data.
-
-Caveat 3: What’s growth for the goose is not always growth for the gander.
+* Determinant 1: The expected growth rate.
+* Rule 1: A rational investor should be willing to pay a higher price for a share the larger the growth rate of dividends and earnings. To this is added an important corollary: Corollary to Rule 1: A rational investor should be willing to pay a higher price for a share the longer an extraordinary growth rate is expected to last.
+* Determinant 2: The expected dividend payout.
+* Rule 2: A rational investor should pay a higher price for a share, other things equal, the larger the proportion of a company’s earnings paid out in cash dividends or used to buy back stock.
+* Determinant 3: The degree of risk.
+* Rule 3: A rational (and risk-averse) investor should pay a higher price for a share, other things equal, the less risky the company’s stock.
+* Determinant 4: The level of market interest rates.
+* Rule 4: A rational investor should pay a higher price for a share, other things equal, the lower the interest rates.
+* Caveat 1: Expectations about the future cannot be proven in the present.
+* Caveat 2: Precise figures cannot be calculated from undetermined data.
+* Caveat 3: What’s growth for the goose is not always growth for the gander.
 
 ## On Selecting Stocks
 
-Rule 1: Buy only companies that are expected to have above-average earnings growth for five or more years.
-
-Rule 2: Never pay more for a stock than its firm foundation of value. Look for growth situations with low price-earnings multiples. If the growth takes place, there’s often a double bonus—both the earnings and the multiple rise, producing large gains. Beware of very high multiple stocks in which future growth is already discounted. If growth doesn’t materialize, losses are doubly heavy—both the earnings and the multiples drop.
-
-Rule 3: Look for stocks whose stories of anticipated growth are of the kind on which investors can build castles in the air.
+* Rule 1: Buy only companies that are expected to have above-average earnings growth for five or more years.
+* Rule 2: Never pay more for a stock than its firm foundation of value. Look for growth situations with low price-earnings multiples. If the growth takes place, there’s often a double bonus—both the earnings and the multiple rise, producing large gains. Beware of very high multiple stocks in which future growth is already discounted. If growth doesn’t materialize, losses are doubly heavy—both the earnings and the multiples drop.
+* Rule 3: Look for stocks whose stories of anticipated growth are of the kind on which investors can build castles in the air.
 
 The technician believes that knowledge of a stock’s past behavior can help predict its probable future behavior. In other words, the sequence of price changes before any given day is important in predicting the price change for that day. The results reveal that past movements in stock prices cannot be used reliably to foretell future movements.
 
@@ -154,11 +144,15 @@ Over short holding periods, there is some evidence of momentum in the stock mark
 
 All “smart beta” strategies represent active management rather than indexing.
 
-## On Investment Vehicles
+## On Investment Portfolios
 
 The most important driver in the growth of your assets is how much you save.
 
 A specific need must be funded with specific assets dedicated to that need.
+
+Perhaps the most important question to ask yourself is how you felt during a period of sharply declining stock markets. If you became physically ill and even sold out all your stocks rather than staying the course with a diversified investment program, then a heavy exposure to common stocks is not for you.
+
+A second key step is to review how much of your investment return goes to Uncle Sam and how much current income you need.
 
 ### Insurance
 
@@ -166,13 +160,13 @@ Assuming that you are protected by medical and disability insurance at work, thi
 
 For individuals, home and auto insurance are a must. So is health and disability insurance. Life insurance to protect one’s family from the death of the breadwinner(s) is also a necessity. Two broad categories of life insurance products are available: high-premium policies that combine insurance with an investment account, and low-premium term insurance that provides death benefits only, with no buildup of cash value. For most people, I therefore favor the do-it-yourself approach. Buy term insurance for protection and invest the difference yourself in a tax-deferred retirement plan. My advice is to buy renewable term insurance; you can keep renewing your policy without the need for a physical examination. So-called decreasing term insurance, renewable for progressively lower amounts, should suit many families best, because as time passes (and the children and family resources grow), the need for protection usually diminishes.
 
-I would avoid buying variable-annuity products, especially the high-cost products offered by insurance salespeople. A deferred variable annuity is essentially an investment product (typically a mutual fund) with an insurance feature. A deferred variable annuity is essentially an investment product (typically a mutual fund) with an insurance feature. The insurance feature stipulates that if you die and the value of the investment fund has fallen below the amount you put in, the insurance company will pay back your full investment. The only reason you should even consider a variable annuity is if you are super wealthy and have maxed out on all the other tax-deferred savings alternatives. And even then you should purchase such an annuity directly from one of the low-cost providers such as the Vanguard Group.
+I would avoid buying variable-annuity products, especially the high-cost products offered by insurance salespeople. A deferred variable annuity is essentially an investment product (typically a mutual fund) with an insurance feature. The insurance feature stipulates that if you die and the value of the investment fund has fallen below the amount you put in, the insurance company will pay back your full investment. The only reason you should even consider a variable annuity is if you are super wealthy and have maxed out on all the other tax-deferred savings alternatives. And even then you should purchase such an annuity directly from one of the low-cost providers such as the Vanguard Group.
 
 ### Fixed-Income
 
 Money-market mutual funds often provide investors the best instrument for parking their cash reserves. They combine safety and the ability to write large checks against your fund balance, generally in amounts of at least $250.
 
-T-bills offer an advantage over money-market funds and bank CDs in that their income is exempt from state and local taxes. In addition, T-bill yields are often higher than those of money-market funds. For information on purchasing T-bills directly, go to www.treasurydirect.gov.
+T-bills offer an advantage over money-market funds and bank CDs in that their income is exempt from state and local taxes. In addition, T-bill yields are often higher than those of money-market funds. For information on purchasing T-bills directly, go to [www.treasurydirect.gov](www.treasurydirect.gov).
 
 You take advantage of every opportunity to make your savings tax-deductible and to let your savings and investments grow tax-free.
 
@@ -180,21 +174,19 @@ My advice is to save as much as you can through these tax-sheltered means.
 
 “529” college savings accounts allow parents and grandparents to give gifts to children that can later be used for college education. Moreover, as of 2014, the plans allow an individual donor to contribute as much as $70,000 to a 529 plan without gift taxes and without reducing estate tax credits. - 529 plans are sanctioned by individual states, and some states allow you to take a tax deduction on your state income tax return for at least part of your contribution. If your state does not allow a tax deduction, choose a plan from a low-expense state such as Utah.
 
-In my view, there are four kinds of bond purchases that you may want especially to consider: (1) zero-coupon bonds (which allow you to lock in yields for a predetermined length of time); (2) no-load bond mutual funds (which permit you to buy shares in bond portfolios); (3) tax-exempt bonds and bond funds (for those who are fortunate enough to be in high tax brackets); and (4) U.S. Treasury inflation-protection securities (TIPS). These securities are called zero coupons or simply zeros because owners receive no periodic interest payments, as they do in a regular interest-coupon-paying bond. Instead, these securities are purchased at discounts from their face value (for example, 75 cents on the dollar) and gradually rise to their face or par values over the years. Zero coupon bonds are excellent vehicles for putting money aside for required expenditures on specific future dates.
+In my view, there are four kinds of bond purchases that you may want especially to consider:
+1. zero-coupon bonds (which allow you to lock in yields for a predetermined length of time). These securities are called zero coupons or simply zeros because owners receive no periodic interest payments, as they do in a regular interest-coupon-paying bond. Instead, these securities are purchased at discounts from their face value (for example, 75 cents on the dollar) and gradually rise to their face or par values over the years. Zero coupon bonds are excellent vehicles for putting money aside for required expenditures on specific future dates.
+2. no-load bond mutual funds (which permit you to buy shares in bond portfolios).
+3. tax-exempt bonds and bond funds (for those who are fortunate enough to be in high tax brackets).
+4. U.S. Treasury inflation-protection securities (TIPS). TIPS are far from ideal for taxable investors and are best used only in tax-advantaged retirement plans.
 
 If you buy bonds directly (rather than indirectly through mutual funds), I suggest that you buy new issues rather than already outstanding securities.
-
-Thus, TIPS are far from ideal for taxable investors and are best used only in tax-advantaged retirement plans.
 
 Inflation is the deadly enemy of the bond investor.
 
 ### Real Estate
 
 I believe that real estate investment trusts (REITs) deserve a position in a well-diversified investment portfolio.
-
-Perhaps the most important question to ask yourself is how you felt during a period of sharply declining stock markets. If you became physically ill and even sold out all your stocks rather than staying the course with a diversified investment program, then a heavy exposure to common stocks is not for you.
-
-A second key step is to review how much of your investment return goes to Uncle Sam and how much current income you need.
 
 A good house on good land keeps its value no matter what happens to money. As long as the world’s population continues to grow, the demand for real estate will be among the most dependable inflation hedges available.
 
