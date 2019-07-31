@@ -2,7 +2,11 @@
 layout: post
 title: 4年AWS工作总结：从 college hire 到 senior 的一点总结
 date: '2019-04-14 20:13'
+tags:
+ - Career
 ---
+
+本文首发于[一亩三分地](https://www.1point3acres.com/bbs/thread-507474-1-1.html)，本人为原作者。未经许可请勿转载。
 
 ## 新入职场，如何摆脱学生思维
 加入 AWS是我的第一份工作。之前因为一直准备出国，并且在 PhD program 里，所以一直以来从来没有实习过。我很幸运地快速认识到了学生和工作的不同：
