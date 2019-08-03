@@ -7,6 +7,8 @@ tags:
 published: true
 ---
 
+This is the notes for [Introduction to Operating Systems](https://classroom.udacity.com/courses/ud923), offered by Udacity.
+
 * TOC
 {:toc}
 
