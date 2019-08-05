@@ -1,7 +1,8 @@
 ---
-layout: "post"
-title: "Udacity Compiler Course"
-date: "2019-08-03 14:32"
+layout: post
+title: Udacity Compiler Course
+date: '2019-08-03 14:32'
+published: true
 ---
 
 This is the notes I took for [Compilers: Theory and Practice](https://classroom.udacity.com/courses/ud168), offered by Udacity.
@@ -47,3 +48,29 @@ Semantic analysis includes looking up variable name. Visible variable names are 
 Scanner takes a file as input and processes it character-by-character using a token buffer. Scanner reads characters into the token buffer until the next character no longer satisfies the lexical rules of the language, and a valid token is found. This process is called longest matching algorithm and it is used by all the scanners.
 
 ## Parser
+Parser is the center of the front end, it controls the overall operation.
+
+Parsing depends on the grammar rules. The following example illustrates grammar rules of a simplified `main` function of C:
+
+```
+<C-PROG> ➝ MAIN OPENPAR <PARAMS> CLOSEPAR <MAIN-BODY> // Every C program must start with a main function
+<PARAMS> ➝ NULL // PARAMS can be NULL
+<PARAMS> ➝ VAR <VARLIST> // PARAMS can be a single VAR, or a single VAR followed by a VARLIST
+<VARLIST> ➝ , VAR <VARLIST> // VARLIST is comma-separated VARs followed by NULL
+<VARLIST> ➝ NULL
+<MAIN-BODY> ➝ CURLYOPEN <DECL-STMT> <ASSIGN-STMT> CURLYCLOSE
+<DECL-STMT> ➝ <TYPE> VAR <VARLIST>;
+<ASSIGN-STMT> ➝ VAR = <EXPR>;
+<EXPR> ➝ VAR
+<EXPR> ➝ VAR <OP> <EXPR>
+<OP> ➝ +
+<OP> ➝ -
+<TYPE> ➝ INT
+<TYPE> ➝ FLOAT
+```
+
+Note that the grammar rule does not specify everything about a language, e.g. type restrictions, and it is up to semantic checks. The reason is that parsing is context *insensitive* but semantic analysis is context *sensitive*. It is more expensive to perform semantic analysis than parsing.
+
+Parser works by matching tokens with rules. When match takes place at certain position, move further (get next token & repeat). If expansion needs to be done, choose appropriate rule. If no rule found, declare error. If several rules found, the grammar (set of rules) is ambiguous, and well-designed grammar rules should not be ambiguous.
+
+Expansion determines how parts in `<>` get interpreted as they have multiple ways of matches.
