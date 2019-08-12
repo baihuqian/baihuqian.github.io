@@ -53,7 +53,7 @@ Parser is the center of the front end, it controls the overall operation.
 Parsing depends on the grammar rules. The following example illustrates grammar rules of a simplified `main` function of C:
 
 ```
-<C-PROG> ➝ MAIN OPENPAR <PARAMS> CLOSEPAR <MAIN-BODY> // Every C program must start with a main function
+<C-PROG> ➝ MAIN OPENPAR <PARAMS> CLOSEPAR <MAIN-BODY> // <C-PROG> is the start symbol. Every C program must start with a main function
 <PARAMS> ➝ NULL // PARAMS can be NULL
 <PARAMS> ➝ VAR <VARLIST> // PARAMS can be a single VAR, or a single VAR followed by a VARLIST
 <VARLIST> ➝ , VAR <VARLIST> // VARLIST is comma-separated VARs followed by NULL
@@ -74,3 +74,44 @@ Note that the grammar rule does not specify everything about a language, e.g. ty
 Parser works by matching tokens with rules. When match takes place at certain position, move further (get next token & repeat). If expansion needs to be done, choose appropriate rule. If no rule found, declare error. If several rules found, the grammar (set of rules) is ambiguous, and well-designed grammar rules should not be ambiguous.
 
 Expansion determines how parts in `<>` get interpreted as they have multiple ways of matches.
+
+### Ambiguity
+Ambiguity can lead to understanding a given sentence in two different ways, which allows assigning two meanings to the same sentence, something highly undesirable. It is up for the language designers to remove ambiguity in the language syntax.
+
+## Semantic Analysis
+### Symbol Table
+The symbol table shows us what are the different values which are declared and available in the current scope. Most of languages are block-based, which means declaration available in the current scope is also available in inner scopes unless they are redeclared.
+
+A basic symbol table contains the name and the type of variables as well as the scope in which they are available. Semantic analysis then look up symbols to see if they are declared and to determine the types of them.
+
+### Semantic Actions
+There are the many types of semantic actions. Some examples include:
+1. Enter variable declaration into the symbol table;
+2. Look up variables in the symbol table;
+3. Do binding analysis of looked-up variables based on scoping rules. From the innermost scope upward, find the variable declaration and bind the variable to it.
+4. Type checking for compatibility;
+5. Keep the semantic context of processing. When a subexpression is checked, the subexpression itself has a type. This process keeps track of the type for further checks that the subexpression participates. For example, expression `a + b + c` can be broken down into subexpression `t1 = a + b` and `t2 = t1 + c`. The process keeps track of the type of `t1` and `t2` when they are processed.
+
+They can be largely grouped into two categories:
+1. Checking: binding, type compatibility, scoping, etc.
+2. Translation: generate temporary values, propagate them to keep semantic context.
+
+A simple way of implementing semantic analysis is to embed action symbols in the grammar. An *action symbol* is to tell us about a *semantic procedure* which is being triggered at that particular point during parsing. Semantic procedures contains semantic actions and return values. Semantic procedures are called by the parser at appropriate places during parsing. *Semantic stack* can be used to implement and store semantic records.
+
+Semantic actions can be embedded in the grammar like this:
+
+```
+<decl-stmt> ➝ <type>#put-type<varlist>#do-decl
+<type> ➝ int | float
+<varlist> ➝ <var>#add-decl <varlist>
+<varlist> ➝ <var>#add-decl
+<var> ➝ ID#proc-decl
+#put-type puts given type on semantic stack
+#proc-decl builds decl record for var on stack
+#add-decl builds decl-chain
+#do-decl traverses chain on semantic stack using backwards pointers entering each var into symbol table
+```
+
+Declaration chain means all related variables are of the same type defined in `put-type`.
+
+# RegEx Det. Finite Automata
