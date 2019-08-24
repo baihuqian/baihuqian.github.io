@@ -114,4 +114,60 @@ Semantic actions can be embedded in the grammar like this:
 
 Declaration chain means all related variables are of the same type defined in `put-type`.
 
-# RegEx Det. Finite Automata
+# Regular Expression and Deterministic Finite Automata
+Scanner performs lexical analysis, which reads input one character a time, group characters into tokens, remove whitespaces and comments, and encode token types and form tuples of `<token-type, value>` and return to parser.
+
+Lexical analysis is based on lexical rules, which determines how to form legal strings. They are expressed using regular expression `r` and its language `L(r)`, and analyzed with finite automata, a type of state machine.
+
+## Regular Expression
+A symbol is a valid character in a language, and alphabet, $$\Sigma$$, is the set of legal symbols.
+
+Regular expression contains metacharacters/metasymbols that have special meanings:
+* defining reg-ex operations (e.g. `|`, `(`, `)`, `*`, `+`, etc.)
+* Escape character `\` to turn off special meanings
+* Empty string $$\epsilon$$ and empty set $$\phi=\{\}$$
+
+Basic regular expression operations include
+* Alternation, denoted by `a | b`,
+* Concatenation， denoted by `ab`,
+* Repetition (Kleen closure, 0 or more times) `a*`.
+
+The precedence is repetition > concatenation > alternation. Parentheses can be used to change precedence.
+
+Unix-style regular expressions introduces shorthands to simplify regular expressions.
+* `.` denotes any character in the alphabet
+* `[]` denotes a character class, allowing range (e.g. `[a-d]`) and complement (e.g. `[^1-3]`)
+* `+` repeat one or more times
+* `?` optional (zero or one time)
+* `^` and `$` denote beginning and end of line
+
+We can use regular expression to specify valid tokens. For example,
+* `[0-9][0-9]*` is unsigned integer, and `(+|-)?[0-9][0-9]*` is signed integer.
+* `[+|-]?[0-9]+(\.[0-9]*)?([eE][+|-]?[0-9]+)?` is floating point number.
+
+## Deterministic Finite Automata
+Deterministic Finite Automata (DFA) is a state machine *without ambiguity* (the behavior of the machine is repeatable using the same string).
+* Deterministic means the machine is in a state. Upon receipt of a symbol, it will go to a unique state.
+* Finite: have a finite number of states.
+* Automata: it is a self-operating machine.
+
+A language is called a **regular language** if some finite automaton *recognizes* it.
+
+An example of DFA is below:
+
+![Alt text]({{ "/assets/posts/udacity-compiler-course/DFA.png" | absolute_url }})
+
+* There are two types state, rejecting state (single circle) and accepting state (double circle), meaning to accept or reject the string if the automaton ends in it.
+* The incoming arrow indicates the start state.
+
+The formal definition of DFA: a DFA consists of:
+1. Alphabet $$\Sigma$$;
+2. A set of states $$Q$$;
+3. A transition function $$\delta: Q \times \Sigma \rightarrow \Sigma$$;
+4. One start state $$q_0$$;
+5. One or more accepting states: $$F \subseteq Q$$.
+
+The language accepted by a DFA is the set of strings such that the DFA ends at an accepting state.
+* Each string is $$c_1c_2...c_n$$ with $$c_i \in \Sigma$$;
+* States are $$q_i = \delta(q_{i-1}, c_i)$$ for $$i = 1, ..., n$$;
+* $$q_n$$ is an accepting state.
