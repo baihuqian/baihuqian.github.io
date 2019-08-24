@@ -587,6 +587,21 @@ footer .theme-by {
   }
 }
 
+/* Table of Content */
+#markdown-toc::before {
+    content: "Contents";
+    font-weight: bold;
+}
+#markdown-toc ul {
+    list-style: decimal;
+}
+#markdown-toc {
+    border: 1px solid #aaa;
+    padding: 1.5em;
+    list-style: decimal;
+    display: inline-block;
+}
+
 /* --- Pager --- */
 
 .pager li a {
@@ -785,4 +800,13 @@ pre {
   color: #808080;
   font-style: italic;
   font-size: 16px;
+}
+
+/* Search input */
+#search-input {
+    display: inline-block;
+    padding: .7em;
+    width: 100%;
+    font-size: 18px;
+    box-sizing: border-box;
 }
