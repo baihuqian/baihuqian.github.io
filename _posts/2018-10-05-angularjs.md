@@ -15,6 +15,7 @@ AngularJS modules define AngularJS applications. AngularJS controllers control A
 
 This reference is the summary of [W3School's Angular tutorial](https://www.w3schools.com/angular/default.asp).
 
+* TOC
 {:toc}
 
 # Directives
