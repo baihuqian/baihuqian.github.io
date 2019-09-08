@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'Secure Home Networking: Isolating Connected Devices with VLAN'
+title: 'Secure Home Network - Isolating Connected Devices with VLAN'
 date: '2019-09-02 23:24'
 tags:
  - Networking
