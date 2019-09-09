@@ -114,7 +114,7 @@ Semantic actions can be embedded in the grammar like this:
 
 Declaration chain means all related variables are of the same type defined in `put-type`.
 
-# Regular Expression and Deterministic Finite Automata
+# Lexical Analysis
 Scanner performs lexical analysis, which reads input one character a time, group characters into tokens, remove whitespaces and comments, and encode token types and form tuples of `<token-type, value>` and return to parser.
 
 Lexical analysis is based on lexical rules, which determines how to form legal strings. They are expressed using regular expression `r` and its language `L(r)`, and analyzed with finite automata, a type of state machine.
@@ -145,7 +145,7 @@ We can use regular expression to specify valid tokens. For example,
 * `[0-9][0-9]*` is unsigned integer, and `(+|-)?[0-9][0-9]*` is signed integer.
 * `[+|-]?[0-9]+(\.[0-9]*)?([eE][+|-]?[0-9]+)?` is floating point number.
 
-## Deterministic Finite Automata
+## Deterministic Finite Automata (DFA)
 Deterministic Finite Automata (DFA) is a state machine *without ambiguity* (the behavior of the machine is repeatable using the same string).
 * Deterministic means the machine is in a state. Upon receipt of a symbol, it will go to a unique state.
 * Finite: have a finite number of states.
@@ -171,3 +171,123 @@ The language accepted by a DFA is the set of strings such that the DFA ends at a
 * Each string is $$c_1c_2...c_n$$ with $$c_i \in \Sigma$$;
 * States are $$q_i = \delta(q_{i-1}, c_i)$$ for $$i = 1, ..., n$$;
 * $$q_n$$ is an accepting state.
+
+## Nondeterministic Finite Automata (NFA)
+Nondeterministic Finite Automaton (NFA) differs from DFA in three ways:
+1. Same input may produce multiple parts;
+2. Allows transition with an empty string. $$q_1$$ can transition into $$q_2$$ on empty string $$\epsilon$$, also knows as "cloning".
+3. Transition from one state to several different states on a given character. In other words, the NFA clones itself and operates from different states on a given character.
+
+The NFA starts in the start state. When encountering transitions on $$\epsilon$$ or multiple transitions on the same character, it clones itself. If no legal transition from the state on the incoming alphabet, the machine dies. If one copy of the NFA ends an accepting state, then the NFA accepts the string.
+
+The formal definition of NFA: a NFA consists of:
+1. Alphabet $$\Sigma$$;
+2. A set of states $$Q$$;
+3. A transition function $$\delta: Q \times \Sigma_\epsilon \rightarrow P(Q)$$ where $$\Sigma_\epsilon = \Sigma \cup \{\epsilon\}$$ and $$P(Q)$$ is the power set of $$Q$$;
+4. One start state $$q_0$$;
+5. One or more accepting states: $$F \subseteq Q$$.
+
+The only difference between DFA and NFA is the definition of the transition function.
+
+The language accepted by a NFA is the set of strings such that the NFA ends at an accepting state.
+* Each string is $$c_1c_2...c_n$$ with $$c_i \in \Sigma_\epsilon$$;
+* States are $$q_i \in \delta(q_{i-1}, c_i)$$ for $$i = 1, ..., n$$;
+* $$q_n$$ contains an accepting state.
+
+## Relationship between DFA and NFA
+>Theorem: For every language L accepted by an NFA, there is a DFA that accepts L.
+
+In other words, DFA and NFA are equivalent computational models. The proof idea is to combine the set of states in an NFA that a substring can reach and produce a corresponding state in the DFA. By iterating through the string, we can produce a corresponding DFA from the NFA.
+
+## Closure
+> Closure property: certain operations performed on languages in a class will produce results in the same class.
+
+Regular languages are closed under regular operations:
+* Union:
+
+$$L_1 \cup L_2=\{x|x\in L_1 \,\textrm{or}\, x\in L_2\}$$
+
+* Concatenation:
+
+$$L_1 \dot L_2=\{xy|x\in L_1 \,\textrm{and}\, y\in L_2\}$$
+
+* Star/repetition:
+
+$$L_1*=\{x_1...x_k|x_j\in L_1 \,\textrm{for all}\, 1\leq j\leq k, k \geq 0\}$$
+
+To prove operations are regular, assuming $$M_1$$ and $$M_2$$ are NFA for $$L_1$$ and $$L_2$$, respectively, we can construct a NFA $$M_3$$ such that $$L(M_3)$$ equals the result of the regular operations.
+
+* Union: Add a start state with $$\epsilon$$ transitions into either $$M_1$$ or $$M_2$$. Therefore, if a string is in $$L_1$$ then the clone to $$M_1$$ will end in accepting state.
+![Alt text]({{ "/assets/posts/udacity-compiler-course/closure-union.png" | absolute_url }})
+
+* Concatenation: Add $$\epsilon$$ transitions from accepting states in $$M_1$$ to the start state in $$M_2$$.
+![Alt text]({{ "/assets/posts/udacity-compiler-course/closure-concatenation.png" | absolute_url }})
+* Start: Add a new start state that is an accepting state (for empty string) with $$\epsilon$$ transition to the original start state, and add $$\epsilon$$ transitions from accepting states to the original start state.
+![Alt text]({{ "/assets/posts/udacity-compiler-course/closure-star.png" | absolute_url }})
+
+Therefore, we can use regular operations to construct larger NFAs from simple NFAs.
+
+Because a regular language has some DFA recognizes it, DFA can be converted from NFA, and NFA can be constructed from regular operations (i.e. regular expressions), we can conclude:
+
+> A language is regular **if and only if** some regular expression describes it.
+
+## Building Lexical Analysis
+To convert a language specification into code:
+* Write down the Regular Expression for the input language;
+* Build a big NFA;
+* Build the DFA that simulates the NFA;
+* Systematically shrink the DFA;
+* Turn it into code.
+
+### RE to NFA: Thompson's Construction
+Key idea:
+* Construct NFA patterns for each symbol and each operator. For example, the NFA for character `a` is as follows.
+![Alt text]({{ "/assets/posts/udacity-compiler-course/thompsons-construction-symbol.png" | absolute_url }})
+
+* Join them with $$\epsilon$$ moves by using the precedence order. For example, the NFAs for character `ab` and `a*` are as follows.
+![Alt text]({{ "/assets/posts/udacity-compiler-course/thompsons-construction-concatenation.png" | absolute_url }})
+![Alt text]({{ "/assets/posts/udacity-compiler-course/thompsons-construction-star.png" | absolute_url }})
+
+A more complex example of `(b|c)*`:
+![Alt text]({{ "/assets/posts/udacity-compiler-course/thompsons-construction-join.png" | absolute_url }})
+
+### NFA to DFA: Subset Construction
+Two key functions:
+* $$Move(s_i,\alpha)$$ is the set of states reachable from $$s_i$$ by $$\alpha$$.
+* $$\epsilon -closure(s_i)$$ is the set of states reachable from $$s_i$$ by $$\epsilon$$.
+
+The idea of the algorithm is
+1. Start state $$S_0$$ is derived from $$s_0$$ of the NFA: $$S_0=\epsilon-closure({s_0})$$.
+2. Take the image of $$S_0$$, $$Move(S_0,\alpha)$$ for each $$\alpha\in \Sigma$$, and take its $$\epsilon-closure$$.
+3. Iterate until no more states are added.
+
+The algorithm is
+![Alt text]({{ "/assets/posts/udacity-compiler-course/subset-construction-algo.png" | absolute_url }})
+
+Note:
+1. $$W$$ is the list of states to explore;
+2. $$T$$ is the transition function.
+
+A DFA state is an accepting state if its $$\epsilon$$-closure contains an NFA accepting state.
+
+Subset construction is an example of **fixed-point computation**:
+* *Monotone construction* of some finite set;
+* *Halts* when it stops adding to the set.
+
+### DFA Minimization
+The goal of DFA minimization is to reduce the size of the transition table.
+
+> Observation: Subset construction algorithm merges prefixes in the NFA.
+
+However, it does not merge suffixes. To do so, use subset construction twice.
+
+For an NFA $$N$$:
+* Let $$reverse(N)$$ be the NFA constructed by making initial state final (and vice versa) and reversing the edges.
+* Let $$subset(N)$$ be the DFA that results from applying the subset construction to $$N$$.
+* Let $$reachable(N)$$ be $$N$$ after removing all states that are not reachable from the initial state.
+
+Then
+
+$$reachable(subset(reverse(reachable(subset(reverse(N))))))$$
+
+is the minimal DFA that implements $$N$$. This essentially is to merge suffixes first and merge prefixes second by subset construction.
