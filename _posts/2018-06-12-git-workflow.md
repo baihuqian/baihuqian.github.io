@@ -2,8 +2,7 @@
 layout: post
 title: Everything about Git
 tags:
-  - Tool
-  - Learning
+  - Linux
 ---
 
 * TOC
@@ -83,10 +82,8 @@ This is similar to squash, but the commit to be merged has its message discarded
 This lets you run arbitrary shell commands against a commit.
 
 #### References
-[Reference 1](https://git-scm.com/book/en/v2/Git-Branching-Rebasing)
-
-[Reference 2](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)
-
+* [Reference 1](https://git-scm.com/book/en/v2/Git-Branching-Rebasing)
+* [Reference 2](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)
 
 ### More on Git Log
 `git log` supports many parameters. Most frequently used are:
@@ -106,7 +103,7 @@ It provides two level of commands:
 * Porcelain: user-friendly commands
 * Plumbing: low-level commands
 
-Git’s version database
+Git’s version database: 
 * Content addressable file system, a simple key-value data store
 * Key: SHA-1 hash (distinct)
 * Value: binary files:

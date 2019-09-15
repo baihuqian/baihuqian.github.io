@@ -1,9 +1,7 @@
 ---
 title: VIM Cheetsheet
 tags:
- - Learning
- - Computer Science
- - Tool
+  - Linux
 ---
 
 This is a quick-but-dirty cheet sheet of VIM.
@@ -112,8 +110,6 @@ Useful combination:
 * y - yank (copy) marked text
 * d - delete marked text
 * ~ - switch case
-
-
 
 # Exiting
 
