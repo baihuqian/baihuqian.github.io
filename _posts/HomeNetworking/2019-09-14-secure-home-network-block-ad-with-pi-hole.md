@@ -1,6 +1,6 @@
 ---
 layout: "post"
-title: "Secure Home Network: Block Ad and Tracking with Pi-Hole"
+title: "Secure Home Network - Block Ad and Tracking with Pi-Hole"
 date: "2019-09-14 23:08"
 tags:
  - Networking
