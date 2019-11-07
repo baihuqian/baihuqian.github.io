@@ -7,8 +7,12 @@
 
   <meta name="author" content="{{ site.author.name }}" />
 
-  {% if page.subtitle %}
-  <meta name="description" content="{{ page.subtitle }}">
+  {% if page.description %}
+  <meta property="description" content="{{ page.description }}">
+  {% elsif page.subtitle %}
+  <meta property="description" content="{{ page.subtitle }}">
+  {% else %}
+  <meta property="description" content="{{ page.content | strip_html | xml_escape | truncatewords: 50 }}">
   {% endif %}
 
   <link rel="alternate" type="application/rss+xml" title="{{ site.title }} {{ site.title-separator }} {{ site.description }}" href="{{ '/feed.xml' | absolute_url }}" />
@@ -66,8 +70,8 @@
   <meta property="og:title" content="{{ site.title }}" />
   {% endif %}
 
-   {% if page.meta-description %}
-  <meta property="og:description" content="{{ page.meta-description }}">
+  {% if page.description %}
+  <meta property="og:description" content="{{ page.description }}">
   {% elsif page.subtitle %}
   <meta property="og:description" content="{{ page.subtitle }}">
   {% else %}
@@ -105,8 +109,8 @@
   <meta name="twitter:title" content="{{ site.title }}" />
   {% endif %}
 
-  {% if page.meta-description %}
-  <meta name="twitter:description" content="{{ page.meta-description }}">
+  {% if page.description %}
+  <meta name="twitter:description" content="{{ page.description }}">
   {% elsif page.subtitle %}
   <meta name="twitter:description" content="{{ page.subtitle }}">
   {% else %}

@@ -18,11 +18,21 @@ use-site-title: true
 
 <!-- Configuration -->
 <script>
+const searchResultTemplate = `
+<div>
+  <a href="{url}">
+    <h2 class="post-title">{title}</h2>
+  </a>
+
+  <p class="post-meta">Posted on {date}</p>
+</div>
+`
+
 SimpleJekyllSearch({
   searchInput: document.getElementById('search-input'),
   resultsContainer: document.getElementById('results-container'),
   json: '/search.json',
-  searchResultTemplate: '<div><a href="{url}"><h2 class="post-title">{title}</h2><p class="post-meta">Posted on {date}</p></div>',
+  searchResultTemplate: searchResultTemplate,
   noResultsText: 'No results found!',
   limit: 20,
 })

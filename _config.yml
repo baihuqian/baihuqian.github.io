@@ -262,5 +262,5 @@ prose:
 
 plugins:
   - jekyll-paginate
-  - jekyll-seo-tag
-  - jekyll-sitemap
+  - jekyll-seo-tag # Create SEO tags
+  - jekyll-sitemap # Create the site map at /sitemap.xml

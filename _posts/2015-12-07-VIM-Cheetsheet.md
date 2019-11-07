@@ -1,10 +1,9 @@
 ---
 title: VIM Cheetsheet
+description: This is a quick-but-dirty cheet sheet of VIM.
 tags:
   - Linux
 ---
-
-This is a quick-but-dirty cheet sheet of VIM.
 
 # Normal Mode
 Note: Prefix a cursor movement command with a number to repeat it. For example, 4j moves down 4 lines.
