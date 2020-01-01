@@ -26,9 +26,20 @@ To install UniFi controller on AWS, refer to [this guide](https://help.ubnt.com/
 To install UNMS (Ubiquiti Network Management System) on the same instance, open the Security Group for port 80, 81 and 443, and follow [this guide](https://help.ubnt.com/hc/en-us/articles/115012196527). For more information about UNMS, [this GitHub wiki](https://github.com/Ubiquiti-App/UNMS/wiki) contains links to many help pages.
 
 
-## Adopt Devices
-Adopting UniFi APs from remote controller (those not in the same network as APs) can be challenging. Refer to [this guide](https://help.ubnt.com/hc/en-us/articles/204909754-UniFi-Device-Adoption-Methods-for-Remote-UniFi-Controllers) on instructions on how to discover devices.
+## Adopt UniFi Devices
+Adopting UniFi APs from a remote controller (those not in the same network as APs) can be challenging. Refer to [this guide](https://help.ubnt.com/hc/en-us/articles/204909754-UniFi-Device-Adoption-Methods-for-Remote-UniFi-Controllers) on instructions on how to discover devices. I recommend using the Discovery tool plugin for Chrome (freely available in [Chrome Web Store](https://chrome.google.com/webstore/detail/ubiquiti-device-discovery/hmpigflbjeapnknladcfphgkemopofig?hl=en)) using a laptop.
 
+1. Connect your computer to the same network as the AP. For example, connect it to the EdgeRouter via an ethernet cable.
+2. Install and open the Discovery tool plugin.
+3. Click "UNIFI FAMILY" if it is not enabled. When not enabled, it should show your EdgeRouter.
+4. Your AP should show as "Pending" in the list. Click Action.
+5. Use "Set Inform" to tell the AP the public IP address of the UniFi controller. Fill the address as `http://XYZ:8080/inform` where `XYZ` is the public IP of your controller.
+6. Once the Set Inform is complete, the AP should show up in your controller as "Pending Adoption".
+7. **Important: if your device has been reset, you need to Set Inform twice. Otherwise, the controller will not be able to adopt the AP.**
+8. Click "Adopt" under Actions. It may be "Adopt and Update" if critical updates should be installed for your AP.
+9. Your AP should blink and restart with the site's settings applied to it when its state becomes "Connected".
+
+## Adopt EdgeRouters
 Adopting EdgeRouters from remote controller can be done by adding the UNMS key to the device's configuration. [this guide](https://help.ubnt.com/hc/en-us/articles/115015772548-UNMS-The-UNMS-Key-and-the-Device-Registration-Process#3) provides useful information:
 
 1. Open UNMS and go to the **Devices** section.
