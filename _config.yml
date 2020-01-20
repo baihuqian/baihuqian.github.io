@@ -25,12 +25,12 @@ description: Personal website of Baihu Qian
 navbar-links:
   Posts: "blog"
   Tag Index: "tags"
-  Resume: "assets/Baihu_Qian_resume.pdf"
-  Photography:
-    - Flowers: "photos/flowers"
-    - Hangzhou: "photos/hangzhou"
-    #- China: ""
-    - USA: "photos/usa"
+  # Resume: "assets/Baihu_Qian_resume.pdf"
+  # Photography:
+  #   - Flowers: "photos/flowers"
+  #   - Hangzhou: "photos/hangzhou"
+  #   - China: ""
+  #   - USA: "photos/usa"
   Search: "search"
 
 # Image to show in the navigation bar - image must be a square (width = height)
