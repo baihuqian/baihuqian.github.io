@@ -25,22 +25,21 @@ Java 8 Functional Interfaces and Lambda Expressions help us in writing smaller a
 
 ### Java 8 Functional Interface
 
-An interface with exactly one abstract method is called Functional Interface. `@FunctionalInterface`annotation is added so that we can mark an interface as functional interface.
+An interface with exactly one abstract method is called Functional Interface. The `@FunctionalInterface` annotation is added so that we can mark an interface as functional interface.
 
-It is not mandatory to use it, but it's best practice to use it with functional interfaces to avoid addition of extra methods accidentally. If the interface is annotated with `@FunctionalInterface` annotation and we try to have more than one abstract method, it throws compiler error.
+It is not mandatory to use the `@FunctionalInterface` annotation, but it's the best practice to use it with functional interfaces to avoid adding extra methods accidentally. If the interface is annotated with `@FunctionalInterface` annotation and we try to have more than one abstract method, it throws compiler error.
 
 The major benefit of java 8 functional interfaces is that we can use lambda expressions to instantiate them and avoid using bulky anonymous class implementation.
 
 Java 8 Collections API has been rewritten and new Stream API is introduced that uses a lot of functional interfaces. Java 8 has defined a lot of functional interfaces in `java.util.function` package. Some of the useful java 8 functional interfaces are `Consumer`, `Supplier`, `Function` and `Predicate`.
 
-You can find more detail about them in [Java 8 Stream Example](https://www.journaldev.com/2774/java-8-stream "Java 8 Stream API Example Tutorial").
+You can find more detail about them in [Java 8 Stream Example](https://www.journaldev.com/2774/java-8-stream).
 
 `java.lang.Runnable` is a great example of functional interface with single abstract method `run()`.
 
 Below code snippet provides some guidance for functional interfaces:
 
-```
-
+```java
 interface Foo { boolean equals(Object obj); }
 // Not functional because equals is already an implicit member (Object class)
 
@@ -94,7 +93,7 @@ Lambda Expression are the way through which we can visualize functional program
 
 Since there is only one abstract function in the functional interfaces, there is no confusion in applying the lambda expression to the method. Lambda Expressions syntax is (argument) -> (body). Now let's see how we can write above anonymous Runnable using lambda expression.
 
-```
+```java
 
 Runnable r1 = () -> System.out.println("My Runnable");
 

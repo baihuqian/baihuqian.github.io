@@ -15,7 +15,7 @@ Compiler is a program that *translates* a program from a *source language* into 
 
 1. Parse the source code and perform its behavior directly;
 1. Translate source code into some efficient intermediate representation and immediately execute this;
-1. Explicitly execute stored precompiled code[1] made by a compiler which is part of the interpreter system.
+1. Explicitly execute stored precompiled code made by a compiler which is part of the interpreter system.
 
 The goal of compilers is to avoid writing assembly program and increase developer productivity.
 
@@ -28,7 +28,7 @@ A compiler consists of the front end and the back end. The **front end** of the 
 
 The **back end** performs synthesis to convert the intermediate representation into assembly. This step is called code generation. All modern compilers perform optimizations, too.
 
-**Scanner** goes through the entire file and produce tokens (equivalent to words in a book), which has a type and a value. For example, `157.669` is a token because it is surrounded by whitespaces, and its type is `FLOATCONST` (floating point constant) and the value is `157.669`. Besides constants, tokens include variables and keywords.
+**Scanner** goes through the entire file and produce tokens (equivalent to words in a book), which has a *type* and a *value*. For example, `157.669` is a token because it is surrounded by whitespaces, and its type is `FLOATCONST` (floating point constant) and the value is `157.669`. Besides constants, tokens include variables and keywords.
 
 Scanning is the process of converting input text into stream of known objects called tokens. It simplifies the parsing process.
 
@@ -291,3 +291,6 @@ Then
 $$reachable(subset(reverse(reachable(subset(reverse(N))))))$$
 
 is the minimal DFA that implements $$N$$. This essentially is to merge suffixes first and merge prefixes second by subset construction.
+
+# Semantic Analysis
+Context-free grammars (CFGs) can describe all regular languages. It is easy to derive strings $$w \in L(G)$$ from a CFG $$G$$ (generative aspect of CFG)
