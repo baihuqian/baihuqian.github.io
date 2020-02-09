@@ -277,3 +277,8 @@ This is mainly stylistic advice, as performance will not change drastically. Her
 4. Avoid return statement and braces in one-liner. Braces and return statements are optional in one-line lambda bodies.
 5. Use Method References if possible.
 6. Use “effectively final” variables. Accessing a non-final variable inside lambda expressions will cause the compile-time error. But it doesn’t mean that you should mark every target variable as `final` because a compiler treats every variable as final, as long as it is assigned only once. It is safe to use such variables inside lambdas because the compiler will control their state and trigger a compile-time error immediately after any attempt to change them. This approach should simplify the process of making lambda execution thread-safe.
+
+
+## References
+1. [https://www.baeldung.com/java-8-lambda-expressions-tips](https://www.baeldung.com/java-8-lambda-expressions-tips)
+2. [https://www.baeldung.com/java-8-functional-interfaces](https://www.baeldung.com/java-8-functional-interfaces)

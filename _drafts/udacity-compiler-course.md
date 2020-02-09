@@ -293,4 +293,177 @@ $$reachable(subset(reverse(reachable(subset(reverse(N))))))$$
 is the minimal DFA that implements $$N$$. This essentially is to merge suffixes first and merge prefixes second by subset construction.
 
 # Semantic Analysis
-Context-free grammars (CFGs) can describe all regular languages. It is easy to derive strings $$w \in L(G)$$ from a CFG $$G$$ (generative aspect of CFG)
+### Content-Free Grammar and Ambiguity
+Context-free grammars (CFGs) can describe all regular languages. It is easy to derive strings $$w \in L(G)$$ from a CFG $$G$$ (generative aspect of CFG). The interesting problem for compilers is the analytical aspect: Given a CFG $$G$$ and a string $$w$$, decide if $$w\in L(G)$$ and if so, how do you determine the **derivation tree** or the sequence of rules that produce $$w$$. This is the problem of parsing. In other words, the parser tries to choose the right sequence of rules from $$G$$ that produces $$w$$.
+
+To derive a string, the parser can go from left or right. The left-most derivation is at each step, to replace the leftmost non-terminal symbol with a derived rule. The right-most derivation expands the rightmost non-terminal symbol at each step. The leftmost derivation is the most common since tokens are generated from left to right.
+
+For a CFG $$G=(V, \Sigma, P, S)$$,
+
+* $$V$$ is the set of nonterminals/variables, each represents a different type of phrase or clause in the sentence.
+* $$\Sigma$$ is the set of terminals, making up the actual content of the sequence.
+* $$P$$ is the set of production rules from $$V$$ to $$(V\cup \Sigma)^*$$, where $$**$$ is the Kleene star operation.
+* $$S$$ is the start symbol, used to represent the whole sentence. $$S\in V$$.
+
+A **derivation tree** has the following properties:
+1. The root of the tree is labeled $$S$$.
+2. Each leaf node is in $$\Sigma \cup \{\epsilon\}$$.
+3. Each interior node is in $$V$$.
+4. If node has label $$A\in V$$ and its children $$a_i,...,a_n$$ (from left to right), then there exists a rule $$r=A\rightarrow a_i,...,a_n$$, $$r\in P$$, and $$a_j\in V \cup \Sigma \cup \{\epsilon\}$$. A leaf labeled $$\epsilon$$ is a single child (i.e. has no siblings).
+
+Let $$G$$ be a CFG. We have $$w\in L(G)$$ is and only if there exists a derivation tree of $$G$$ that yields $$w$$.
+
+A string $$w\in L(G)$$ is derived **ambiguously** if it has more than one derivation tree. Or equivalently, if it has more than one leftmost derivation (or rightmost). A grammar is ambiguous if some strings are derived ambiguously.
+
+To resolve ambiguity,
+1. Define precedence. Group operators into different groups. Operators with lower precedence are closer to the root, or are expanded from low precedence to high precedence.
+2. Left-association: perform operations of same precedence from left to right (left associativity).
+3. Parenthesization.
+
+(Abstract) Syntax Trees are simplified representations of parse trees by collapsing terminals into the non-terminal parents.
+
+### Recursive Descent Parsing
+There are two classes of parsers:
+* LR Parser is the bottom-up parser (i.e. reduces the sentence to the start symbol). Letter "L" means it scans from left to right, letter "R" means it traces rightmost derivation of input string.
+* LL parser is the top-down parser (i.e. expands the start symbol to the sentence). The second "L" means it traces leftmost derivation of the input string.
+
+Typically, parsers are annotated as LL(k) where `k` refers to the maximum number of tokens it looks ahead to uniquely choose a rule. The lower `k` is, the higher the efficiency is. Deterministic parser is also called non-backtracking parser, and it's more efficient as the parsing time is bounded.
+
+For each non-terminal variable, the parser correctly selects a rule for its expansion that matches the incoming token(s). If no such rules exist, throw an error. The output is the abstract syntax tree.
+
+Backus-Naur form (BNF) is a notation technique for context-free grammars. It looks like this:
+![Alt text]({{ "/assets/posts/udacity-compiler-course/BNF.png" | absolute_url }})
+
+To better describe the left-recursion that an expression can be expanded into a sentence including itself, we can use Extended Backus-Naur form (EBNF). EBNF provides, among other things, regex-like symbols to describe repetition using `{}` and `*`. Any grammar defined in EBNF can also be represented in BNF, but the EBNF is more succinct. EBNF can be converted to BNF. For example,
+
+```
+// Original BNF
+<term> ::= <term> '*' <factor> | <factor>
+// EBNF
+<term> ::= <factor> { '*' <factor> }
+// EBNF to BNF
+<term> ::= <factor> <t_tail>
+<t_tail> ::= '*' <factor> <t_tail> | ε
+```
+
+You can notice that through EBNF to BNF conversion, all the left recursion are converted into right recursion. This process introduces no ambiguity.
+
+We can implement the following EBNF:
+
+```
+<expr> ::= <term> { <addop> <term> }
+<addop> ::= '+' | '-'
+```
+
+iteratively:
+```c
+// peakToken() is to get the next token without consume it.
+// matchToken() is to consume the token.
+// PLUS = '+' and MINUS = '-'.
+void expr() {
+    term();
+    int token;
+    while((token = peakToken()) == PLUS || token == MINUS) {
+        matchToken(token);
+        term();
+    }
+}
+```
+
+The EBNF can be converted into the following BNF:
+
+```
+<expr> ::= <term> <e_tail>
+<e_tail> ::= <addop> <term> <e_tail> | ε
+<addop> ::= '+' | '-'
+```
+
+and the BNF can be implemented recursively:
+```c
+void expr() {
+    term();
+    e_tail();
+}
+
+void e_tail() {
+    int token;
+    if((token = peakToken()) == PLUS || token == MINUS) {
+        matchToken(token);
+        term();
+        e_tail();
+    } else return;
+}
+```  
+When a function returns successfully, an edge from the caller (parent) to the callee (child) is added to the parse tree.
+
+To use recursive descent parsing, the left recursion in a grammar must be re-written into right recursion. BNF to ENBF back to BNF above does exactly this. We can directly convert left-recursion into right-recursion if it is well-defined.
+
+Immediate left recursion `A ::= A u | v` where `v` does not start with `A` can be converted into:
+
+```
+A ::= v A'
+A' ::= u A | ε
+```
+
+The general immediate left recursion:
+```
+A ::= A u1 | A u2 | ... | A un | v1 | v2 | ... | vm
+```
+where `vi` does not start with `A` can be converted into
+
+```
+A ::= v1 A' | v2 A' | ... | vm A'
+A' ::= u1 A' | u2 A' | ... | un A' | ε
+```
+
+For example,
+
+```
+<exp> ::= <exp> '+' <term> | <exp> '-' <term> | <term>
+```
+
+can be converted into
+
+```
+<exp> ::= <term> <exp'>
+<exp'> ::= '+' <term> <exp'> | '-' <term> <exp'> | ε
+```
+
+In some cases, multiple rules may sure the same prefix. This is inefficient as it requires more look-aheads (i.e. increase `k`). A common practice is to rewrite the rule:
+
+```
+// original
+A ::= uv | uw
+// new
+A ::= uA'
+A' ::= v | w
+```
+
+With recursive descent parsing, we can generate a parse tree. To convert a parse tree to the abstract syntax tree, we need
+1. Remove all $$\epsilon$$ edges.
+2. Recursively remove parents with an out degree of 1.
+3. Remove intermediate non-terminal nodes to connect the token to the sub-tree root node for derivation. The operator is placed to the sub-tree root.
+
+Or the syntax tree can be generated while parsing, called syntax-driven directed construction. For example, the parser for this syntax
+```
+<expr> ::= <term> { <addop> <term> }
+<addop> ::= '+' | '-'
+```
+
+can generate the syntax tree during parsing:
+
+```c
+SyntaxTree *expr() {
+    SyntaxTree *temp = term();
+    int token;
+    while((token = peakToken()) == PLUS || token == MINUS) {
+        matchToken(token);
+
+        SyntaxTree *tree = makeOpNode(token);
+        tree->left = temp;
+        tree-> right = term();
+        temp = tree;
+    }
+    return temp;
+}
+```
