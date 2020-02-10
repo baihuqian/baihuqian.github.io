@@ -292,7 +292,7 @@ $$reachable(subset(reverse(reachable(subset(reverse(N))))))$$
 
 is the minimal DFA that implements $$N$$. This essentially is to merge suffixes first and merge prefixes second by subset construction.
 
-# Semantic Analysis
+# Parsing
 ### Content-Free Grammar and Ambiguity
 Context-free grammars (CFGs) can describe all regular languages. It is easy to derive strings $$w \in L(G)$$ from a CFG $$G$$ (generative aspect of CFG). The interesting problem for compilers is the analytical aspect: Given a CFG $$G$$ and a string $$w$$, decide if $$w\in L(G)$$ and if so, how do you determine the **derivation tree** or the sequence of rules that produce $$w$$. This is the problem of parsing. In other words, the parser tries to choose the right sequence of rules from $$G$$ that produces $$w$$.
 
@@ -452,7 +452,7 @@ Or the syntax tree can be generated while parsing, called syntax-driven directed
 
 can generate the syntax tree during parsing:
 
-```c
+```
 SyntaxTree *expr() {
     SyntaxTree *temp = term();
     int token;
@@ -467,3 +467,55 @@ SyntaxTree *expr() {
     return temp;
 }
 ```
+
+## Top Down Parsing: LL Parser
+LL Parser works well with scanner as it performs leftmost derivation. LL(1) Parser matches the rule with the incoming token.
+1. Push the start symbol onto a stack.
+2. Replace the non-terminal symbol on top of the stack using grammar rules. The leftmost symbol of the rule output is the top of the stack.
+3. If the top of stack matches the input token, both are to be discarded (i.e. put into syntax tree); mismatch is a syntax error.
+4. Eventually, both stack and the input string are empty. Then it is a successful parse.
+
+LL(1) Parser is implemented with the parsing table that instructs how non-terminals should be expanded based on the input token. LL(1) Parser is deterministic; in other words, a single rule for expansion is selected by 1 token lookahead (i.e. the input token). LL(1) parse table consists of *a column for each token and a row for each non-terminal symbol*. A grammar is LL(1) grammar if the associated LL(1) parsing table has *at most one* production rule in each table entry. LL(1) grammar is a proper subset of context-free grammar.
+
+To generate the parse table from the grammar, we look into two concepts: first set and follow set.
+
+First set for a symbol (on the left hand side of a rule), $$First(X)$$, is the set of tokens that we find at the beginning of the right hand side of the rule. This is done by recursively expanding the rules in all possible ways and, due to right recursion, the beginning of the right hand side will eventually be a token.
+
+* If $$X$$ is a terminal or $$\epsilon$$, then $$First(X)=\{X\}$$.
+* If $$X$$ is non-terminal, then for each production rule $$X \rightarrow X_1X_2...X_n$$, $$First(X)$$ contains $$First(X_1) - \{\epsilon\}$$.
+* If for some $$i<n$$, $$First(X_1),...,First(X_i)$$ all contain $$\epsilon$$ (i.e. the first $$i$$ symbols can be empty), $$First(X)$$ contains $$First(X_{i+1}) - \{\epsilon\}$$.
+* If $$First(X_1),...,First(X_n)$$ all contain $$\epsilon$$ (i.e. all symbols can be empty), $$First(X)$$ contains $$\epsilon$$.
+
+The first set algorithm is below:
+![Alt text]({{ "/assets/posts/udacity-compiler-course/first-set-algorithm.png" | absolute_url }})
+
+Follow set of $$A$$ is those symbols which will follow after $$A$$ and is used to determine if a rule such as $$A\rightarrow \epsilon$$ should be invoked to remove $$A$$ and expose the tokens that follow $$A$$ for matching them.
+
+* If $$A$$ is the start symbol, then $$\$$$ (the end of string) is in $$Follow(A)$$.
+* If there is a production rule $$B\rightarrow \alpha A\beta$$, then $$Follow(A)$$ contains $$First(\beta)-\{\epsilon\}$$. This is because $$\beta$$ is right after $$A$$, any symbols at the beginning of $$\beta$$ must appear immediately after $$A$$.
+* If there is a production rule $$B\rightarrow\alpha A\beta$$ and $$\beta$$ is nullable (i.e. there exists a rule $$\beta\rightarrow\epsilon$$), then $$Follow(A)$$ contains $$Follow(B)$$. This is because anything that follow after $$B$$ can follow after $$A$$ by letting $$\beta$$ be $$\epsilon$$.
+
+Note:
+* $$\$$$ is needed to indicate the end of the string.
+* $$\epsilon$$ is never a member of a folow set.
+
+The follow set algorithm is below:
+![Alt text]({{ "/assets/posts/udacity-compiler-course/follow-set-algorithm.png" | absolute_url }})
+
+To build the parse table with first sets and follow sets, repeat the following two steps for each nonterminal $$A$$ and production rule $$A\rightarrow\alpha$$:
+1. For each token $$a\in First(\alpha)$$, set the entry $$M[A,a]=A\rightarrow\alpha$$.
+2. If $$\epsilon\in First(\alpha)$$, for each $$a\in Follow(A)$$ (a token or $$\$$$), set the entry $$M[A,a]=A\rightarrow\alpha$$.
+
+To get the parse table for a grammar, perform the following steps:
+1. Convert to right recursion if necessary.
+2. Compute the first sets and follow sets for each symbol.
+3. For each rule, compute the predict set:
+$$
+Predict(A\rightarrow\alpha)=\begin{cases}
+First(\alpha),&\text{if }\epsilon\notin First(\alpha) \\
+First(\alpha)-\{\epsilon\} \cup Follow(A), &\text{otherwise}
+\end{cases}
+$$
+4. If a token $$t$$ appears in $$Predict(A\rightarrow\alpha)$$, put rule $$A\rightarrow\alpha$$ in entry $$M[A,t]$$.
+
+# Semantic Analysis
