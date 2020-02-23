@@ -519,3 +519,47 @@ $$
 4. If a token $$t$$ appears in $$Predict(A\rightarrow\alpha)$$, put rule $$A\rightarrow\alpha$$ in entry $$M[A,t]$$.
 
 # Semantic Analysis
+Semantic analysis, unlike lexical or syntax analysis, is context-sensitive analysis. There are two categories of solutions:
+1. Formal methods, such as context-sensitive grammars (too expensive), attribute grammars (adding and propagating attributes during parsing).
+2. Ad-hoc techniques, such as symbol tables, action routines (specific to language).
+
+We will study the formalism, an attribute grammar. It clarifies many issues in a succinct and immediate way, separates analysis problems from their implementations (i.e. no action routines). But it has limitations and inefficiencies so many modern compilers incorporate ad-hoc techniques.
+
+An attribute grammar is a context-free grammar augmented with a set of rules. Each symbol in the derivation (or parse tree) has a set of named values aka attributes. The rules specify how to compute each attribute. Attribution rules are functional; they uniquely define the attribute value.
+
+Attribution rules plus parse tree imply an attribute dependence graph, as some attributes are computed by propagating down the tree, while others are computed by propagating up the tree. Multiple evaluation orders are possible. The data-flow model for evaluation suggests to evaluate independent attributes first, others in order as input values are evaluated. However, the data-flow model is inefficient as it requires tracking of what attributes are evaluated.
+
+Attributes can be classified into two categories:
+1. Synthesized attribute: depends on values from children. They can be computed in a single bottom-up pass.
+2. Inherited attribute: depends on values from siblings and/or parent. They can be computed top-down, but not easily done at parse time. One example of inherited attribute is the value definition in a block structure.
+
+Note, Attribute Grammar is a specification for the computation, not an algorithm.
+
+There are multiple evaluation methods.
+1. Dynamic, dependence-based methods:
+   1. Build the parse tree;
+   2. Build the dependence graph;
+   3. Perform a topological sort of the dependence tree.
+   4. Define attributes in the topological order.
+1. Rule-based methods (e.g. tree walk):
+   1. Analyze rules at compiler-generation time.
+   2. Determine a fixed (static) ordering of evaluations.
+   3. Evaluate nodes in that order.
+1. Oblivious methods (e.g. passes, dataflow):
+   1. Ignore rules and parse tree.
+   2. At design time, pick a convenient order and use it.
+
+The dependence graph must be acyclic. However, general circularity testing problem is inherently exponential.
+
+We can prove that some grammars can only generate acyclic dependence graphs, and the largest such class is "strongly non-circular" grammars (SNC). SNC grammars can be tested in polynomial time. There are many evaluation methods to discover circularity dynamically, but it is a bad property for a compiler to have. Therefore, we should use provably noncicular grammars.
+
+# Intermediate Representation (IR) Code Generation
+There are three major categories:
+* Structured (graph-oriented), e.g. trees, DAGs. It is heavily used in source-to-source translators and tends to be large.
+* Linear. It is pseudo-code for an abstract machine with variable level of abstraction. It can leverage simple and compact data structures. Examples include 3 address code (operand 1, 2, result) and stack machine code (like Java bytecode).
+* Hybrid. The combination of graphs and linear code. For example, control-flow graph.
+
+High IR captures high-level language constructs and Low IR captures low-level machine features. Thus, we need a systematic algorithm, called *lowering*, to translate from high-level IR to low-level IR. The general idea is to
+1. define the translation for each AST node, assuming we have the code for its children;
+2. come up with a scheme to stitch them together;
+3. recursively descend the AST.
