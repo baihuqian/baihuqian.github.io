@@ -1,7 +1,8 @@
 ---
-layout: "post"
-title: "Coursera Programming Languages Course"
-date: "2020-02-17 19:45"
+layout: post
+title: Coursera Programming Languages Course
+date: '2020-02-17 19:45'
+published: true
 ---
 
 This is the course notes I took when studying Programming Languages, offered by Coursera.
@@ -72,10 +73,10 @@ For the evaluation rules, we use the environment at the point of the call to eva
 
 Exactly which environment is it we extend with the arguments? The environment that “was current” when the function was **defined**, not the one where it is being *called*.
 
-# Tuples and Lists
+## Tuples and Lists
 A tuple is finite ordered sequence of elements. The syntax is `(e1, e2, ..., en)` which evaluates `e1` to `v1`, ..., `en` to `vn`. The type of a tuple is `t1 * t2 * ... tn` where for 1 ≤ `i` ≤ n, `ei` has type `ti`. Tuples can be nested as deep as we want (i.e. `ei` can be tuples), but its type defines how many parts it has.
 
-A list can have flexible numbers of elements of the **same** type. A non-empty list with n values is written [`v1,v2,...,vn]` where `vi` has the same type. You can make a list with `[e1,...,en]` where each expression is evaluated to a value. The type of non-empty list is `t list` where `t` is the type of the element. The empty list, with syntax `[]`, has 0 elements. It is a value of type `'a list` (pronounced "alpha list") where `'a` is a type placeholder.
+A list can have flexible numbers of elements of the **same** type. A non-empty list with n values is written `[v1,v2,...,vn]` where `vi` has the same type. You can make a list with `[e1,...,en]` where each expression is evaluated to a value. The type of non-empty list is `t list` where `t` is the type of the element. The empty list, with syntax `[]`, has 0 elements. It is a value of type `'a list` (pronounced "alpha list") where `'a` is a type placeholder.
 
 It is more common to make a list with `e1 :: e2`, pronounced "e1 consed onto e2." Here `e1` evaluates to an "item of type `t`" and `e2` evaluates to a "list of t" and the result is a new list that starts with the result of `e1` and then is all the elements in `e2`.
 
@@ -84,3 +85,35 @@ Functions over lists are usually recursive in order to get to all the elements. 
 2. What should the answer be for a non-empty list in terms of the answer for the tail of the list?
 
 Similarly, functions that produce lists will recursively create lists out of smaller lists.
+
+## Let Expressions and Scope
+Let expressions define local *bindings* (i.e. variables and functions). It is crucial for style and for efficiency.
+
+Syntax: `let b1 b2 ... bn in e end` where each `bi` is a binding and `e` is an expression.
+
+The type-checking and semantics of a let-expression are much like the semantics of the top-level bindings in our ML program. We evaluate each binding in turn, creating a larger environment for the subsequent bindings. So we can use all the earlier bindings for the later ones, and we can use them all for `e`. We call the scope of a binding "where it can be used," so the scope of a binding in a let-expression is the later bindings in that let-expression and the “body” of the let-expression (the `e`). The value `e` evaluates to is the value for the entire let-expression, and, unsurprisingly, the type of `e` is the type for the entire let-expression.
+
+For example, this expression evaluates to 7; notice how one inner binding for `x` *shadows* an outer one.
+
+```sml
+let val x = 1
+in
+	(let val x = 2 in x+1 end) + (let val y = x+2 in y+1 end)
+end
+```
+
+Let-expressions can be used to define helper functions used in only one other function. Because the helper functions defined in let-expressions use the scope of the outer function, they can access the outer function's arguments:
+
+```sml
+(* Note the use of x in count *)
+fun countup_from1_better (x:int) =
+	let fun count (from:int) =
+		if from=x
+		then x::[]
+		else from :: count(from+1)
+	in
+		count 1
+	end
+```
+
+This technique - define a local function that uses other variables in scope - is a hugely common and convenient thing to do in functional programming. It can also improve program efficiency, especially in recursions where the result from the recursion calls can be stored in scope. If recursion is called multiple times, it will result in **exponential** computation time. Using let-expressions to store the result of recursions can cut down computation time.
