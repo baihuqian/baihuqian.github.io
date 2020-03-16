@@ -338,7 +338,7 @@ exception MyUndesirableCondition
 exception MyOtherException of int * int
 ```
 
-Kinds of exceptions are a lot like constructors of a datatype binding. Indeed, they are functions (if they carry values) or values (if they don’t) that create values of type `exn` rather than the type of a datatype.
+Kinds of exceptions are a lot like constructors of a datatype binding. Indeed, they are functions (if they carry values) or values (if they don't) that create values of type `exn` rather than the type of a datatype.
 
 The other feature related to exceptions is *handling* (also known as *catching*) them. For this, ML has `handle` expressions, which look like `e1 handle p => e2` where `e1` and `e2` are expressions and `p` is a pattern that matches an exception. The semantics is to evaluate `e1` and have the result be the answer. But if an exception matching `p` is raised by `e1`, then `e2` is evaluated and that is the answer for the whole expression. If `e1` raises an exception that does not match `p`, then the entire handle-expression also raises that exception. Similarly, if `e2` raises an exception, then the whole expression also raises an exception.
 
@@ -347,7 +347,7 @@ As with case-expressions, handle-expression can also have multiple branches each
 ## Tail recursion and Accumulators
 Function calls are implemented, conceptually, with a *call stack*, which is a stack (the data structure with push and pop operations) with one element for each function call that has been started but has not yet completed. Each element, called stack-frame, stores things like the value of local variables and what part of the function has not been evaluated yet.
 
-For recursive calls, the call stack grows with recursion, unless *there is nothing more for the caller to do after the callee returns except return the callee's result*. This situation is called a *tail call* and functional languages like ML typically promise an essential optimization: When a call is a tail call, the caller’s stack-frame is popped *before* the call - the callee’s stack-frame just replaces the caller's. By doing so, recursion can sometimes be as efficient as a while-loop, which also does not make the call stack bigger.
+For recursive calls, the call stack grows with recursion, unless *there is nothing more for the caller to do after the callee returns except return the callee's result*. This situation is called a *tail call* and functional languages like ML typically promise an essential optimization: When a call is a tail call, the caller's stack-frame is popped *before* the call - the callee's stack-frame just replaces the caller's. By doing so, recursion can sometimes be as efficient as a while-loop, which also does not make the call stack bigger.
 
 Using an accumulator is a common way to turn a recursive function into a "tail-recursive function". The accumulator holds the result of the recursion. It is initialized at the *bottom* (i.e., the beginning of the recursion) of the call stack, and holds the final result when reaching the *top* of the call stack (i.e., end condition of the recursion). In general, converting a non-tail-recursive function to a tail-recursive function usually needs associativity, but many functions are associative.
 
@@ -358,3 +358,245 @@ Then with calls are tail calls? We can be more precise by defining *tail positio
 * If `let b1 ... bn in e end` is in tail position, then `e` is in tail position (but no expressions in the bindings are).
 * Function-call arguments are not in tail position.
 * ...
+
+# Section 3
+*First-class* functions can be used (i.e. computed, passed, stored, etc.) wherever values can. Function closures refers to functions that use variables defined outside of them. *Higher-order function* is a function that takes or returns other functions.
+
+The term *functional programming* is used to describe many concepts, the most important and the most common of which are:
+* Not using mutable data in most or all cases: We have avoided mutation throughout the course so far and will mostly continue to do so.
+* Using functions as values (i.e. provide first class functions).
+
+A functional language is one where writing in a functional style is more convenient, more natural, and more common than programming in other styles (such as OOP). At a minimum, you need good support for immutable data, first-class functions, and function closures.
+
+## Functions as Arguments and Polymorphic Types
+The most common use of first-class functions is passing them as arguments to other functions. For example,
+
+```sml
+fun n_times (f,n,x) = if n=0
+    then x
+    else f (n_times(f,n-1,x))
+
+fun double x = x+x
+val x1 = n_times(double,4,7)
+```
+It lets us *abstract* the common parts of multiple computations so we can reuse some code in different ways by passing in different arguments.
+
+The type of `n_times` is `('a -> 'a) * int * 'a -> 'a`. This is called *parametric polymorphism*, or perhaps more commonly *generic types*. It lets functions take arguments of any type. This makes our higher-order functions more useful.
+
+Note that it is not related to first-class functions: there are higher-order functions that are not polymorphic and polymorphic functions that do not take functions.
+
+## Anonymous Functions
+If a function is defined only to pass into a higher-order function, then it does not need to be defined at top level. It can be defined locally in let-expressions:
+
+```sml
+fun triple_n_times (n,x) =
+    let fun triple x = 3*x
+    in
+        n_times(triple,n,x)
+    end
+```
+We could give the `triple` function an even smaller scope: we need it only as the first argument to `n_times`:
+
+```sml
+fun triple_n_times (n,x) = n_times((let fun triple y = 3*y in triple end), n, x)
+```
+
+However, this is poor style as there is no need to introduce a function *binding* and pass it into a higher-order function. We can use anonymous function, an *expression* that evaluates to a function:
+
+```sml
+fun triple_n_times (n,x) = n_times((fn y => 3*y), n, x)
+```
+
+The `fn` (not `fun`) is a keyword and `=>` (not `=`) is the syntax.
+
+The only thing you cannot do with an anonymous function is recursion, exactly because you have no name to use for the recursive call. For non-recursive functions, you could use anonymous functions with `val` bindings instead of a `fun` binding. For example, these two bindings are exactly the same thing:
+
+```sml
+fun increment x = x + 1
+val increment = fn x => x+1
+```
+
+## Lexical Scope
+Functions can use any bindings in scope. Doing so in combination with higher-order functions is very powerful, but understanding what is in scope is crucial. *The body of a function is evaluated in the environment where the function is **defined**, not the environment where the function is **called**.* This semantics is called ***lexical scope***. The alternate, inferior semantics where you use the current environment is called *dynamic scope*.
+
+We have said that functions are values, but we have not been precise about what that value exactly is. We now explain that a function value has *two parts*, the *code* for the function and the *environment that was current when we created the function*. Call to a function uses both parts because it evaluates the *code* part using the *environment* part. The two parts combined is called a ***function closure*** or just *closure*. The reason is that while the code itself can have *free variables* (variables that are not *bound* inside the code so they need to be bound by some outer environment), the closure carries with it an environment that provides all these bindings.
+
+Lexical scope is the preferred way, because
+1. Function meaning does not depend on variable names used, as changing them does not have any effect except the environment in the closure.
+2. Functions can be type-checked and reasoned about where defined.
+3. Closures can easily store the data they need.
+
+But exception handling is more like dynamic scope than lexical scope. When an exception is raised, evaluation has to "look up" which handle expression should be evaluated. This "look up" is done using the dynamic call stack, with no regard for the lexical structure of the program.
+
+## Famous Higher-Order Functions
+Map, filter, and fold are most common higher-order functions.
+
+```sml
+(* val map = fn : ('a -> 'b) * 'a list -> 'b list *)
+fun map (f,xs) =
+    case xs of
+	[] => []
+      | x::xs' => (f x)::(map(f,xs'))
+
+(* val filter = fn : ('a -> bool) * 'a list -> 'a list *)
+fun filter (f,xs) =
+    case xs of
+      	[] => []
+      | x::xs' => if f x
+         then x::(filter (f,xs'))
+         else filter (f,xs')
+
+(* val fold = fn : ('a * 'b -> 'a) * 'a * 'b list -> 'a *)
+fun fold (f,acc,xs) =
+    case xs of
+        [] => acc
+      | x::xs' => fold (f,f(acc,x),xs')
+```
+
+This pattern of splitting the recursive traversal (`fold` or `map`) from the data-processing done on the elements (the closures passed in) is fundamental. More generally, we may have a very complicated set of data structures to traverse or we may have very involved data processing to do. It is good to *separate these concerns* so that the programming problems can be solved separately.
+
+## Function Composition
+It is useful to create new functions that are just combinations of other functions. It is called function composition in mathematics.
+
+```sml
+(* val compose : fn ('a -> 'b) * ('c -> 'a) -> 'c -> 'b *)
+fun compose (f,g) = fn x => f (g x)
+```
+It takes two functions `f` and `g` and returns a function that applies its argument to `g` and makes that the argument to `f`.
+
+The ML library defines the infix operator `o` as function composition, just like in math, so
+
+```sml
+fun sqrt_of_abs i = Math.sqrt(Real.fromInt (abs i))
+
+(* Use o infix operator for function composition *)
+fun sqrt_of_abs i = (Math.sqrt o Real.fromInt o abs) i
+
+(* Without unnecessary function wrapping *)
+val sqrt_of_abs = Math.sqrt o Real.fromInt o abs
+```
+However, you need to read the example from right to left, which is not intuitive. We can define convenient syntax to do this left-to-right (i.e., the function is on the right of the argument):
+
+```sml
+infix |> (* tells the parser |> is a function that appears between its two arguments *)
+fun x |> f = f x
+
+fun sqrt_of_abs i = i |> abs |> Real.fromInt |> Math.sqrt
+```
+This operator `|>`, commonly called the pipeline operator, is very popular in F# programming. F# is a dialect of ML that runs on .Net and interacts well with libraries written in other .Net languages.
+
+## Currying and Partial Functions
+Every ML function takes exactly one argument, so previously tuples are used to pass in multiple parameters. More clever and often more convenient way is to have a function take the first conceptual argument and return another function that takes the second conceptual argument and so on. Lexical scope is essential to this technique working correctly. This technique is called ***currying** after a logician named Haskell Curry.
+
+```sml
+(* old way to get the effect of multiple arguments *)
+fun sorted3_tupled (x,y,z) = z >= y andalso y >= x
+
+val t1 = sorted3_tupled (7,9,11)
+
+(* new way: currying *)
+val sorted3 = fn x => fn y => fn z => z >= y andalso y >= x
+
+val t2 = ((sorted3 7) 9) 11
+
+(* syntactic sugar for calling curried functions: optional parentheses *)
+val t3 = sorted3 7 9 11
+
+(* syntactic sugar for defining curried functions: space between arguments *)
+fun sorted3_nicer x y z = z >= y andalso y >= x
+
+val t4 = sorted3_nicer 7 9 11
+```
+
+There are two syntactic sugar that makes currying much more elegant:
+1. Optional parentheses when calling curried functions. In general, the syntax `e1 e2 e3 e4` is implicitly the nested function calls `(((e1 e2) e3) e4)` and this choice was made because it makes using a curried function so pleasant.
+2. `fun f p1 p2 p3 ... = e` means `fun f p1 = fn p2 => fn p3 => ... => e`.
+
+Currying returns a function with a closure in the intermediate steps, calling a curried function with fewer arguments can return a ***partial function*** that can be called with the remaining arguments later but using the closure defined earlier. For example, we can use the curried form of `fold` to generate partial functions:
+
+```sml
+fun fold f acc xs = (* means fun fold f = fn acc => fn xs => *)
+  case xs of
+    []     => acc
+  | x::xs' => fold f (f(acc,x)) xs'
+
+val sum = fold (fn (x,y) => x+y) 0
+
+(* Unnecessary function wrapping *)
+fun sum_inferior xs = fold (fn (x,y) => x+y) 0 xs
+```
+
+A lot of iterator functions are written using currying for partial application later. For example,
+
+```sml
+fun exists predicate xs =
+    case xs of
+      [] => false
+    | x::xs' => predicate x orelse exists predicate xs'
+
+val hasZero = exists (fn x => x=0)
+```
+
+One strange warning in partial function when the result function is polymorphic is "value restriction". To get around that, add the unnecessary function wrapping or explicitly specifying the function type:
+
+```sml
+(* Doesn't work. val pairWithOne : fn = 'a list -> ('a * int) list *)
+val pairWithOne = List.map (fn x => (x,1))
+
+(* workarounds: *)
+fun pairWithOne xs = List.map (fn x => (x,1)) xs
+
+val pairWithOne : string list -> (string * int) list = List.map (fn x => (x,1))
+```
+
+Note that caller and callee must use either tuples or currying together; you cannot mix and match. But it is easy to convert between the two forms:
+
+```sml
+fun curry f x y = f (x,y)
+fun uncurry f (x,y) = f x y
+```
+
+## References
+Mutation is okay in some settings. A key approach in functional programming is to use it only when "updating the state of something so all users of that state can see a change has occurred" is the natural way to model your computation. Moreover, we want to keep features for mutation separate so that we know when mutation is not being used.
+
+*Reference* is a container whose contents can be changed. Create a reference with `ref e` (of type `t ref`), get the content of the reference using `!r`, and update reference's content using `r := e` where `e` has type `t`.
+
+## Callbacks
+Callback is a common idiom that allows clients to register functions to be executed when an event occurs. Library implementer has no idea what data callback functions need, so closure is ideal for this. Of course, without mutation (i.e., references), callbacks are meaningless as they cannot return values. Thus, callbacks often mutate data in their closures.
+
+## Abstract Data Types using Closures
+A data type or simply type is an attribute of data which tells the compiler or interpreter how the programmer intends to use the data. An **abstract data type** (ADT) is a mathematical model for data types, where a data type is defined by its behavior (semantics) from the point of view of a *user* of the data, specifically in terms of possible values, possible operations on data of this type, and the behavior of these operations. This contrasts with data structures, which are concrete representations of data, and are the point of view of an *implementer*, not a user.
+
+The keyword "Abstract" is used as we can use these datatypes, we can perform different operations. But how those operations are working that is totally hidden from the user.
+
+In an object-oriented language, you might implement an ADT by defining a class with all private fields (inaccessible to clients) and some public methods (the interface with clients). We can do the same thing in ML with a record of closures that share the same environment; the variables that the closures use from the environment correspond to the private fields.
+
+```sml
+(* Use a record of functions as definition of ADT *)
+(* datatype and S constructor is needed so the definition can be recursive *)
+datatype set = S of { insert : int -> set, member : int -> bool, size : unit -> int }
+
+(* implementation of sets: this is the fancy stuff, but clients using
+   this abstraction do not need to understand it *)
+val empty_set =
+    let
+        fun make_set xs = (* xs is a "private field" in result *)
+            let (* contains a "private method" in result *)
+                fun contains i = List.exists (fn j => i=j) xs
+            in
+                S { insert = fn i => if contains i
+                                     then make_set xs
+                                     else make_set (i::xs),
+                    member = contains,
+                    size   = fn () => length xs
+                  }
+            end
+    in
+        make_set []
+    end
+```
+
+## Implementing Closures in Non-Functional Languages
+In OOP languages like Java, closures can be implemented using Single Abstract Method (SAM) interfaces. These interfaces act like functions in ML, and private fields in the concrete classes of these interfaces are the environment in closures. In fact, this is the idea of Java 8's functional interface.
+
+In procedural languages like C, the environment of closures can be passed in as an additional parameter to functions to simulate closure. Generally speaking, a field of type `void *` is passed to functions as the environment, and function pointers can be used as higher-order functions.
