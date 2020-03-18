@@ -1,9 +1,10 @@
 ---
-layout: "post"
-title: "Ugly Number"
-date: "2018-07-07 22:48"
+layout: post
+title: 'Leetcode 263: Ugly Number'
+date: '2018-07-07 22:48'
 tags:
   - Leetcode
+published: true
 ---
 
 # Question
