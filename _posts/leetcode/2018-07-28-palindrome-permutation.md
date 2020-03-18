@@ -1,9 +1,10 @@
 ---
-layout: "post"
-title: "Palindrome Permutation"
-date: "2018-07-28 17:31"
+layout: post
+title: 'Leetcode 266: Palindrome Permutation'
+date: '2018-07-28 17:31'
 tags:
- - Leetcode
+  - Leetcode
+published: true
 ---
 
 
