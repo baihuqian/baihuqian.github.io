@@ -1,9 +1,10 @@
 ---
-layout: "post"
-title: "Bomb Enemy"
-date: "2018-08-12 20:40"
+layout: post
+title: 'Leetcode 361: Bomb Enemy'
+date: '2018-08-12 20:40'
 tags:
   - Leetcode
+published: true
 ---
 
 # Question
