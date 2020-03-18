@@ -1,9 +1,10 @@
 ---
-layout: "post"
-title: "Intersection of Two Arrays II"
-date: "2018-08-09 23:02"
+layout: post
+title: 'Leetcode 350: Intersection of Two Arrays II'
+date: '2018-08-09 23:02'
 tags:
   - Leetcode
+published: true
 ---
 
 Given two arrays, write a function to compute their intersection.
