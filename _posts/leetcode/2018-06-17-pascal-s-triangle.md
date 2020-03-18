@@ -1,9 +1,10 @@
 ---
-layout: "post"
-title: "Leetcode: Pascal's Triangle"
-date: "2018-06-17 22:25"
+layout: post
+title: 'Leetcode 118: Pascal''s Triangle'
+date: '2018-06-17 22:25'
 tags:
   - Leetcode
+published: true
 ---
 
 # Question
