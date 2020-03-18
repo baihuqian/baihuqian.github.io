@@ -1,9 +1,10 @@
 ---
-layout: "post"
-title: "Minimum Depth of Binary Tree"
-date: "2018-06-17 14:39"
+layout: post
+title: 'Leetcode 111: Minimum Depth of Binary Tree'
+date: '2018-06-17 14:39'
 tags:
   - Leetcode
+published: true
 ---
 
 # Question
