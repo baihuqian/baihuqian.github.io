@@ -1,11 +1,12 @@
 ---
-layout: "post"
-title: "Generalized Abbreviation"
-date: "2018-07-31 22:12"
+layout: post
+title: 'Leetcode 320: Generalized Abbreviation'
+date: '2018-07-31 22:12'
 tags:
   - Leetcode
   - DP
   - Backtracking
+published: true
 ---
 
 # Question
