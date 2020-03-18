@@ -1,9 +1,10 @@
 ---
-layout: "post"
-title: "UTF-8 Validation"
-date: "2018-09-03 14:17"
+layout: post
+title: 'Leetcode 393: UTF-8 Validation'
+date: '2018-09-03 14:17'
 tags:
   - Leetcode
+published: true
 ---
 
 # Question
