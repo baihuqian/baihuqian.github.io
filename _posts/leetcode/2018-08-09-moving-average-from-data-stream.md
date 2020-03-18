@@ -1,9 +1,10 @@
 ---
-layout: "post"
-title: "Leetcode: Moving Average from Data Stream"
-date: "2018-08-09 22:41"
+layout: post
+title: 'Leetcode 346: Moving Average from Data Stream'
+date: '2018-08-09 22:41'
 tags:
   - Leetcode
+published: true
 ---
 
 # Question
