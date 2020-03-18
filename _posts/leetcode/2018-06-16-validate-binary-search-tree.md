@@ -1,9 +1,10 @@
 ---
-layout: "post"
-title: "Validate Binary Search Tree"
-date: "2018-06-16 16:01"
+layout: post
+title: 'Leetcode 98: Validate Binary Search Tree'
+date: '2018-06-16 16:01'
 tags:
   - Leetcode
+published: true
 ---
 
 # Question
