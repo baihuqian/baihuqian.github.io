@@ -1,9 +1,10 @@
 ---
-layout: "post"
-title: "Length of Last Word"
-date: "2018-05-31 23:32"
+layout: post
+title: 'Leetcode 58: Length of Last Word'
+date: '2018-05-31 23:32'
 tags:
   - Leetcode
+published: true
 ---
 
 # Question
