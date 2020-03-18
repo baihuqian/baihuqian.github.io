@@ -1,9 +1,10 @@
 ---
-layout: "post"
-title: "Populating Next Right Pointers in Each Node II"
-date: "2018-06-20 19:50"
+layout: post
+title: 'Leetcode 117: Populating Next Right Pointers in Each Node II'
+date: '2018-06-20 19:50'
 tags:
   - Leetcode
+published: true
 ---
 
 # Question
