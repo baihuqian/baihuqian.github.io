@@ -600,3 +600,31 @@ val empty_set =
 In OOP languages like Java, closures can be implemented using Single Abstract Method (SAM) interfaces. These interfaces act like functions in ML, and private fields in the concrete classes of these interfaces are the environment in closures. In fact, this is the idea of Java 8's functional interface.
 
 In procedural languages like C, the environment of closures can be passed in as an additional parameter to functions to simulate closure. Generally speaking, a field of type `void *` is passed to functions as the environment, and function pointers can be used as higher-order functions.
+
+# Section 4
+## Type Inference
+*Statically typed languages* define the type of every binding at compile time, i.e., before any part of the program is run. *Dynamically typed languages* do not determine types ahead of time but rely on run-time checks.
+
+ML is *implicitly typed*, meaning programmers rarely need to write down the types of bindings. The type-checker must *infer* what *type annotations* would have been applied to each binding. In principle, type inference and type checking could be separate steps, but in practice they are often merged into “the type-checker.” Note that a correct type-inferencer must find a solution to what all the types should be whenever such a solution exists, else it must reject the program.
+
+ML type inference ends up intertwined with parametric polymorphism, but type inference and polymorphism are entirely separate concepts: a language could have one or the other.
+
+Here is an overview of how ML type inference works:
+* It determines the types of bindings in order, using the types of earlier bindings to infer the types of later ones. This is why you cannot use later bindings in a file.
+* For each `val` or `fun` binding, it analyzes the binding to determine necessary facts about its type. For example, if we see the expression `x+1`, we conclude that `x` must have type `int`. We gather similar facts for function calls, pattern-matches, etc.
+* Afterward, use type variables (e.g., `'a`) for any unconstrained types in function arguments or results.
+* Enforce the value restriction.
+
+However, this system is unsound. For example,
+
+```sml
+val r = ref NONE (* 'a option ref *)
+val _ = r := SOME "hi" (* instantiate 'a with string *)
+val i = 1 + valOf(!r) (* instantiate 'a with int *)
+```
+
+The problem results from a combination of polymorphic types and mutable references, and the fix is a special restriction to the type system called the *value restriction*: a variable in a val-binding can be assigned a polymorphic type only if the expression in the val-binding is a value or a variable. Otherwise, a dummy type is assigned so the type-checking will fail. In our example, `ref NONE` is a call to the function `ref`. Function calls are not variables or values. So we get a warning and `r` is given a type `?X1 option ref` where `?X1` is a "dummy type," not a type variable.
+
+Type inference in ML would be more difficult if
+* ML *did not* have polymorphism as more type restrictions must be figured out by the type-inferencer. Some types must be assigned for `length` or `compose`.
+* ML had subtyping (e.g., if every triple could also be a pair). This could be done, but type inference is more difficult and the results are more difficult to understand.
