@@ -628,3 +628,97 @@ The problem results from a combination of polymorphic types and mutable referenc
 Type inference in ML would be more difficult if
 * ML *did not* have polymorphism as more type restrictions must be figured out by the type-inferencer. Some types must be assigned for `length` or `compose`.
 * ML had subtyping (e.g., if every triple could also be a pair). This could be done, but type inference is more difficult and the results are more difficult to understand.
+
+## Mutual Recursion
+Because bindings are evaluated in order, it requires special language feature to allow mutual recursion, i.e., two functions `f` and `g` to call each other in their bodies. Similarly, we can have mutually recursive datatype bindings.
+
+Mutual recursive functions can be defined by replacing the keyword `fun` for all functions except the first with `and`. The type-checker will type-check all the functions (two in the example above) together, allowing calls among them regardless of order. The syntax is the same for datatype bindings.
+
+```sml
+(* f1, f2, ..., fn are type-checked together. *)
+fun f1 p1 = e1
+and f2 p2 = e2
+...
+and fn pn = en
+
+datatype t1 = C1 of t1 | C2 of t2
+and t2 = C3 of t1 | C4 of t2
+```
+
+## Modules
+In ML, we can use **structures** to define **modules** that contain a collection of bindings. At its simplest, you can write `structure Name = struct bindings end` where `Name` is the name of your structure (you can pick anything; capitalization is a convention) and `bindings` is any list of bindings, containing values, functions, exceptions, datatypes, and type synonyms. Modules can be used to separate bindings into different **namespaces**.
+
+Inside the structure you can use earlier bindings just like we have been doing "at top-level" (i.e., outside of any module). Outside the structure, you refer to a binding `b` in Name by writing `Name.b`.
+
+To avoid repetition of writing `Name.b` many times, you can create a val-binding. Or you can port *all* bindings into your environment with `open Name`. This is potentially dangerous as bindings inside the "opened" module can shadow any existing bindings you already have.
+
+Structure *signatures* are types for modules. This provides strict *interfaces* to code outside the module.
+
+```sml
+(* Signature names are capitalized *)
+signature MATHLIB =
+sig
+val fact : int -> int (* Use val bindings for function types *)
+val half_pi : real
+val doubler : int -> int
+end
+
+(* :> MATHLIB requires MyMathLib to provide everything defined in signature *)
+structure MyMathLib :> MATHLIB =
+struct
+fun fact x =
+    if x=0
+    then 1
+    else x * fact (x - 1)
+
+val half_pi = Math.pi / 2.0
+
+fun doubler y = y + y
+end
+```
+Signatures can also contain datatype, exception, and type bindings. In addition, signatures can hide bindings inside modules to the outside. Bindings not defined in the signature are not in scope to the outside code. We can implement the module however we like and only bindings that are explicitly listed in the signature can be called directly by clients.
+
+Signature can contain *abstract types*. This is useful when signatures contain functions that take or return a datatype but the implementation of the datatype should be hidden. Abstract type can be defined by `type rational` in the signature definition.
+
+As a twist, certain *constructors* of the abstract type can be *exported* in the signature: just define the binding of the constructor without changing the implementation! For example:
+
+```sml
+signature RATIONAL =
+sig
+type rational (* type still abstract *)
+val Whole : int -> rational (* client knows only that Whole is a function *)
+end
+
+structure Rational >: RATIONAL =
+struct
+datatype rational = Frac of int * int | Whole of int
+end
+```
+The constructor `Whole` of the `rational` datatype is visible to the outside.
+
+If a structure does not match a signature assigned to it, then the module does not type-check. A structure `Name` matches a signature `BLAH` if:
+* For every val-binding in `BLAH`, Name must have a binding with that type or a more general type (e.g., the implementation can be polymorphic even if the signature says it is not). This binding could be provided via a val-binding, a fun-binding, or a datatype-binding.
+* For every non-abstract type-binding in `BLAH`, `Name` must have the same type binding.
+* For every abstract type-binding in `BLAH`, `Name` must have some binding that creates that type (either a datatype binding or a type synonym).
+
+Multiple modules with the same signature define different types. For example, if module `Rational1` and `Rational2` both use `RATIONAL` signature, `Rational1.rational` and `Rational2.rational` are different types and they cannot be used interchangeably.
+
+## Equivalence
+The idea that one piece of code is "equivalent" to another piece of code is fundamental to programming and computer science.
+* Code maintenance: Can you simplify, clean up, or reorganize code without changing how the rest of the program behaves?
+* Backward compatibility: Can you add new features without changing how any of the existing features work?
+* Optimization: Can you replace code with a faster or more space-efficient implementation?
+* Abstraction: Can an external client tell if I make this change to my code?
+
+The intuition behind our definition is as follows:
+* A function `f` is equivalent to a function `g` (or similarly for other pieces of code) if they produce the same answer and have the same side-effects no matter where they are called in any program with any arguments.
+* Equivalence does not require the same running time, the same use of internal data structures, the same helper functions, etc. All these things are considered "unobservable", i.e., implementation details that do not affect equivalence.
+
+One easy way to make sure two functions have the same side effects (mutating references, doing input/output, etc.) is to have no side effects at all. This is exactly what functional languages like ML encourage.
+
+There are several guaranteed equivalence:
+1. Syntactic sugar.
+2. Variable renaming. Note, such renaming should not shadow other bindings.
+3. Helper functions.
+4. Unnecessary function wrapping.
+5. `let val p = e1 in e2 end` can be sugar for `(fn p => e2) e1`.
