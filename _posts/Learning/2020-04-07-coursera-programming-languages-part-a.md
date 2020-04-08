@@ -1,11 +1,12 @@
 ---
 layout: post
-title: Coursera Programming Languages Course
-date: '2020-02-17 19:45'
-published: true
+title: Coursera Programming Languages, Part A
+date: '2020-04-07 21:53'
+tags:
+  - Computer Science
 ---
 
-This is the course notes I took when studying Programming Languages, offered by Coursera.
+This is the course notes I took when studying [Programming Languages (Part A)](https://www.coursera.org/learn/programming-languages), offered by Coursera.
 
 * toc
 {:toc}
