@@ -147,3 +147,14 @@ google.com.     299 IN  A   243.65.127.221
 Finally, configure Pi-hole to use the local `cloudflared` service as the upstream DNS server instead of the standard Cloudflare server.
 
 Go to "Settings" in the Pi-Hole console, choose "DNS" tab, uncheck the checkboxes before "Cloudflare", and type in `127.0.0.1#5053` as the primary and `1.1.1.1#53` as the secondary for IPv4. Check the checkboxes before them. Don't forget to hit Return or click on Save.
+
+
+# Further Reads
+This is the post series. Other posts on the home network topics are:
+1. [Device and Management Setup]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-09-07-secure-home-network-device-and-management-setup.md %})
+1. [Isolating Connected Devices with VLAN]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-09-02-secure-home-network-isolating-connected-devices-with-vlan.md %})
+1. [Using HomeKit Devices Across VLANs]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-08-27-secure-home-network-using-homekit-devices-across-vlans.md %})
+1. [Using AirPlay Across VLANs]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-08-31-secure-home-network-using-airplay-across-vlans.md %})
+1. [Troubleshoot DHCP Problems]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-01-11-secure-home-network-troubleshoot-dhcp-problems.md %})
+1. [Extend WiFi Coverage with Multiple APs]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-01-11-secure-home-network-extend-wifi-coverage-with-multiple-aps.md %})
+1. [Backup Your Configurations]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-11-23-secure-home-network-backup-your-configurations.md %})

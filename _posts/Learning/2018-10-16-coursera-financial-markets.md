@@ -52,7 +52,7 @@ Slope beta tells how much a particular asset class co-moves with the market and 
 ### Distribution and Outliers
 In life, many things follow the normal distribution. Normal distribution implies that it is highly unlikely, or close to impossible for large deviation from the mean to happen. However, outliers exist in the stock market. For example, if we use Cauchy Distribution, which contains a fat tail, large deviations can be observed from random sampling.
 
-Central Limit Theorem implies that average of large number of independent identically distributed shocks (whose variation is finite) are approximately normally distributed. However, it can fail if the underlying shocks are fat tailed, or the underlying shocks lose their independence.
+Central Limit Theorem implies that average of large number of independent identically distributed stocks (whose variation is finite) are approximately normally distributed. However, it can fail if the underlying stocks are fat tailed, or the underlying stocks lose their independence.
 
 ### Covariance
 Covariance quantifies correlation between two asset classes. A covariance of 0 means they are independent; positive number means they tend to move towards the same direction; and negative number means they tend to move towards opposite direction.
