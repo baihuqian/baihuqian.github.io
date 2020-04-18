@@ -345,7 +345,7 @@ Preferred stock has a specified dividend which does not grow through time. And l
 Although preferred stock has defined dividend pay-out like bonds, it is different from corporate bonds. Company is contractually obligated to pay coupons and principal on the maturity date for corporate bonds, but does not have to pay out preferred stock dividends on time.
 
 ### Corporate Charter
-The basic corporate charter says all common shareholders equally. Here equality means that if the corporation pays out dividends, every share gets the same amount. And that's where the word equity comes in; it's equality of shareholders. thus The word equity refers to common stock.
+The basic corporate charter says all common shareholders are equal. Here equality means that if the corporation pays out dividends, every share gets the same amount. And that's where the word equity comes in; it's equality of shareholders. thus The word equity refers to common stock.
 
 The charter does not say that the firm ever has to raise debt, pay dividends, repurchase shares (another way to increase shareholder value), or issue warrants (a form of option), convertible debt or anything else; the board decides so. But the shareholders elect the board.
 
@@ -583,7 +583,7 @@ Forward is a contract between two parities to deliver at a future date (exercise
 
 Grain is the origin of the forward contract, but there are forward contracts on other commodities, such as foreign exchange (FX) forwards. FX Forward is like a pair of zero-coupon bonds; therefore, forward rate reflects interest rates in the two currencies. Their parity is called Forward Interest Parity:
 
-$$ Forward Exchange Rate (¥/\$) = Spot Exchange Rate (¥/\$) \times \frac{1 + r_{¥}}{1 + r_{\$}}$$
+$$ \text{Forward Exchange Rate} (¥/\$) = \text{Spot Exchange Rate} (¥/\$) \times \frac{1 + r_{¥}}{1 + r_{\$}}$$
 
 This is because to lock in the forward exchange rate, one can do the following without entering the FX Forward market:
 1. Short sell the dollar amount;
