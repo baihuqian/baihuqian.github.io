@@ -193,7 +193,11 @@ defaults:
       layout: "post"
       comments: false  # add comments to all blog posts
       social-share: true # add social media sharing buttons to all blog posts
-      ext-js: "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+      ext-js:
+        - "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+        - "https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"
+      js:
+        - "/js/anchor-js-config.js"
   -
     scope:
       path: "" # all files
