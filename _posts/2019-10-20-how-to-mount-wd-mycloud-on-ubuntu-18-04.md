@@ -68,4 +68,4 @@ sudo mount -a
 If there are no errors, you should test how it works after a reboot. Your remote share should mount automatically.
 
 ## Reference
-* [Mount WIndows Shares Permanently](https://wiki.ubuntu.com/MountWindowsSharesPermanently)
+* [Mount Windows Shares Permanently](https://wiki.ubuntu.com/MountWindowsSharesPermanently)
