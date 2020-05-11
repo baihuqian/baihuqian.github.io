@@ -194,7 +194,7 @@ defaults:
         - "https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"
       js:
         - "/assets/js/anchor-js-config.js"
-      readtime: false # add estimated reading time on all blog posts
+      readtime: true # add estimated reading time on all blog posts
   -
     scope:
       path: "" # all files
