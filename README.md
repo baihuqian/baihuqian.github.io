@@ -1,6 +1,6 @@
 # Beautiful Jekyll
 
-![Beautiful Jekyll CI](https://github.com/daattali/beautiful-jekyll/workflows/Beautiful%20Jekyll%20CI/badge.svg)
+[![Beautiful Jekyll CI](https://github.com/daattali/beautiful-jekyll/workflows/Beautiful%20Jekyll%20CI/badge.svg)](https://github.com/daattali/beautiful-jekyll/actions?query=branch%3Amaster+event%3Apush+workflow%3A%22Beautiful+Jekyll+CI%22)
 [![Gem Version](https://badge.fury.io/rb/beautiful-jekyll-theme.svg)](https://badge.fury.io/rb/beautiful-jekyll-theme)
 
 > *Copyright 2020 [Dean Attali](https://deanattali.com)*
@@ -217,7 +217,7 @@ Beautiful Jekyll is actively used by thousands of people with wildly varying deg
 
 Every GitHub user can have one repository (repository = project) named `<yourusername>.github.io` and the website for that repository will be `https://<yourusername>.github.io`. 
 
-If you want your project to be named something else, for example `MyAwesomeProject`, that's no problem! All you have to do is go to _Settings_ at the top right corner of the page, and rename your repository to `MyAwesomeProject` (remember to click on the _Rename_ button to confirm). Then you need to scroll down to the _GitHub Pages_ section and choose "master branch" as the source (not "master branch /docs folder"!).
+If you want your project to be named something else, for example `MyAwesomeProject`, that's no problem! All you have to do is go to _Settings_ at the top right corner of the page, and rename your repository to `MyAwesomeProject` (**remember to click on the _Rename_ button to confirm!**). Then you need to scroll down to the _GitHub Pages_ section and choose "master branch" as the source (not "master branch /docs folder"!).
 
 Now your website will be at `https://<yourusername>.github.io\MyAwesomeProject`.
 
