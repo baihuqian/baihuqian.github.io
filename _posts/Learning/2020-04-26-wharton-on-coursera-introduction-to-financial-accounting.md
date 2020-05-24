@@ -378,7 +378,7 @@ ROA has two drivers, too:
 
 $$\text{ROA} = \underbrace{\text{Net Income} / \text{Sale}}_{\text{Return on Sales}} \times \underbrace{\text{Sales} / \text{Avg. Assets}}_{\text{Asset Turnover}}$$
 
-Return on Sales ($$\text{ROS}=\text{Net Income}/\text{Sales}$$) measures how much profit the company earns on each dollar of sales, i.e., **profitablity**.
+Return on Sales ($$\text{ROS}=\text{Net Income}/\text{Sales}$$) measures how much profit the company earns on each dollar of sales, i.e., **profitability**.
 
 Asset Turnover ($$\text{ATO}=\text{Sales}/\text{Avg. Assets}$$) measures how much sales the company generates based on its available resources, i.e., **efficiency**.
 
@@ -390,7 +390,7 @@ $$\begin{align}\begin{aligned}
           =& \text{Profitability}          &\times &\text{Efficiency}          &\times \text{Leverage}
 \end{aligned}\end{align}$$
 
-For example, discount retailers generate high ROE by efficiency and low profitablity, and luxury retailers do so by high profitablity and low efficiency.
+For example, discount retailers generate high ROE by efficiency and low profitability, and luxury retailers do so by high profitability and low efficiency.
 
 ### Profit Margin Ratios
 To determine the drivers of profitability, we can look at the following ratios, most of which can be found on the Common Size Income Statement.
