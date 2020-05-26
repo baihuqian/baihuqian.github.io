@@ -183,3 +183,39 @@ Other characteristics of great brands include:
 * **Superior** products and processes;
 * **Distinctive** positioning and customer experience;
 * **Alignment** of internal and external commitment to the brand.
+
+# Customer Centricity
+In strategic marketing, one bundle is customer intimacy. This section focuses on it, or called "customer centricity".
+
+The goal of a firm is to **maximize shareholders' value**. Maximum profits through **volume and cost reduction**. One key performance indicator is market share, which not only is a indicator of the present, but also of the future. Such metrics, like market share and others, are central to this product superiority, or operationally excellent strategy. Shareholders demand growth. Growth can be achieved through **extending the product**, either through bringing existing ones to new market, or by creating new ones. Companies are **organized by product**. And thus, the competitive advantage of an organization or a company is **product expertise**. This is the traditional, *product-centric* way of business.
+
+While product centricity is not doomed to fail, there are trends that don't exist 15 or 20 years ago that reduces the chance of success of it:
+* **Commoditization**: technology-driven product development that shortens the product lifecycle.
+* **Smart customers**: technology-driven information flows make customers aware of existing and new product options and put more demands on companies.
+* **Retail saturation**: technology-driven delivery that makes more products available to more customers in more locations.
+* **Globalization**.
+* **Deregulation**.
+* Customers want **end-to-end solutions**. Companies act like trusted advisors. One example is IBM, once a product-centric company, moves to provide solutions by selling its hardware businesses.
+* Information systems enable **customer-level tracking** and thus data-driven business models.
+
+## Direct Marketing
+Direct marketing is an advertising strategy that relies on the individual distribution of a sales pitch to potential customers. In other words, the individual customer is the unit of analysis. It tries to **know who there customers** are and what they buy, aim to **determine marketing communication** based on past purchases, and constantly determine (and leverage) individual **customer value**.
+
+Any company that's operating on the internet, any company that has the capability to track a particular customer over time are using direct marketing.
+
+## Customer Centricity
+**Customer centricity** is a strategy that aligns a company's development/delivery of its products/services around the current and future needs of *a select set of customers* in order to maximize their *long-term financial value* to the firm.
+
+Customer centricity requires the company to be willing and able to change its organizational design, performance metrics, and employee/distributor incentive structures to focus on this long-run value creation/delivery process. For example, the performance metrics for salespeople should not be monthly/quarterly revenue, but long-term value increase of customers so that customers create more value in the company in the long run.
+
+It is important to recognize that the overarching goal for customer-centric companies is still to maximize shareholders' value. But the customer-centric world embraces customer heterogeneity: not all customers are equal, some customers are more profitable than others. When we talk about *profitability*, we focus on future profitability (**customer lifetime value**) rather than past profits. We need to use models and technology in order to project the future value of our customers.
+
+Success arises through enhanced (and/or more efficient) customer **acquisition, retention, and development**. The competitive advantage is the "relationship expertise" with respect to focal customers (that cannot be commoditized).
+
+However, customer centricity does **not** suggest that "non-focal" customers should be ignored or "fired". To the contrary, it is important to have a healthy portion of such customers to add a high degree of stability and robustness to the overall customer base (like bonds in an investment portfolio). Taking this idea future, there is a **paradox of customer centricity**: the more that a firm tightens its central focus on a select group of customers, the more it needs its "non-focal" customers to stabilize the overall mix.
+
+To move to customer centricity, below are important questions:
+* Who is the customer? Can your organization come up with a single, consensus answer to this question, or can you at least reconcile the roles/relationships of the different potential customers?
+* What are the major barriers to move to customer centricity, and what resources can you utilize to overcome these barriers.
+* What competitors are doing in this area? Is it better for everyone be customer-centric or only you?
+* Does it make sense for your organization to become customer centric? If so, what should be your immediate goals and medium-term expectations?
