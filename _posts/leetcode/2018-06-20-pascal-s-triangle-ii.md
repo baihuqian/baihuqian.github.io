@@ -11,7 +11,7 @@ Given a non-negative index k where k ≤ 33, return the $$k^{th}$$ index row of 
 
 Note that the row index starts from 0.
 
-![](https://upload.wikimedia.org/wikipedia/commons/0/0d/PascalTriangleAnimated2.gif)
+![Pascal Triangle](https://upload.wikimedia.org/wikipedia/commons/0/0d/PascalTriangleAnimated2.gif)
 
 Example:
 ```

@@ -95,7 +95,7 @@ Context switch is expensive:
 
 ###  Process Lifecycle
 Processes can be running or idle (ready). Scheduler can dispatch it to CPU so it becomes running, and running processes can be interrupted. Process lifecycle is shows as follows:
-![]({{ "/assets/posts/udacity-os-course/process_lifecycle.png" | absolute_url }})
+![Process Lifecycle]({{ "/assets/posts/udacity-os-course/process_lifecycle.png" | absolute_url }})
 
 Process can create other processes, forming a tree of processes. Process is created by fork or exec:
 - Fork: copies the parent PCB into new child PCB. Child continues execution at instruction after fork (PC is copied into child PCB).

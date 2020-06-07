@@ -16,7 +16,7 @@ To allow Apple devices in the main VLAN to use AirPlay on TV and speakers in the
 2. Use TV and speakers' MAC address as source to skip setting up static IPs for them.
 
 The firewall rules look like this:
-![](/assets/posts/HomeNetworking/airplay.png)
+![Firewall rule for AirPlay](/assets/posts/HomeNetworking/airplay.png)
 
 # Further Reads
 This is the post series. Other posts on the home network topics are:

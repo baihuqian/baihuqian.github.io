@@ -9,7 +9,7 @@ tags:
 # Question
 Given a 2D matrix matrix, find the sum of the elements inside the rectangle defined by its upper left corner (row1, col1) and lower right corner (row2, col2).
 
-![](https://leetcode.com/static/images/courses/range_sum_query_2d.png)
+![Range Sum Query 2D](https://leetcode.com/static/images/courses/range_sum_query_2d.png)
 
 The above rectangle (with the red border) is defined by (row1, col1) = (2, 1) and (row2, col2) = (4, 3), which contains sum = 8.
 

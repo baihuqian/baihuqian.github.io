@@ -18,7 +18,7 @@ Rules for a valid pattern:
 1. If the line connecting two consecutive keys in the pattern passes through any other keys, the other keys must have previously selected in the pattern. No jumps through non selected key is allowed.
 1. The order of keys used matters.
 
-![](https://leetcode.com/static/images/problemset/android-unlock.png)
+![Android Unlock Pattern](https://leetcode.com/static/images/problemset/android-unlock.png)
 
 Explanation:
 ```

@@ -47,7 +47,7 @@ When we perform DFS, we choose the outgoing edge with the lowest lexical order.
 
 Example:
 
-![](http://www.stefan-pochmann.info/misc/reconstruct-itinerary.png)
+![Reconstruct Itinerary](http://www.stefan-pochmann.info/misc/reconstruct-itinerary.png)
 
 From JFK we first go DFS: JFK -> A -> C -> D -> A. There we're stuck, so we write down A as the end of the route and retreat back to D. There we see the unused outgoing edge to B and follow it: D -> B -> C -> JFK -> D. Then we're stuck again, retreat and write down the airports while doing so: Write down D before the already written A, then JFK before the D, etc. When we're back from our cycle at D, the written route is D -> B -> C -> JFK -> D -> A. Then we retreat further along the original path, prepending C, A and finally JFK to the route, ending up with the route JFK -> A -> C -> D -> B -> C -> JFK -> D -> A.
 

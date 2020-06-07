@@ -683,7 +683,7 @@ A behavioral reason is that options can serve as insurance against downwards ris
 ### Put-Call Parity
 On the expiration date, the intrinsic value of an option is the difference between strike price and the stock price or 0:
 
-![](https://ebrary.net/imag/bef/corp_fin/image080.jpg)
+![Option Value to Buyer](https://ebrary.net/imag/bef/corp_fin/image080.jpg)
 
 There is a relationship between put and call option prices:
 
@@ -695,7 +695,7 @@ This parity equation must hold out except margin of error due to transaction cos
 
 Before the expiration date, the value of an option is always higher than the intrinsic value of the option due to the probability that it will increase in value before expiry.
 
-![](https://upload.wikimedia.org/wikipedia/commons/1/1b/Option_value.gif)
+![Realistic Option Value](https://upload.wikimedia.org/wikipedia/commons/1/1b/Option_value.gif)
 
 The option price is estimated via a predictive formula such as black-Scholes or using a numerical method such as the Binomial model.
 

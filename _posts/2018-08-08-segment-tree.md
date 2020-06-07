@@ -7,7 +7,7 @@ tags:
 ---
 
 A segment tree is a binary tree where each node represents an interval. Generally a node would store one or more properties of an interval which can be queried later.
-![](https://leetcode.com/media/original_images/segtree_intro_1.png)
+![Segment Tree](https://leetcode.com/media/original_images/segtree_intro_1.png)
 
 Many problems require that we give results based on query over a range or segment of available data. This can be a tedious and slow process, especially if the number of queries is large and repetitive. A segment tree let's us process such queries efficiently in logarithmic order of time.
 
