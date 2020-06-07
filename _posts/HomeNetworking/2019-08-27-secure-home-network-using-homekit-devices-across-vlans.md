@@ -28,7 +28,7 @@ Here is how to get it working almost as if it was on the same network.
 8. Turn the lights on and off and on and off and on and off. And on and off and on and off.
 9. Re-enable guest isolation on your IoT SSID.
 
-Credit: This post is a combination of [Guillaume Ross](https://medium.com/@gepeto42/using-homekit-devices-across-vlans-and-subnets-aa5ae1024939)'s solution of installing Avahi on the router and [John Reed](http://leerspace.com/2015/12/20/bonjour-mdns-reflection-on-ubiquiti-edgeos/)'s solution to allow Bonjour/mDNS' on EdgeOS.
+Credit: This post is a combination of [Guillaume Ross](https://medium.com/@gepeto42/using-homekit-devices-across-vlans-and-subnets-aa5ae1024939)'s solution of installing Avahi on the router and [John Reed](http://leerspace.com/2015/12/20/bonjour-mdns-reflection-on-ubiquiti-edgeos/)'s solution to allow Bonjour/mDNS on EdgeOS.
 
 # Further Reads
 This is the post series. Other posts on the home network topics are:
@@ -39,3 +39,4 @@ This is the post series. Other posts on the home network topics are:
 1. [Extend WiFi Coverage with Multiple APs]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-01-11-secure-home-network-extend-wifi-coverage-with-multiple-aps.md %})
 1. [Backup Your Configurations]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-11-23-secure-home-network-backup-your-configurations.md %})
 1. [Block Ad and Tracking with Pi-Hole]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-09-14-secure-home-network-block-ad-with-pi-hole.md %})
+1. [IoT Automation with Home Assistant]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-06-06-secure-home-networking-iot-automation-with-home-assistant.md %})
