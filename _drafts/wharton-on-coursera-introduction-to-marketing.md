@@ -132,7 +132,7 @@ You can have a lot of ideas about positioning, but it is hard to hone in to the 
 
 A mental map, or semantic associative network, can develop a picture of the thought and associations that come up with the brand. It portrays branch associations and responses for a target market, and shows how it is actually perceived. A mental map of McDonald's can look like this:
 
-![Value Map]({{ "/assets/posts/coursera-marketing/mental-map-mcdonalds.png" | absolute_url }})
+![Mental Map for McDonald's]({{ "/assets/posts/coursera-marketing/mental-map-mcdonalds.png" | absolute_url }})
 
 After doing *mental maps* for multiple customers, find the set fo abstract concepts or phrases that Characterize the five to ten most important dimensions of the mental map of the brand (i.e., *core brand values*), relate them to points-of-parity and points-of-difference, and come up with the *brand mantra*.
 
@@ -219,3 +219,209 @@ To move to customer centricity, below are important questions:
 * What are the major barriers to move to customer centricity, and what resources can you utilize to overcome these barriers.
 * What competitors are doing in this area? Is it better for everyone be customer-centric or only you?
 * Does it make sense for your organization to become customer centric? If so, what should be your immediate goals and medium-term expectations?
+
+# Go To Market Strategies
+To build a go to market plan, a company should do the following steps:
+1. Situation Analysis using 5 C's: Context, Consumers, Company, Competitors, Collaborators.
+2. Strategic Positioning: evaluate different target markets and positioning options.
+3. Implementation using 4 P's. And the go to market plan is *promotion*.
+
+Promotions Strategy can roughly be divided into Communication Strategy and Non-Communications.
+
+Communication strategy includes:
+* Mass and targeted media (TV, digital, print, outdoor billboards)
+  - Advertising: outbound (TV, radio) or inbound (digital, search)
+  - Product placement (embedded marketing): a marketing technique where references to specific brands or products are incorporated into another work, such as a film or television program, with specific promotional intent.
+  - Public relations: it is not free, but you don't pay for the time and space for the communication.
+* Personal and interpersonal means:
+  - Sales force;
+  - Word of mouth (offline, online, consumer-to-consumer);
+* Point of purchase/in-store.
+
+Non-communication strategy are mostly price discounts and coupons.
+
+This module focuses on communication strategy. Developing a communication plan requires 7 M's:
+* Markets (who should I talk to? target segment?)
+* Message content (what should I tell them? key benefit and positioning)
+* Mission (what do we intend to achieve? e.g., awareness, knowledge, interest, trial)
+* Message design (how should I say it? Creative strategy)
+* Media strategy (how do I reach them?)
+* Money (how much do I need to spend?)
+* Measurement (was it worth it?)
+
+The first 2 M's, *markets* and *message content*, are part of targeting and positioning, while the rest 5 M's are communication decisions. So there may be only 5 M's in some marketing books.
+
+In the marketing world, digital content is increasing rapidly, while TV is still 1/3 of the volume. But most digital marketing is done through videos, which is not so different from ads on TV.
+
+The key principles of campaign design are not affected by media choice or media availability; instead, media choice is determined by campaign design.
+
+### Efficiency of Communications
+Consumers go through the following stages when making purchasing decisions:
+* Awareness;
+* Interest;
+* Desire;
+* Action.
+
+This is often referred as the AIDA model. The efficiency of different strategies vary by stages:
+![Stages of Hierarchy of Effects]({{ "/assets/posts/coursera-marketing/stages-of-hierarchy-of-effects.png" | absolute_url }})
+
+Because the efficiency is different, we should not spend all the money on that to improve awareness and interest, but also on personal and interpersonal sources. This is called the *one-two punch theory of persuasion*.
+
+### Message Design
+Message design answers to "how do you say what you need to say", and it has two main categories:
+* Rational appeals: aim to present the point of difference or value proposition. For example,
+    * **product demonstration** explains the technology in the product and why it is superior;
+    * **use of spokesperson** makes consumers feel they could be like the spokesperson if they use the product;
+    * **testimonial** feels genuine because it comes from existing users.
+    * **product comparison** compare your own product with the competitors. It is heavily regulated so you should follow the legal guidance.
+* Emotional appeals. For example,
+    * Use of positive emotions: affection, humor.
+    * Use of negative emotions: fear, must be moderate level. Too strong of fear turn people off.
+
+### Media Planning
+From strategic perspective, there are three types of media:
+* Paid:
+  - TV, search advertising, banner advertising
+* Earned:
+  - a sponsored event or tournament;
+  - a campaign where you give out goods;
+* Owned:
+  - your own website, your company building with your name;
+  - your own product (such as car names written on their back).
+
+The technical aspect of media planning can be taken care of by a good advertising agency.
+
+### Money
+Companies often heuristics for communication budget such as
+* a percentage of sales;
+* match or better than competition.
+
+It is better to use "objectives and tasks" method, which defines the end goal of the communication and work backwards and find out what you need to spend to get there.
+
+### Measurement
+There are many ways to measure the communication. However, in most times, it is not the cost of measurement (which is not high compared to the communication itself), but the willingness of measurement that blocks the measurement. So the right approach is
+1. decide on what the mission of your campaign is,
+2. set the measurement method in advance,
+3. and then go ahead and develop your campaign and execute it.
+
+## Pricing
+Price has the highest impact on operating profit improvement, compared to fixed cost, variable cost, and sales volume, the management perception is otherwise. This suggests the use and execution of pricing can be better. Good pricing requires:
+* Economics;
+* Psychology;
+* Statistics;
+* Operational Research;
+* Computer Science;
+* Courage (often it is not to change the price, but to change the pricing strategy of a company);
+* Common Sense.
+
+### Price Sensitivity
+There are seven drivers of price sensitivity:
+* Availability and awareness of substitutes. The higher the availability and awareness is, the higher price sensitivity is.
+* Ease of direct comparison. Store brands (private labels) and generics are kept next to national brands to improve the ease of price comparison and drive market share.
+* Expenditure (relative value in bundle)
+  - Total expenditure: if you spend more on a product or service, you are more price sensitive. For example, big families are more price sensitive to groceries.
+  - Fraction of total costs: if a particular item is a big part of your cost, you are more price sensitive.
+* Shared cost (e.g., employer pays part, or medicine covered by insurance)
+* Switching cost. For example, car owners are not price sensitive to gas because the cost of switching a car is much higher.
+* Price/quality inferences. Perfume is one example. Other examples involves professional services, such as consulting, legal, doctor, financial advisors, and the reason is the consumer's lack of knowledge.
+* Ability of customer to carry inventory. If the customers can buy in bulk and consume later, they become more price sensitive.
+
+### Price Elasticity
+Price Elasticity is defined as
+
+$$\text{Price (demand) elasticity}=\frac{\%\text{ Change in Demand}}{\%\text{ Change in Price}}$$
+
+The use of percentage makes the measurement of elasticity not dependent on units, and thus enables comparison across industries and firms.
+
+If the demand is elastic, the price goes up and the demand goes down, so the revenue decreases. If the demand is inelastic, the price goes up but the demand does not change much, so the revenue increases. The break-even point is elasticity of 1.
+
+Measuring price elasticity depends on variables measured (what to measure) and conditions of measurement (how to measure).
+
+/                      | Natural    | Experimental
+-----------------------|------------|------------------------------
+Actual Purchase        | Sales Data | Field/Laboratory Experiments
+Preferences/Intentions | Survey     | Trade-off Analysis (Conjoint)
+
+Survey asks sample groups whether they would buy the product at a given price, and assign different prices to different groups to gather the percentage of "yes" for different price points, from which elasticity can be computed. Survey is quick and not as expensive, but it has a few weaknesses:
+* People often do not do what they say they will do (intention-behavior link);
+* It does not explicitly account for competitor prices;
+* It cannot measure repeated purchases, i.e., cannot get customer lifetime value.
+
+Field/lab experiments change price in an controlled manner and observe sales changes.
+
+Conjoint analysis is a survey-based statistical technique used in market research that helps determine how people value different attributes (feature, function, benefits) that make up an individual product or service.
+
+### Psychological Aspects of Pricing
+* The "effect of 9 price endings" says the sales is higher with price ending in 9s than slightly higher or even lower price.
+* Weber Fechner "law": consumers react to prices in percentage terms as opposed to absolutes.
+* Endowment effects: a sense of ownership increases a customer's willingness to pay. This effect does not rely on actual ownership, but just the perception of ownership. The implication is to make consumers feel they own before they buy.
+* Reference prices effect: buyers compare the current price with a reference price, which is often determined by past prices paid. One way to influence the reference price is to have a high list price or starting price.
+* Context effects leads customers to the choice of the "intermediate option". This is the foundation of "good, better, best" strategy by offering three versions of the product and most people buy the "better" version.
+
+Conclusion: considering the psychological effects of pricing can improve profitability.
+
+### Analytic Foundations of Pricing
+#### Margin and Contribution Analysis
+Margin analysis computes how profitable a product is. While the precision in the "numerator", i.e., profit, is important, what is strategically critical is the choice of the denominator, which should be the key binding constraint or a key resource. For example, traditional retailer's margin is per square foot of shelf space, and law firm's margin is per consultant hour.
+
+Margin analysis produces a table of costs and prices for every member of the value chain (e.g., manufacturer ,channel member, end-user, etc.) for every "relevant" product (which in the product line and across competitors). It reveals everyone's incentives in a purchase transaction, allows the discovery of potential problems, such as cannibalization and channel conflict, and provides input for subsequent analyses.
+
+#### Break-Even Analysis
+Break-even analysis helps to justify a change in business by calculating the increase in sales to cover the cost of the change, such as advertising and price cut. For example, how many new customers should we acquire with an additional advertising cost, or what sales growth should we expect to justify a price cut.
+
+Cannibalization is not possible if the margin of the new product is higher. Break-even cannibalization, the percentage of customers on existing product moving to the new product, is equal to the margin on the new product divided by the margin on the existing product.
+
+#### Economic Value to the Customer
+Economic value to the customer, often short for EVC, is the **price at which the customer is indifferent between the existing method of doing things and the new idea being proposed.** It can:
+* Help set a price for a new product or a service with EVC being the maximum.
+* Whether or not the new idea you have is economically worthwhile. If priced at EVC and the new idea is profitable, then it is economically worthwhile.
+* Targeting. Identify segments where EVC is the highest and target these segments. We can also compare Customer Lifetime Value (CLV) and EVC and gain deep understanding of the customer base.
+* Who is your competition and their economic power? Who will suffer if we succeed? Analysis of EVC helps us identify where the value will migrate from.
+* Re-think about how to price what you already have on the market.
+
+![CLV vs. EVC]({{ "/assets/posts/coursera-marketing/clv-vs-evc.png" | absolute_url }})
+
+The difference between EVC and the cost of a product is shared between the inventor, the customer, and the channel partners. Price becomes a sharing rule on how much of the created value is shared. We can analyze the value for each party is high enough to make the product viable.
+
+## Customer Access
+The Place in 4 P's of marketing is to make sure your product or service is accessible to the customer at the right place, at the right time, and of the right type and quality.
+
+Many times, a customer's decision on what product to buy is based on their experience in the store (online or offline) at the point of purchase. Creating "customer access" is very expensive and it is often hidden on your income statement because your revenue is recognized based on the price to channel partner, not the end-user price. Thus, how we create customer access, or traditionally called as creating a distribution channel, can be a great source of competitive advantage and a disruptor in the marketplace.
+
+In order for a customer to buy a product or a service, it is important that the customer has access to:
+* the relevant **information** needed to make the purchase.
+  - primary information: the information about the product itself.
+  - comparative information: how the product compares to others.
+* the purchase can be executed via the right **logistics**.
+
+Skills of the providers and the importance to the buyer (of information and logistics) drives the optimal channel structure.
+
+Structured customer access or channel design decisions: the nature of the product determines the requirement of information and logistics. Disruptions occur via reallocation of functions. For example, Ikea reallocates assembly to customers. Channel margin is the compensation for functions. So if you want your channel partner to do more, make sure you compensate them appropriately.
+
+In addition, technology can transform the product itself. The technology's impact on books, music, and banking is not about the channel, but to convert the product from a hard good to a soft good.
+
+Every product or service is a bunch of attributes or benefits:
+* Digital attributes: those are easy to convey via online channel (or even catalogs in the old days).
+* Non-digital attributes: customers prefer to touch and feel the product.
+
+Your choice of channel can depend on whether the product has mostly digital or non-digital attributes. For non-digital, product experience is important, so the need for physical stores. Online retailers for non-digital products use re-engineered logistics for customers to try out product at home without stores. Repeat purchase reduces the weight on non-digital attributes.
+
+## Channel Conflict
+Channel conflict can occur when you have partner(s) to help take your products and services to the market. There are two types:
+* Vertical conflict: between company and partners. One example is Costco stops carrying Coke because the price cannot be agreed upon.
+* Horizontal conflict: among multiple channel partners that perturbs the channel as a whole. One example is free riding. Low-service, low-price retailers hurt high-service, high-price retailers. When possible, consumers can go to high-service store, get educated, get product information and then go to low-service store to buy the product. For example, showrooming (understand the product offline but buy online) and webrooming (understand the product online but buy offline).
+
+Eliminating conflict is not the goal; managing it so that it is healthy and not disruptive. We should
+* understand the drivers of conflict;
+* best way to manage conflict is through good design:
+  - who will do what?
+  - what is the appropriate compensation?
+  - what actions will be taken when infringement occurs?
+
+Because online channels are good at conveying digital attributes while offline channels are good at non-digital attributes, channel conflict occurs through showrooming and webrooming. Today companies have both online and offline channels (*multi-channel* retailing). If both channels are well-aligned, it becomes the *omni-channel*. Omni-channel retailing is becoming a necessity for success.
+
+## Digital Marketing
+In the AIDA model, attention/interest/desire is to create demand, and action is to capture demand. In classic marketing, TV, billboards, newspaper ads are to create demand, and coupons, end-of-aisle displays, and shelf-talkers are to capture demand.
+
+Digital marketing tools are more focused on capturing demand:
+![Digital marketing tools]({{ "/assets/posts/coursera-marketing/digital-marketing-tools.png" | absolute_url }})
