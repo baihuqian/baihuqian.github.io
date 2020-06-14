@@ -1,7 +1,7 @@
 ---
-layout: "post"
-title: "Wharton on Coursera: Introduction to Marketing"
-date: "2020-05-16 15:46"
+layout: post
+title: 'Wharton on Coursera: Introduction to Marketing'
+date: '2020-06-14 15:18'
 tags:
   - Business
 ---
@@ -48,9 +48,7 @@ The **4 P's of Marketing** are the tools to deliver these three marketing princi
 * Promotion (the way the seller communicates the benefits about that product to the buyer)
 * Price (what the buyer puts into the exchange)
 
-# Branding: Marketing Strategy and Brand Positioning
-
-## Strategic Marketing
+# Strategic Marketing
 It is a framework to figure out how to think competitively and become a leader in the market. The framework is based on a set of strong principles, or assumptions:
 * **Know your markets**. You know what your customers want. And furthermore, you know how your competitors are likely to react.
 * **Customers have the final say**. When comparing products, because there are so many factors, customers bundle factors into three categories: *operational* (e.g., price and delivery), *product features and designs*, and *customized to my need*. Customers assign scores to each category, identify the most important category, and find the product that performs the best in this category while being good enough in others.
@@ -69,9 +67,8 @@ The three bundles:
 * Operational Excellence;
 * Performance Superiority;
 * Customer Intimacy.
-The crosshatches are fair value lines. Note that the three bundles don't have to be symmetric.
 
-The framework involves the following steps:
+The crosshatches are fair value lines. Note that the three bundles don't have to be symmetric. The framework involves the following steps:
 1. Map product attributes to each bundle.
 2. Anticipate the fair value points. These should be the customer expectation, not the average of what everybody offers (because the industry could under- or over-perform as a whole). This is the trickiest in the framework.
 3. Determine where the company is on each axis relative to the fair value.
@@ -79,13 +76,14 @@ The framework involves the following steps:
 5. Put together the short-term strategy (what should you be doing right now in order to beat the competition?) and long-term strategy (to be the best at one dimension and good enough on the other two).
 6. Implement the strategy in your firm.
 
-## Segmentation and Targeting
+# Brand Positioning
 Brand positioning is a critical idea in marketing. The positioning process is called the **STP framework**: Segmentation, Targeting, and Positioning.
 * Segmentation: identify variables that allow one to segment the market;
 * Targeting: evaluate the attractiveness of each segment and choose a target segment;
 * Positioning: identify positioning concepts for each target segment, select the best, and communicate it.
 
-Market segmentation is the process of dividing a market into distinct subset, where any subset any conceivably be selected as a marketing target to be reached with a distinct marketing mix (4 P's). Segmentation methods include:
+## Segmentation and Targeting
+Market segmentation is the process of dividing a market into distinct subset, where any subset can conceivably be selected as a marketing target to be reached with a distinct marketing mix (4 P's). Segmentation methods include:
 1. Characteristics of the customer (e.g., demographics): such as *cohort analysis* (baby boomers vs. millennials), *geographic segmentation* like regional segmentation, zip clustering (rich neighborhoods across the US);
 2. Benefits sought;
 3. Systematic, product-related behaviors (e.g., purchasing behavior like online vs. in store).
@@ -108,12 +106,12 @@ Develop measures of segment attractiveness and select among attractive segments 
 ![Value Map]({{ "/assets/posts/coursera-marketing/market-targeting.png" | absolute_url }})
 
 ## Brand Positioning
-Brand, formally, is a proprietary trademark for a specific product or service. Conceptually, brand is a "contract" from the company to its customers; a promise of specific benefits, quality, and value; a relationship. In today's connected community, brand is what customers think it is and tell each other it is.
+Brand, formally, is *a proprietary trademark for a specific product or service*. Conceptually, brand is a "*contract*" from the company to its customers; a *promise* of specific benefits, quality, and value; a *relationship*. In today's connected community, brand is what customers think it is and tell each other it is.
 
 A positioning statement defines the value proposition of product to the target market. It consists of:
 * Target segment (for whom).
 * Point of difference (differentiator to competitors and reason to buy).
-* Frame of reference (other competitors, or called points of parity).
+* Frame of reference (other competitors, or called *points of parity*).
 
 The point of difference is relative to the frame of reference. Positioning should
 
@@ -147,7 +145,7 @@ Brand mantra can describe what a brand does and also what a brand is *not*.
 ## Experiential Branding
 In a connected community world, customer experience is vital. You have to define the experience around the brand besides the brand positioning.
 
-Experiences are processes that occur as a result of encountering, undergoing or living through situation (it's continuous). They are triggered stimulations to the senses, heart, and mind. They connect the company and the brand to the customer's lifestyle and place individual customer actions and purchase occasions in a broader social context.
+Experiences are *processes that occur as a result of encountering, undergoing or living through situation* (it's continuous). They are triggered stimulations to the senses, heart, and mind. They connect the company and the brand to the customer's lifestyle and place individual customer actions and purchase occasions in a broader social context.
 
 Experiential brand positioning is
 1. what the brand stands for;
@@ -226,6 +224,9 @@ To build a go to market plan, a company should do the following steps:
 2. Strategic Positioning: evaluate different target markets and positioning options.
 3. Implementation using 4 P's. And the go to market plan is *promotion*.
 
+This section discusses Promotion, Price, and Place.
+
+## Promotion Strategy
 Promotions Strategy can roughly be divided into Communication Strategy and Non-Communications.
 
 Communication strategy includes:
@@ -303,6 +304,12 @@ There are many ways to measure the communication. However, in most times, it is 
 1. decide on what the mission of your campaign is,
 2. set the measurement method in advance,
 3. and then go ahead and develop your campaign and execute it.
+
+### Digital Marketing
+In the AIDA model, attention/interest/desire is to create demand, and action is to capture demand. In classic marketing, TV, billboards, newspaper ads are to create demand, and coupons, end-of-aisle displays, and shelf-talkers are to capture demand.
+
+Digital marketing tools are more focused on capturing demand:
+![Digital marketing tools]({{ "/assets/posts/coursera-marketing/digital-marketing-tools.png" | absolute_url }})
 
 ## Pricing
 Price has the highest impact on operating profit improvement, compared to fixed cost, variable cost, and sales volume, the management perception is otherwise. This suggests the use and execution of pricing can be better. Good pricing requires:
@@ -406,7 +413,7 @@ Every product or service is a bunch of attributes or benefits:
 
 Your choice of channel can depend on whether the product has mostly digital or non-digital attributes. For non-digital, product experience is important, so the need for physical stores. Online retailers for non-digital products use re-engineered logistics for customers to try out product at home without stores. Repeat purchase reduces the weight on non-digital attributes.
 
-## Channel Conflict
+### Channel Conflict
 Channel conflict can occur when you have partner(s) to help take your products and services to the market. There are two types:
 * Vertical conflict: between company and partners. One example is Costco stops carrying Coke because the price cannot be agreed upon.
 * Horizontal conflict: among multiple channel partners that perturbs the channel as a whole. One example is free riding. Low-service, low-price retailers hurt high-service, high-price retailers. When possible, consumers can go to high-service store, get educated, get product information and then go to low-service store to buy the product. For example, showrooming (understand the product offline but buy online) and webrooming (understand the product online but buy offline).
@@ -420,8 +427,129 @@ Eliminating conflict is not the goal; managing it so that it is healthy and not 
 
 Because online channels are good at conveying digital attributes while offline channels are good at non-digital attributes, channel conflict occurs through showrooming and webrooming. Today companies have both online and offline channels (*multi-channel* retailing). If both channels are well-aligned, it becomes the *omni-channel*. Omni-channel retailing is becoming a necessity for success.
 
-## Digital Marketing
-In the AIDA model, attention/interest/desire is to create demand, and action is to capture demand. In classic marketing, TV, billboards, newspaper ads are to create demand, and coupons, end-of-aisle displays, and shelf-talkers are to capture demand.
+# Brand Communication
+**Perception** is the process of developing and interpretation of a stimulus, or in other words, deciding what a stimulus means. It is perhaps the most crucial process in customer behavior for two reasons:
+* What customers perceive is what affects their actions;
+* What is perceived is not necessarily what is "true".
 
-Digital marketing tools are more focused on capturing demand:
-![Digital marketing tools]({{ "/assets/posts/coursera-marketing/digital-marketing-tools.png" | absolute_url }})
+Perception is **constructive**; people construct interpretations as a function of context. The process is intrinsically biased; the meanings are constructed as needed and are based upon two major factors:
+* The "actual" stimulus or event: through **selective** *exposure* and *attention* (what is salient). Your perception may change your exposure and attention to stimuli that can potentially change your perception.
+* Our prior expectations are what we know (perceptual interpretation).
+
+So the perceptual process is: sensory inputs -> exposure -> attention -> interpretation, and each stage can be selective and biased. There are numerous psychological studies showing people's perception change by color, fonts, shape, etc. Customers perceive *products* differently if they are associated with different *brands* or have similarity with famous brands.
+
+A variety of brand elements can be chosen that inherently enhance brand awareness or facilitate the formation of strong, favorable, and unique brand associations. It is important to understand
+* how well do the brand elements work together to provide an identity for the product or service?
+* what would customers think about the product if they only saw the brand elements?
+
+Some criteria of choosing brand elements:
+* Memorable
+  - easily recognized
+  - easily recalled
+* Meaningful
+  - descriptive
+  - persuasive
+* Appealing
+  - fun and interesting
+  - aesthetically
+  - rich visual and verbal imagery
+* Protectable
+  - legally
+  - competitively (not easy to copy)
+* Adaptable over time
+  - flexible
+  - updatable
+* Transferrable
+  - within and across product categories
+  - across geographical boundaries and cultures
+
+Each brand element plays a different role in creating the overall perception with different strengths and weaknesses. Brand elements should be used strategically to achieve a balance and impact.
+
+![Brand Elements]({{ "/assets/posts/coursera-marketing/brand-elements.png" | absolute_url }})
+
+## Brand Names
+Brand names affect
+* Consumers: affects likelihood of purchase;
+* Employees: affects morale and productivity;
+* Firm: can limit opportunities such as new products and new regions;
+* Investors: can cause subconscious judgements about the company's merits/strength.
+
+There are many types/origins of brand names:
+![Brand Names]({{ "/assets/posts/coursera-marketing/brand-names.png" | absolute_url }})
+
+New businesses nowadays use invented words as brand names because most recognizable URLs have already been taken.
+
+When entering a different country, companies either keep their names in original language, such as luxury brands, or translate them into the local language. Translation is tricky as the picked words may mean something else in the language. A few ways are (examples are for the Chinese market):
+* Pick characters that mean nothing, like Cadillac;
+* Pick characters that sound like the original name but with a meaning close to the brand image, such as Coca-Cola;
+* Pick characters that sound farther from the original name but with a meaning closer to the brand name, such as Colgate.
+
+## Color
+Ultimate goal is to own a color, e.g., Tiffany's light blue, Mary Kay's pink. Different viewers experience color differently. it is difficult to ensure consistency of color across platforms/media.
+
+Certain colors can create very strong perceptions. For example, gold, silver, black, white are luxury colors, and blue and pick are gender colors.
+
+There are two axes of color: arousal (stimulating/calming) and affect (whether people like it). The arousal axis is universal while the affect axis varies by culture.
+
+A few examples of color:
+* Red: through to stimulate the appetite, also love (passion), excitement;
+* Blue: most preferred by men; productive color; curbs appetite;
+* Green: tranquility and health; money, nature; fertility;
+* Brown: reliability, boredom, practicality, earth;
+* White: purity, innocence, empty, spacious (it creates the illusion of space);
+* Black: evil, death, mourning, slimming;
+* Yellow: bright, gives you energy; been shown to make babies cry; causes eye fatigue;
+* Orange: excitement, enthusiasm, warmth, caution;
+* Lavender: calms the nerves, relaxation;
+* Purple: royalty, wealth, success, wisdom;
+* Pink: girl's color, calming, warm.
+
+## Slogans/Taglines
+Use a slogan or tagline, derived from brand mantra, can be tailored to a positioning strategy. It can:
+
+* remove some of the ambiguity associated with the brand and/or symbol;
+* generate its own equity/emotion;
+* reinforce the name or symbol.
+
+Taglines must be short, differentiated from competitors, unique, easy to say or remember. They cannot have any negative connotations especially going across cultures, and it can be protected and trademarked. They should evoke emotional responses.
+
+## Packaging
+Packaging can influence at the point of purchase and have a continuing influence at the point of consumption. Packaging serves multiple purposes:
+* Identify the product;
+* Present information (descriptive and persuasive);
+* Protect and allow transportation;
+* Store;
+* Aid consumption.
+
+We should understand that package aesthetics and function are both critical. Not only the package has to grab consumers' attention in a sea of competing messages, but it also has to work well so that consumers will buy again. Because the distribution channels ultimately present the product to consumers, it is important to know them well.
+
+## Persuasion
+Another part of the brand identity is to persuade consumers. Persuasion is an active attempt to change belief and attitude. It is a difficult process due to the process is intrinsically biased.
+
+The dominant model is called the Elaboration Likelihood Model. It says there are two routes to persuasion: systematic (central) or superficial (peripheral) processing.
+
+The central route to persuasion says when motivation (involvement), opportunity and ability to process marketing messages are high, the way to persuade them is through "central cues" (or cognitive cues) in messages. The peripheral route to persuasion says when motivation, opportunity, ability or elaboration likelihood is now, focus primarily on "peripheral cues" in messages, which are more automatic reactions, people just make decisions based on these cues.
+
+A few examples of peripheral cues are:
+* Classical conditioning: burgers and cokes always go together;
+* Consistency: we've always done it that way;
+* Social proof: everybody's doing it so it must be good;
+* Liking: you like a person, you will like their ideas;
+* Authority: just because I say so;
+* Scarcity: quick, before they're all gone.
+
+# Brand Repositioning
+Brand equity must be actively managed over time. Brand meaning must be reinforced and sometimes adjusted. Reasons for brand change are
+1. the initial identity/execution was poorly conceived;
+2. the target is limited;
+3. it has become out of date.
+4. it loses its edge, becomes old-fashioned.
+5. it has just become "tired" or "boring".
+
+Changes must be consistent with your current brand image; too big of a change will fail to establish the connection to the brand or people feel uncomfortable with the change. The consistency theory says there is a drive to maintain consistency within cognitive systems. Thus, cognitive structures may change in order to increase consistency among elements. Thus, a brand can evolve more gradually to gain more contemporary associations while maintaining familiarity.
+* Symbols: can update without changing meaning;
+* Brand name: can change to reflect evolving identity;
+* Slogans: easier to change than the name;
+* New products: can be true to the core identity, but add a modern, innovative element.
+
+Another way is called the butterfly effect. It involves bigger and noticeable changes. The reason to do it is to make it noticeable so people understand and embrace the change.
