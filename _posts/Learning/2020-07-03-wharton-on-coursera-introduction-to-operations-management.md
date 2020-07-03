@@ -1,7 +1,7 @@
 ---
-layout: "post"
-title: "Wharton on Coursera: Introduction to Operations Management"
-date: "2020-06-14 15:34"
+layout: post
+title: 'Wharton on Coursera: Introduction to Operations Management'
+date: '2020-07-03 15:05'
 tags:
   - Business
 ---
@@ -182,3 +182,83 @@ We can break the productivity ratio into multiple terms, each representing one a
 In general you can take two approaches. First, look top-down. Start from the finance, work yourself down into the operations using tools such as a productivity ratio, and compliment this with observational data from the front line. Second is bottom-up. Look at the operational data and aggregate them using the tools, such as the KPI tree, to look how they are driving financial performance. This is where you get a balanced view of your productivity in the operation.
 
 # Quality
+There are two dimensions of quality.
+* **Performance quality**, which measures to what extent a product or service that we're providing is meeting customer expectations.
+* **Conformance quality**, which measures whether the process is carried out the way that we intend it to be carried out.
+
+We focus on conformance quality. Variability is the root cause of the complexity. Without variability, we either perform the process correctly all the time, or wrongly all the time.
+
+Each activity in the process has a **yield** which is 1 minus the probability of detect. Then the *yield of the process* is the product of yield of each activity. This requires every step of the process is carried out according to specification.
+
+Some processes have built in **redundancy** so they can afford that step in the process is carried out with a defect and still the overall quality of the output is acceptable. This is known as the *Swiss Cheese Model* (Swiss cheese has holes in it; by stacking multiple slices together it is less likely to have holes through all of them). The probability of defect with multiple redundancies is the product of the defect probability of each redundant step.
+
+## Quality Impact on Flow
+Steps that have the possibility of creating defects must be captured in the process flow diagram. They can either take the form of *scrapping the flow unit*, which means we just drop it from the flow, or *re-working the flow unit*, which means repeating some of the operations that has happened before the defect. Either way, defects show up in the process flow diagram and have the potential to make a resource bottleneck that without these defects would not be a bottleneck.
+
+There are multiple ways of reasoning about the process flow:
+1. Compute the actual processing time of steps with detects. A scrapping rate of $$p$$ increases the processing time from $$t$$ to $$\frac{t}{1-p}$$, and a reworking rate of $$q$$ increases the processing time to $$(1-q)t+2qt$$.
+2. Compute the implied utilization from the last step to the first step by assuming a demand of $$D$$. A scrapping rate of $$p$$ increases the demand to $$\frac{D}{1-p}$$, and a reworking rate of $$q$$ increases the demand to $$(1+q)D$$.
+
+Defects creates variability, and either rework or scrapping results in stranded capacity. Again this is the idea of *buffer or suffer*. However, inventory takes pressure of the resources and thus hiding the underlying problem. Thus, by reducing inventory, problems are exposed instead of hidden.
+
+A Kanban System that uses a Kanban card to authorize work creates a *demand pull*. Instead of every step working as hard as possible, work is only authorized when a Kanban card arrives. Amount of work-in-progress is determined by number of cards, thus capping the inventory.
+
+## Six Sigma
+Often the matter of good or bad is not as binary as it sounds. Oftentimes, there's an underlying parameter that can be measured, be it a geometry, a weight, or a temperature, and this underlying measurement has to be compared with some specification. Generally, the specification is defined as a range between $$LSL$$ (lower specification limit) and $$USL$$ (upper specification limit).
+
+The capability score is defined as ($$\hat{\sigma}$$ is standard deviation):
+
+$$C_p=\frac{USL-LSL}{6\hat{\sigma}}$$
+
+The higher the capability score is, the lower the probability of defect is. Probability of defect is often measured by ppm (parts-per-million), by simply multiplying the probability by 1 million. Assuming a normal distribution of variability, when $$C_p=2$$ (i.e., LSL/USL is $$6\hat{\sigma}$$ from the mean) the defect rate of ppm is 0.
+
+## Control Charts
+Control charts help us to distinguish between what we would call as normal and abnormal variation. There are two types of variations:
+* Common cause variation happens when flow units go through the identical process;
+* Assignable cause variation happens between changes in the process.
+
+To identify assignable cause variation, we should establish control limits. Common cause variation falls within the control limits while assignable cause variation is outside of the control limits.
+
+Control limits are different from specification limits. Control limits are established from 3 times the standard deviation of the sample count.
+
+Control charts is a part of a broader toolbox known as **statistical process control**. Statistical process control is a never-ending cycle of the following steps:
+1. Capability analysis: what is the current "inherent" capability of my process when it is "in control"?
+2. Comformance analysis: identify when control has likely been lost and assignable cause variation has occurred.
+3. Investigate for assignable cause: find "root cause(s)" of potential loss of statistical control.
+4. Eliminate or replicate assignable cause: need corrective action to move forward.
+
+## Jidoka
+Catching defects quickly is critical. There are at least two reasons for that.
+1. We'll see that defects often lead to further defects, especially if there is a lot of inventory in the process.
+2. If we have a defect in the process, it's critical that we catch it before it moves to the bottleneck, because otherwise, scarce bottleneck capacity is wasted on the defect.
+
+Inventory leads to a longer ITAT (Information turnaround time) as the following step won't detect the defect until previous inventory is processed, thus leading to slow feed-back and no learning.
+
+The cost of the defect depends on the step where the detect is **identified**, not *occurred*. If the defect is identified before the bottleneck, the cost is COGS; if the defect is identified after the bottleneck, then the cost is the opportunity cost of the lost revenue. Thus, it is important to test the flow unit before going into the bottleneck.
+
+**Jidoka** means if an equipment malfunctions or gets out of control, it shuts itself down automatically to prevent further damage. It requires the following steps: detect, alert, stop. **Andon Cord** is a rope to pull to stop the assembly line, and the station number appears on the **andon board**.
+
+## Root Cause Problem Solving
+Ishikawa Diagram is a brainstorming technique of what might have contributed to a problem. It shapes like a fish bone. A potential root cause may have sub-root causes, so a famous technique is 5-Why's. It keeps asking "why something happened?"
+
+Then the number and frequency of assignable causes identified in the Ishikawa diagram is mapped out in decreasing order, and a cumulative probability line is drawn. This is known as the Pareto Chart. Often we will find that 80% of the issue was caused by 20% of the root causes, known as the 80-20 logic or Pareto Principle.
+
+Note that both statistical process control and the Toyota Production System both use iterative problem solving between the reality and the thought process. For example,
+1. Jidoka (reality) to identify the problem;
+2. Ishikawa (thought) to analyze the problem;
+3. Pareto (reality) to gather data for the root cause;
+4. Alternative solutions (thought) to find mitigations;
+5. Experiments (reality) to try the solution.
+
+## Toyota Production System
+Toyota built the Toyota Production System since the 1950s to systematically eliminate waste and build the operations around serving demand.
+![Toyota Production System]({{ "/assets/posts/coursera-operations-management/toyota-production-system.png" | absolute_url }})
+
+# Summary: The Three Enemies of Operations
+The three enemies of operations are waste, inflexibility, and variability.
+
+Waste is the use of resources beyond what is needed to meet customer requirements. We discussed "the seven types of waste", the OEE framework, and lean operations ("do more with less").
+
+Inflexibility results in additional costs incurred because of supply-demand mismatches.
+
+Variability is associated with longer wait times and/or customer loss. It Requires process to hold excess capacity (idle time or inventory). We discussed the idea of "buffer or suffer". Often times, variability results in quality issues ("Six Sigma").
