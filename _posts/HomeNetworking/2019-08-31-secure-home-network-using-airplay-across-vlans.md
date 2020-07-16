@@ -6,6 +6,8 @@ tags:
  - Networking
 ---
 
+AirPlay uses Multicast DNS (mDNS), implemented in Apple Bonjour, to discover compatible devices on a local area network (LAN). Thus by default, devices on different VLANs cannot discover each other, thus breaking the AirPlay functionality.
+
 To allow Apple devices in the main VLAN to use AirPlay on TV and speakers in the IoT VLAN, make sure the following:
 1. your TV and speakers can connect to the Apple devices in TCP and UDP on a random port in the 49152-65535 range;
 2. enable mDNS reflection in the router (see instructions in [this post]({{ site.baseurl }}{% post_url HomeNetworking/2019-08-27-secure-home-network-using-homekit-devices-across-vlans %})).

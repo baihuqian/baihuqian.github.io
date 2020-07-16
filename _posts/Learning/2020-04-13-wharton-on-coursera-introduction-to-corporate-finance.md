@@ -153,7 +153,7 @@ Net borrowing is borrowing after any debt repayment.
 
 >Lesson: FCFE is residual cash flow left over after all of the project’s requirements have been satisfied, implications accounted for, and all debt financing has been satisfied.
 
-Debts are taken care of between FCFE and FCF because they are senior claimants than eqnity.
+Debts are taken care of between FCFE and FCF because they are senior claimants than equity.
 
 >Lesson: FCFE is the cash flow that can be distributed to the shareholders (i.e., **equity**) of the project or company.
 

@@ -103,6 +103,11 @@ In the UniFi controller, go to **Settings > Wireless Networks**, and create or e
 
 For guest network, check "Guest Policy".
 
+### Configure Switch Ports
+VLANs can be used with UniFi Switches. By default, ports are set to All, so it'll have an untagged VLAN 1 (which should be the default network in your controller), and then the rest will be tagged. To enable tagged VLAN for a port, VLANs needs to be defined in the UniFi Network Controller under **Settings > Networks**. To simply set up a VLAN, set a network as VLAN only.
+
+To change the profile on a port, or port group, click on the Switch in the Devices tab to reveal the **Properties Panel**, then go to **Ports**, and either choose the edit button on the right or select the desired ports and click "edit selected" on the bottom. In editing mode, choose the profile for the port(s). The Networks/VLANs profile on a port can be used to define the untagged and tagged networks on the selected port(s).
+
 # Firewall
 
 So far, you have set up VLANs and devices in these VLANs are able to obtain dynamic address and access Internet. Now, let's configure firewall rules to lock down access.
@@ -273,7 +278,7 @@ Direction: local
 * [4](https://community.ui.com/questions/Laymans-firewall-explanation/2dafa379-3269-4749-b224-0dee15374de9)
 * [5](https://help.ubnt.com/hc/en-us/articles/222183968-Intro-to-Networking-Introduction-to-Virtual-LANs-VLANs-and-Tagging)
 * [6](https://help.ubnt.com/hc/en-us/articles/219654087-UniFi-Using-VLANs-with-UniFi-Wireless-Routing-Switching-Hardware)
-
+* [7](https://help.ui.com/hc/en-us/articles/360046144234-UniFi-Using-VLANs-with-UniFi-Switching)
 
 # Further Reads
 This is the post series. Other posts on the home network topics are:
