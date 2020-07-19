@@ -120,7 +120,7 @@ sudo systemctl status cloudflared
 
 Now test that it is working! Run the following `dig` command, a response should be returned similar to the one below
 
-```bash
+```
 dig @127.0.0.1 -p 5053 google.com
 
 ; <<>> DiG 9.10.3-P4-Ubuntu <<>> @127.0.0.1 -p 5053 google.com
@@ -148,6 +148,68 @@ Finally, configure Pi-hole to use the local `cloudflared` service as the upstrea
 
 Go to "Settings" in the Pi-Hole console, choose "DNS" tab, uncheck the checkboxes before "Cloudflare", and type in `127.0.0.1#5053` as the primary and `1.1.1.1#53` as the secondary for IPv4. Check the checkboxes before them. Don't forget to hit Return or click on Save.
 
+# Fix Pi-Hole after OS Upgrade
+After I upgraded my OS to Ubuntu 20.04 LTS, Pi-Hole failed to start. The DNS resolution fails on the host and thus, it cannot install any necessary updates. First, modify `/etc/resolv.conf` to replace `127.0.0.1` or the host's IP with a public DNS server such as `1.1.1.1` to get DNS resolution back, then run `pihole -r` and select "Repair" to see if it can fix itself. In my case, the `pihole-FTL` service fails to start:
+
+```
+[✗] pihole-FTL: no process found
+[✓] Cleaning up stray matter
+[✓] Restarting DNS server
+
+[✗] DNS service is NOT running
+```
+
+If you check `pihole-FTL`'s service logs, you will find that `dnsmasq` cannot start:
+
+```
+~$ sudo service pihole-FTL status
+● pihole-FTL.service - LSB: pihole-FTL daemon
+     Loaded: loaded (/etc/init.d/pihole-FTL; generated)
+     Active: active (exited) since Sun 2020-07-19 02:43:45 UTC; 1min 43s ago
+       Docs: man:systemd-sysv-generator(8)
+    Process: 8566 ExecStart=/etc/init.d/pihole-FTL start (code=exited, status=0/SUCCESS)
+
+Jul 19 02:43:44 ubuntu1804 systemd[1]: Starting LSB: pihole-FTL daemon...
+Jul 19 02:43:44 ubuntu1804 pihole-FTL[8566]: Not running
+Jul 19 02:43:44 ubuntu1804 su[8640]: (to pihole) root on none
+Jul 19 02:43:44 ubuntu1804 su[8640]: pam_unix(su:session): session opened for user pihole by (uid=0)
+Jul 19 02:43:45 ubuntu1804 pihole-FTL[8730]: dnsmasq: cannot access /etc/dnsmasq.d/lxd: No such file or directory
+Jul 19 02:43:45 ubuntu1804 dnsmasq[8730]: cannot access /etc/dnsmasq.d/lxd: No such file or directory
+Jul 19 02:43:45 ubuntu1804 dnsmasq[8730]: FAILED to start up
+Jul 19 02:43:45 ubuntu1804 su[8640]: pam_unix(su:session): session closed for user pihole
+Jul 19 02:43:45 ubuntu1804 systemd[1]: Started LSB: pihole-FTL daemon.
+```
+
+It turns out, `/etc/dnsmasq.d/lxd` is a symlink pointing to a nonexistent folder:
+
+```
+~$ ll /etc/dnsmasq.d/lxd
+lrwxrwxrwx 1 root root 28 Aug  5  2019 /etc/dnsmasq.d/lxd -> /etc/dnsmasq.d-available/lxd
+```
+
+Remove the `/etc/dnsmasq.d/lxd` symlink and restart `pihole-FTL` fixes the problem:
+
+```
+~$ sudo service pihole-FTL restart
+~$ sudo service pihole-FTL status
+● pihole-FTL.service - LSB: pihole-FTL daemon
+     Loaded: loaded (/etc/init.d/pihole-FTL; generated)
+     Active: active (exited) since Sun 2020-07-19 02:48:09 UTC; 4s ago
+       Docs: man:systemd-sysv-generator(8)
+    Process: 9099 ExecStart=/etc/init.d/pihole-FTL start (code=exited, status=0/SUCCESS)
+
+Jul 19 02:48:09 ubuntu1804 systemd[1]: Starting LSB: pihole-FTL daemon...
+Jul 19 02:48:09 ubuntu1804 pihole-FTL[9099]: Not running
+Jul 19 02:48:09 ubuntu1804 su[9175]: (to pihole) root on none
+Jul 19 02:48:09 ubuntu1804 su[9175]: pam_unix(su:session): session opened for user pihole by (uid=0)
+Jul 19 02:48:09 ubuntu1804 pihole-FTL[9268]: FTL started!
+Jul 19 02:48:09 ubuntu1804 su[9175]: pam_unix(su:session): session closed for user pihole
+Jul 19 02:48:09 ubuntu1804 systemd[1]: Started LSB: pihole-FTL daemon.
+
+~$ pihole status
+  [✓] DNS service is running
+  [✓] Pi-hole blocking is Enabled
+```
 
 # Further Reads
 This is the post series. Other posts on the home network topics are:
