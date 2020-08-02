@@ -1,7 +1,9 @@
 ---
-layout: "post"
-title: "Coursera Programming Languages, Part B"
-date: "2020-07-03 15:07"
+layout: post
+title: 'Coursera Programming Languages, Part B'
+date: '2020-08-02 17:24'
+tags:
+  - Computer Science
 ---
 
 This is the course notes I took when studying [Programming Languages (Part B)](https://www.coursera.org/learn/programming-languages-part-b), offered by Coursera.
@@ -416,3 +418,66 @@ We can define Racket helper functions to create the program in language `B`. Doi
 is a macro and `(negate (double (negate (const 4))))` produces `(negate (multiply (negate (const 4)) (const 2)))`.
 
 We should call out that this approach does not handle issues related to variable shadowing as well as a real macro system that has hygienic macros.
+
+# Section 7
+This section discusses static typing.
+
+## ML versus Racket
+First, we will compare Racket with ML. The most widespread difference between the two languages is that ML has a static type system that Racket does not. ML's type system rejects lots of programs before running them by doing type-checking and reporting errors.
+
+We can describe ML as roughly defining a *subset* of Racket: Programs that run produce similar answers, but ML rejects many more programs as illegal, i.e., not part of the language. But sometimes, ML rejects Racket-like programs that are not bugs, such as lists with different types of members.
+
+On the other hand, Racket is just ML where *every expression is part of one big datatype*. Specifically, it is like Racket has a such datatype binding and all functions take and returns this datatype:
+
+```sml
+datatype theType = Int of int
+                 | String of string
+                 | Pair of theType * theType
+                 | Fun of theType -> theType
+                 | ... (* one constructor per built-in type *)
+
+fun car v = case v of Pair(a,b) => a | _  => raise ... (* give some error *)
+fun pair? v = case v of Pair _ => true | _ => false
+```
+
+Finally, Racket’s struct definitions do one thing you cannot quite do with ML datatype bindings: They dynamically add new constructors to a data type.
+
+## What is Static Checking
+What is usually meant by “static checking” is anything done to reject a program *after* it (successfully) parses but *before* it runs. Generally we think static checking is "compile-time checking" though it is irrelevant whether the language implementation will use a compiler or an interpreter after static checking succeeds.
+
+What static checking is performed is part of the definition of a programming language. Given a language with a particular definition, you could also use other tools that do even more static checking, even though such tools are not part of the language definition.
+
+The most common way to define a language’s static checking is via a *type system*. But this is the language’s *approach* to static checking (how it does it), which is different from the *purpose* of static checking (what it accomplishes). The purpose is to reject programs that “make no sense” or “may try to misuse a language feature.”
+
+As ML and Racket demonstrate, the typical points at which to prevent a “bad thing” are “compile-time” and “run-time.” However, it is worth realizing that there is really a continuum of eagerness about when we declare something an error. For example, errors can be shown at
+* keystroke-time as certain IDEs perform static analysis;
+* compile-time;
+* link-time;
+* run-time;
+* return specific value instead an error so the programmer should handle it.
+
+## Correctness: Soundness, Completeness, Undecidability
+A static checker is correct if it prevents what it claims to prevent — otherwise, either the language definition or the implementation of static checking needs to be fixed. But a more precise description of correctness can be defined with the terms **soundness** and **completeness**.
+
+For a given thing *X* we wish to prevent. For example, *X* could be “a program looks up a variable that is not in the environment”:
+
+* A type system is **sound** if it never accepts a program that, when run with some input, does *X*. In other words, it prevents *false negatives*.
+* A type system is **complete** if it never rejects a program that, no matter what input it is run with, will not do *X*. In other words, it prevents *false positives*.
+
+The terms soundness and completeness come from logic and are commonly used in the study of programming languages. A sound logic proves only true things. A complete logic proves all true things. Here, our type system is the logic and the thing we are trying to prove is “*X* cannot occur.”
+
+In modern languages, type systems are sound (they prevent what they claim to) but not complete (they reject programs they need not reject). Type systems are not complete because for almost anything you might like to check statically, it is *impossible* to implement a static checker that given any program in your language (a) always terminates, (b) is sound, and (c) is complete. Soundness is important because it lets language users and language implementers rely on *X* never happening, and the type checker must terminate. Thus, we have to give up completeness.
+
+The impossibility result is exactly the idea of **undecidability** at the heart of the study of the theory of computation. Knowing what it means that nontrivial properties of programs are undecidable is fundamental to being an educated computer scientist. The fact that undecidability directly implies the inherent incompleteness of static checking is probably the most important ramification of undecidability.
+
+## Weak Typing
+Weak typing is not related to static/dynamic typing, but is about what a program can do when *X* happens.
+
+If a language has programs where a legal implementation is allowed to do *anything*, we call the language **weakly typed**. Languages where the behavior of buggy programs is more limited are called **strongly typed**. One big source of undefined behavior in a weakly-typed languages is array-bounds errors.
+
+C and C++ are the well-known weakly typed languages. They are low-level programming languages and thus do not perform dynamic checks (apart from the static checks at compile time) because 1) dynamic checks require extra data (like tags on values) to do the checks, and 2) performance cost of dynamic checking.
+
+An older perspective is to leave such checks to programmers. But humans are very error-prone so modern languages generally do not adhere to this perspective anymore.
+
+## Static vs. Dynamic Typing
+There is no definitive answer to which one is better between static and dynamic checking. A better question would be "what should be enforced statically."
