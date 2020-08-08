@@ -30,7 +30,7 @@ Note:
 You may assume k is always valid, 1 ≤ k ≤ $$n^2$$.
 
 # Solution
-Like [Leetcode 373: Find K Pairs with Smallest Sums]({{ site.baseurl }}{% post_url Leetcode/2018-08-20-find-k-pairs-with-smallest-sums %}), we can use a min heap to store "candidates" from each row, and pop the first `k - 1` candidates.
+Like [Leetcode 373: Find K Pairs with Smallest Sums]({{ site.baseurl }}{% link _posts/leetcode/2018-08-20-find-k-pairs-with-smallest-sums.md %}), we can use a min heap to store "candidates" from each row, and pop the first `k - 1` candidates.
 
 Time complexity $$O((n + k)logn)$$, space complexity $$O(n)$$.
 

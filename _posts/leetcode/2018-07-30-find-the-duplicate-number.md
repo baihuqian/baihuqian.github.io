@@ -32,7 +32,7 @@ Note:
 4. There is only one duplicate number in the array, but it could be repeated more than once.
 
 # Solution: Floyd's Tortoise and Hare (Cycle Detection)
-If we interpret `nums` such that for each pair of index $$i$$ and value $$v_i$$, the "next" value $$v_j$$ is at index $$v_i$$, we can reduce this problem to cycle detection. See the solution to [Linked List Cycle II]({{ site.baseurl }}{% post_url Leetcode/2018-06-24-linked-list-cycle-ii %}) for more details.
+If we interpret `nums` such that for each pair of index $$i$$ and value $$v_i$$, the "next" value $$v_j$$ is at index $$v_i$$, we can reduce this problem to cycle detection. See the solution to [Linked List Cycle II]({{ site.baseurl }}{% link _posts/leetcode/2018-06-24-linked-list-cycle-ii.md %}) for more details.
 
 Because each number in `nums` is between $$1$$ and $$n$$, it will necessarily point to an index that exists. Therefore, the list can be traversed infinitely, which implies that there is a cycle. Additionally, because $$0$$ cannot appear as a value in `nums`, `nums[0]` cannot be part of the cycle. Therefore, traversing the array in this manner from `nums[0]` is equivalent to traversing a cyclic linked list.
 
