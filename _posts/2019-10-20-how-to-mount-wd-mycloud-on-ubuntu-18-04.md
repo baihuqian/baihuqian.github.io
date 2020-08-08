@@ -7,22 +7,26 @@ tags:
  - Networking
 ---
 
-Although WD MyCloud does not officially support Linux, it uses Samba for network mount. This post will explain how to mount a password-protected Samba share to Ubuntu 18.04 and enable automatic mount at start up.
+Although WD MyCloud does not officially support Linux, it uses Samba for network mount. This post will explain how to mount a password-protected WD MyCloud share to Ubuntu 18.04 and enable automatic mount at start up.
 
 ## Install CIFS
+You will need to install CIFS (Common Internet File System) in your Linux system, if it is not already installed:
+
 ```bash
 sudo apt install cifs-utils
 ```
 
-## Create Mount Point
-You will need a separate directory for each mount. You can create them under `/media` or `/mnt`.
+## Create Mount Point for Your Shares
+You will need a separate directory for each share. You can create them under `/media` or `/mnt`.
 
 ```bash
 sudo mkdir /media/<share_name>
 ```
 
+`<share_name>` is the name of your share.
+
 ## Create Password File
-Because `/etc/fstab` is readable by everyone and so is your password in it, you should use a credentials file. This is a file that contains just the username and password to your WD MyCloud.
+The configuration of your network mount is in `/etc/fstab` file. Because it is readable by everyone and so is your password in it, you should use a credentials file. This is a file that contains just the username and password to your WD MyCloud.
 
 ```
 vim ~/.smbcredentials
@@ -35,7 +39,7 @@ username=msusername
 password=mspassword
 ```
 
-Save and exit vim.
+Save and exit vim. By default, this file can be read by your user but not other users.
 
 ## Edit Mount File
 Edit `/etc/fstab` with root privileges:
@@ -44,7 +48,7 @@ Edit `/etc/fstab` with root privileges:
 sudo vim /etc/fstab
 ```
 
-And add this line for each mount:
+And add this line for each share:
 
 ```
 //<server_name>/<share_name>  /media/<share_name>  cifs  uid=<user_name>,credentials=/home/<user_name>/.smbcredentials,iocharset=utf8 0 0
@@ -52,7 +56,7 @@ And add this line for each mount:
 
 This line refers to your previously-created password file, and enable special permissions (like `chmod` etc.) to your mount.
 
-For my mount, I added the following line to `/etc/fstab`:
+As an example, I have a WD MyCloud EX2 which a static IP address of 192.168.10.10, and I would like to mount a shared named "Archive". My Ubuntu username is `ubuntu` and the password file is thus located at `/home/ubuntu/.smbcredentials`. I added the following line to `/etc/fstab`:
 
 ```
 //192.168.10.10/Archive /media/Archive cifs uid=ubuntu,credentials=/home/ubuntu/.smbcredentials,iocharset=utf8 0 0
