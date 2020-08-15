@@ -8,17 +8,14 @@ tags:
 
 This is the course notes I took when studying [Programming Languages (Part B)](https://www.coursera.org/learn/programming-languages-part-b), offered by Coursera.
 
-This course is based on [Part A]({{ site.baseurl }}{% link _posts/Learning/2020-04-07-coursera-programming-languages-part-a.md %}). In Part B, we re-apply functional programming concepts to a dynamically-typed language, and We discuss new concepts like delay evaluation, macros, implementing programming languages, and static vs. dynamic typing.
+This course is based on [Part A]({{ site.baseurl }}{% link _posts/Learning/2020-04-07-coursera-programming-languages-part-a.md %}) and subsequently I studied [Part C]({{ site.baseurl }}{% link _posts/Learning/2020-08-14-coursera-programming-languages-part-c.md %}).
 
 * toc
 {:toc}
 
 # Section 5
-We will use the Racket programming language (instead of ML) and the DrRacket programming environment.
+We will use the Racket programming language in this part. Racket is derived from Scheme, a well-known programming language that has evolved since 1975. (Scheme in turn is derived from LISP, which has evolved since 1958 or so.)
 
-Racket is derived from Scheme, a well-known programming language that has evolved since 1975. (Scheme in turn is derived from LISP, which has evolved since 1958 or so.)
-
-## Introduction to Racket
 The first line of a Racket file (which is also a Racket module) should be
 
 ```

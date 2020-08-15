@@ -10,22 +10,6 @@ This is the course notes I took when studying [Programming Languages (Part C)](h
 
 This course is based on [Part A]({{ site.baseurl }}{% link _posts/Learning/2020-04-07-coursera-programming-languages-part-a.md %}) and [Part B]({{ site.baseurl }}{% link _posts/Learning/2020-08-02-coursera-programming-languages-part-b.md %}).
 
-In Part A, we have learned
-1. Basics, functions, recursion, scope, variables, tuples, lists.
-2. Datatypes, pattern-matching, tail-recursion.
-3. First-class functions, closures.
-4. Type inference, modules, equivalence.
-
-In Part B, we have learned
-1. Dynamic types, parentheses, delayed evaluation, streams, macros.
-2. Structs, interpreters, closures.
-3. Static checking, static vs. dynamic.
-
-Both parts focus on functional programming. In part C we will learn
-1. Dynamically-typed object-oriented programming
-2. OOP vs. functional decomposition and advanced OOP topics
-3. Subtyping, generics vs. subtyping.
-
 * toc
 {:toc}
 

@@ -6,16 +6,34 @@ tags:
   - Computer Science
 ---
 
-This is the course notes I took when studying [Programming Languages (Part A)](https://www.coursera.org/learn/programming-languages), offered by Coursera.
+This is the course notes I took when studying [Programming Languages (Part A)](https://www.coursera.org/learn/programming-languages), offered by Coursera. Subsequently I studied [Part B]({{ site.baseurl }}{% link _posts/Learning/2020-08-02-coursera-programming-languages-part-b.md %}) and [Part C]({{ site.baseurl }}{% link _posts/Learning/2020-08-14-coursera-programming-languages-part-c.md %}).
+
+This course series studiy the fundamental concepts that appear in one form or another in almost every programming language. Different languages are used to see how they can take complementary approaches to representing concepts taught in this course. We mainly study two axes: statically-typed languages vs. dynamically-typed languages, and functional vs. object-oriented programming.
+
+Part A studies the basics and statically-typed functional programming language:
+1. Basics, functions, recursion, scope, variables, tuples, lists.
+2. Datatypes, pattern-matching, tail-recursion.
+3. First-class functions, closures.
+4. Type inference, modules, equivalence.
+
+Part B applied functional programming to a dynamically-typed language:
+1. Dynamic types, parentheses, delayed evaluation, streams, macros.
+2. Structs, interpreters, closures.
+3. Static checking, static vs. dynamic.
+
+Part C studies object-oriented programming:
+1. Dynamically-typed object-oriented programming
+2. OOP vs. functional decomposition and advanced OOP topics
+3. Subtyping, generics vs. subtyping.
 
 * toc
 {:toc}
 
-This course is to learn the fundamental concepts that appear in one form or another in almost every programming language. Different languages are used to see how they can take complementary approaches to representing concepts taught in this course.
-
 # Section 1
 ## Variable Bindings and Expressions
-We will learn ML in a way that teaches core programming-languages concepts. An ML program is a sequence of *bindings*. Each binding gets **type-checked** and then (assuming it type-checks) **evaluated**. There are several kinds of bindings, but for now let's consider only a *variable binding*, which in ML has this syntax:
+We will learn ML in a way that teaches core programming-languages concepts. An ML program is a sequence of *bindings*. Each binding gets **type-checked** and then (assuming it type-checks) **evaluated**. There are several kinds of bindings.
+
+A *variable binding* in ML has this syntax:
 
 ```sml
 val x = e;
@@ -40,7 +58,6 @@ Thus, there are three rules to think about for an expression: syntax, type-check
  - The type of the whole expression is the type of `e2` and `e3`.
 - Evaluation: under the current dynamic environment, evaluate e`1`. If the result is `true`, the result of evaluating `e2` under the current dynamic environment is the overall result. If the result is `false`, the result of evaluating `e3` under the current dynamic environment is the overall result.
 
-## Variables are Immutable
 Bindings are *immutable*. Given `val x = 8+9;` we produce a dynamic environment where `x` maps to `17`. In this environment, `x` will always map to `17`. Also, the expression in binding is evaluated eagerly, i.e., it is evaluated before the binding is added to the dynamic environment. There is no **assignment statement** in ML to change what `x` maps to. However, you can have another binding of `x` later, but that just creates a *different environment* where the later binding for `x` **shadows** the earlier one.
 
 ## Function Bindings
@@ -64,7 +81,7 @@ Evaluation:
 The evaluation rule for a function binding is trivial: A function is a *value* - we simply add `x0` to the environment as a function that can be called later.
 
 ## Function Calls
-Function call is a new kind of expression.
+Function call is a new kind of *expression*.
 
 The syntax is `e0 (e1,...,en)` with the parentheses optional if there is exactly one argument.
 
@@ -148,7 +165,7 @@ Programming Languages course focuses on semantics and idioms. Syntax is a fact t
 # Section 2
 ## Conceptual Ways to Build New Types
 Programming languages have *base types*, like `int`, `bool`, and `unit` and *compound type*s, which are types that contain other types in their definition. There are really only three types of building blocks to construct compound types:
-* Each-of" (product types): A compound type `t` describes values that contain *each of* values of type `t1`, `t2`, ..., ***and*** `tn`. Tuples are "each-of" types.
+* "Each-of" (product types): A compound type `t` describes values that contain *each of* values of type `t1`, `t2`, ..., ***and*** `tn`. Tuples are "each-of" types. In OOP languages, a class defines an "each-of" type.
 * "One-of" (sum types): A compound type `t` describes values that contain a value of *one of* the types `t1`, `t2`, ..., ***or*** `tn`. Options and Scala `Either` are "one-of" types. In OOP languages, "one-of" is achieved by subclassing.
 * "Self-reference" (recursive types): A compound type `t` may refer to itself in its definition in order to describe recursive data structures like lists and trees.
 
