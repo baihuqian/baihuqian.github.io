@@ -1,4 +1,4 @@
-[![](https://i.imgur.com/zNBkzj1.png)](https://xscode.com/daattali/beautiful-jekyll)
+[![](https://i.imgur.com/zNBkzj1.png)](https://beautifuljekyll.com/plans/)
 
 # Beautiful Jekyll
 
@@ -65,7 +65,7 @@ Fork this project by clicking the __*Fork*__ button at the top right corner of t
 
 ### 2. Rename the project to `<yourusername>.github.io`
 
-Click on __*Settings*__ at the top (the cog icon) and on that page you'll have an option to rename the project (*repository name*). This will create a website with the **Beautiful Jekyll** template that will be available at `https://<yourusername>.github.io` within a couple minutes. Check out the [FAQ](#faq-and-support) if you want to use a different project name.
+Click on __*Settings*__ at the top (the cog icon) and on that page you'll have an option to rename the project (*Repository name*). This will create a website with the **Beautiful Jekyll** template that will be available at `https://<yourusername>.github.io` within a couple minutes (check out the [FAQ](#faq-and-support) if you want to use a different project name). If after a few minutes your website is still not ready, try making any edit to any file, just to force GitHub to re-build your site.
 
 ### 3. Customize your website settings
 
@@ -77,9 +77,11 @@ After you save your changes to the `_config.yml` file (by clicking on *Commit ch
 
 Note that in the video above I only edited one setting in the `_config.yml` file. **You should actually go through the rest of the settings as well. Don't be lazy, go through all the settings :)**
 
+Also note that this was the easy way to *create* your website, but it does come at a cost: when Beautiful Jekyll gains new features in the future, *updating* your website to include all the latest features is cumbersome. See the [FAQ](#faq-and-support) for help with upgrading in the future.
+
 ## The hard way (using ruby gems)
 
-If you followed the easy method above, then you already have your site and you can skip this section! If you want to install beautiful-jekyll using ruby gems instead, follow the [advanced installation instructions](https://beautifuljekyll.com/getstarted/#install-steps-hard).
+If you followed the easy method above, then you already have your site and you can skip this section! If you want to use Beautiful Jekyll as a ruby gem instead, follow the [advanced installation instructions](https://beautifuljekyll.com/getstarted/#install-steps-hard). This is harder to set up initially, but it makes it super easy to keep your site up to date with Beautiful Jekyll when more features are added in the future.
 
 # Plans
 
@@ -87,9 +89,9 @@ Beautiful Jekyll is, and always will be, free. But if you want to remove the Bea
 
 # Add your own content
 
-To add pages to your site, you can either write a markdown file (`.md`) or you can write an HTML file. It's much easier to write markdown than HTML, so I suggest you do that ([here's a great tutorial](https://markdowntutorial.com/) if you need to learn markdown in 5 minutes). You can look at some files on this demo site to get an idea of how to write markdown.
+To add pages to your site, you can either write a markdown file (`.md`) or you can write an HTML file. It's much easier to write markdown than HTML, so I suggest you do that ([here's a great tutorial](https://markdowntutorial.com/) if you need to learn markdown in 5 minutes).
 
-To look at existing files, click on any file that ends in `.md`, for example [`aboutme.md`](./aboutme.md). On the next page you can see some nicely formatted text (there's a word in bold, a link, a few bullet points), and if you click on the pencil icon to edit the file, you'll see the markdown code that generated the pretty text. Very easy!
+To see an example of a markdown file, click on any file that ends in `.md`, for example [`aboutme.md`](./aboutme.md). On that page you can see some nicely formatted text (there's a word in bold, a link, a few bullet points), and if you click on the pencil icon to edit the file, you'll see the markdown code that generated the pretty text. Very easy!
 
 In contrast, look at [`tags.html`](./tags.html). That's how your write HTML - not as pretty. So stick with markdown if you don't know HTML.
 
@@ -159,7 +161,7 @@ readtime    | If you want a post to show how many minutes it will take to read i
 show-avatar | If you have an avatar configured in the `_config.yml` but you want to turn it off on a specific page, use `show-avatar: false`.
 social-share | By default, every blog post has buttons to share the page on social media. If you want to turn this feature off, use `social-share: false`.
 nav-short   | By default, the navigation bar gets shorter after scrolling down the page. If you want the navigation bar to always be short on a certain page, use `nav-short: true`
-gh-repo   | If you want to show GitHub buttons at the top of a post, this sets the GitHub repo name (eg. `daattali/beautiful-jekyll`). You must also use the `gh-badge` parameter to specify what buttons to show.
+gh-repo   | If you want to show GitHub buttons at the top of a post, this sets the GitHub repo name (eg. `daattali/beautiful-jekyll`). You must also use the `gh-badge` parameter to specify what buttons to show.
 gh-badge  | Select which GitHub buttons to display. Available options are: [star, watch, fork, follow]. You must also use the `gh-repo` parameter to specify the GitHub repo.
 layout      | What type of page this is (default is `post` for blog posts and `page` for other pages). See _Page types_ section below for more information.
 
@@ -169,8 +171,10 @@ These are advanced parameters that are only useful for people who need very fine
 
 Parameter   | Description
 ----------- | -----------
-footer-extra | If you want to include extra information in the footer (below the social media icons), create an HTML file in the `_includes/` folder (for example `_includes/myinfo.html`) and set `footer-extra` to the name of the file (for example `footer-extra: myinfo.html`)
-head-extra   | Works in a similar way to `footer-extra`, but used if you have any HTML code that needs to be included in the `<head>` tag of the page.
+footer-extra | If you want to include extra content below the social media icons in the footer, create an HTML file in the `_includes/` folder (for example `_includes/myinfo.html`) and set `footer-extra` to the name of the file (for example `footer-extra: myinfo.html`). Accepts a single file or a list of files.
+before-content | Similar to `footer-extra`, but used for including HTML before the main content of the page (below the title).
+after-content | Similar to `footer-extra`, but used for including HTML after the main content of the page (above the footer).
+head-extra   | Similar to `footer-extra`, but used if you have any HTML code that needs to be included in the `<head>` tag of the page.
 language    | HTML language code to be set on the page's &lt;html&gt; element.
 full-width  | By default, page content is constrained to a standard width. Use `full-width: true` to allow the content to span the entire width of the window.
 js          | List of local JavaScript files to include in the page (eg. `/assets/js/mypage.js`)
@@ -188,9 +192,7 @@ ext-css      | List of external CSS files to include in the page. External CSS f
 
 # Showcased users (success stories!)
 
-Beautiful Jekyll has been used in tens of thousands of websites since 2015.  Here is a sample of some websites that use Beautiful Jekyll.
-
-If you'd like to showcase yourself and join this list, [supporting the theme](https://github.com/sponsors/daattali/sponsorships?&tier_id=7362) will grant you that perk!
+If you'd like to showcase yourself and join this list, [upgrading to the Individual plan](https://github.com/sponsors/daattali/sponsorships?&tier_id=7362) will give you that publicity plus some other rewards!
 
 ## Project/company websites
 
@@ -227,11 +229,13 @@ If you'd like to showcase yourself and join this list, [supporting the theme](ht
 
 # FAQ and support
 
-If you need any help, I suggest heading over to the [Jekyll support forum](https://talk.jekyllrb.com/).
+Beautiful Jekyll is used by 50,000+ people with wildly varying degrees of web skills, so it's impossible to answer all the questions that may arise. Below are answers to some very common questions. Many questions are often not specifically related to Beautiful Jekyll and are instead more about Jekyll or web development in general. Many such questions can be answered by reading the [Jekyll documentation](https://jekyllrb.com/), using Google, or asking on the [Jekyll support forum](https://talk.jekyllrb.com/).
 
-Beautiful Jekyll is actively used by thousands of people with wildly varying degrees of competency, so it's impossible to answer all the questions that may arise. Below are answers to a few very common questions. Most questions that I get asked are not directly related to this theme, and instead are more general questions about Jekyll or web development. Many such questions can be answered by reading the [Jekyll documentation](https://jekyllrb.com/) or with Google.
+- ### How can I incorporate new features of Beautiful Jekyll into my old site?
 
-**If you really wany my personal help, please visit https://xscode.com/daattali/beautiful-jekyll to hire my services.**
+  If you installed Beautiful Jekyll using "the easy way" (by forking the GitHub project), then unfortunately there is no easy way to bring all the newest changes into your website. It's a bit messy, but what most people recommend is to delete your current GitHub project and start fresh: (1) make a copy of any files that you modified/created (generally this means the `_config.yml` file, all blog posts, and any additional pages you created), (2) delete your project on GitHub, (3) re-fork Beautiful Jekyll, (4) add all the content you previously created. Since this is cumbersome, you might want to try creating your website using "the hard way" this time so that in the future you can update more easily!
+
+  If you installed Beautiful Jekyll using "the hard way" (as a ruby gem), then updating to the latest version to get the newest features only requires you to change the version in the config file (for example, change `remote_theme: daattali/beautiful-jekyll@4.0.0` to `remote_theme: daattali/beautiful-jekyll@5.0.0`). You should also look at the [updates](https://beautifuljekyll.com/updates/) to see if any Breaking Changes happened. 
 
 - ### How do I add a favicon to my site?
 
@@ -239,7 +243,7 @@ Beautiful Jekyll is actively used by thousands of people with wildly varying deg
 
 - ### How do I change the number of posts per page OR the colour of the navigation bar OR the image in the navigation bar OR ...?
 
-  Beautiful Jekyll is built to be very customizable, and as such, many questions about "how do I change ..." can be answered by looking at the `_config.yml` file and modifying the parameters there.
+  Beautiful Jekyll is built to be very customizable, and as such, many questions about "how do I change ..." can be answered by looking at the `_config.yml` file and modifying the settings there.
 
 - ### What's the difference between the config file and the YAML parameters?
 
@@ -248,6 +252,10 @@ Beautiful Jekyll is actively used by thousands of people with wildly varying deg
 - ### What if I want to use the same YAML parameter for all pages?
 
   You can set default values for YAML parameters in the config file. Open the `_config.yml` file, scroll down to the line `defaults:` and that's the section you can use. For more information, see the [official jekyll documentation about default values](https://jekyllrb.com/docs/configuration/front-matter-defaults/).
+
+- ### How do I make small modifications to how my website looks?
+
+  If you want to make any visual changes that are not in `_config.yml`, you'll need to add your own CSS rules to the file `assets/css/custom-styles.css` and enable the `site-css` setting in the config file. This will allow you to overwrite the default Beautiful Jekyll styles. If you don't know how to use CSS, I highly recommend spending 30 minutes to [learn the basics](https://www.w3schools.com/css/).
 
 - ### How do I use a custom domain for my site?
 
@@ -263,7 +271,7 @@ Beautiful Jekyll is actively used by thousands of people with wildly varying deg
 
 - ### How do I move the blog to another page instead of having it on the home page?
 
-  The default style of Beautiful Jekyll is to feature the blog feed on the front page. For some sites that's not the ideal structure, and you may want to have a separate dedicated page for the blog posts. To have the blog hosted on a different URL (for example at `<mysite.com>/blog`), copy the `index.html` file into a folder with the same name as the desired page (for example, to `blog/index.html`), and in the `_config.yml` file you need to add a parameter `paginate_path: "/<page name>/page:num/"` (for example `paginate_path: "/blog/page:num/"`).
+  The default style of Beautiful Jekyll is to feature the blog feed on the front page. For some sites that's not the ideal structure, and you may want to have a separate dedicated page for the blog posts. To have the blog hosted on a different URL (for example at `<mysite.com>/blog`), copy the `index.html` file into a folder with the same name as the desired page (for example, to `blog/index.html`), and in the `_config.yml` file you need to add a setting `paginate_path: "/<page name>/page:num/"` (for example `paginate_path: "/blog/page:num/"`).
 
 - ### How do I use math equations in my posts?
 
@@ -271,9 +279,9 @@ Beautiful Jekyll is actively used by thousands of people with wildly varying deg
 
 # Contributions
 
-Thank you to [all past contributors](https://github.com/daattali/beautiful-jekyll/graphs/contributors). If you find any problems or would like to contribute in any way, feel free to create a pull request/open an issue/send me a message.  Any comments are welcome!
+Thank you to [all past contributors](https://github.com/daattali/beautiful-jekyll/graphs/contributors). If you find any problems or would like to contribute in any way, feel free to create a pull request/open an issue/send me a message.
 
-You can also contribute by becoming an [official sponsor](https://github.com/sponsors/daattali) to help keep beautiful-jekyll well-maintained.
+You can also contribute by becoming an [official sponsor](https://github.com/sponsors/daattali/sponsorships?tier_id=39856) to help keep Beautiful Jekyll well-maintained.
 
 # Credits
 
