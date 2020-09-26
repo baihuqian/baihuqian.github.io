@@ -4,6 +4,7 @@ title: Coursera Programming Languages, Part A
 date: '2020-04-07 21:53'
 tags:
   - Computer Science
+full-width: true
 ---
 
 This is the course notes I took when studying [Programming Languages (Part A)](https://www.coursera.org/learn/programming-languages), offered by Coursera. Subsequently I studied [Part B]({{ site.baseurl }}{% link _posts/Learning/2020-08-02-coursera-programming-languages-part-b.md %}) and [Part C]({{ site.baseurl }}{% link _posts/Learning/2020-08-14-coursera-programming-languages-part-c.md %}).

@@ -4,6 +4,7 @@ title: 'Coursera Programming Languages, Part B'
 date: '2020-08-02 17:24'
 tags:
   - Computer Science
+full-width: true
 ---
 
 This is the course notes I took when studying [Programming Languages (Part B)](https://www.coursera.org/learn/programming-languages-part-b), offered by Coursera.

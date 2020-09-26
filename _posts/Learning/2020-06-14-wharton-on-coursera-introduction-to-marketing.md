@@ -4,6 +4,7 @@ title: 'Wharton on Coursera: Introduction to Marketing'
 date: '2020-06-14 15:18'
 tags:
   - Business
+full-width: true
 ---
 
 This is the course notes I took when studying [Introduction to Marketing](https://www.coursera.org/learn/wharton-marketing/), offered by Wharton on Coursera.

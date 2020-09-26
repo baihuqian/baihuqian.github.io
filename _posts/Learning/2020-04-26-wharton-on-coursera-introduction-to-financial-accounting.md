@@ -4,6 +4,7 @@ title: 'Wharton on Coursera: Introduction to Financial Accounting'
 date: '2020-04-26 20:58'
 tags:
   - Business
+full-width: true
 ---
 
 This is the course notes I took when studying [Introduction to Financial Accounting](https://www.coursera.org/learn/wharton-accounting/), offered by Wharton on Coursera.

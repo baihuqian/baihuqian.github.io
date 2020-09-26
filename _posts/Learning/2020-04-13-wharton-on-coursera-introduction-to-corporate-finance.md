@@ -4,6 +4,7 @@ title: 'Wharton on Coursera: Introduction to Corporate Finance'
 date: '2020-04-13 23:21'
 tags:
   - Business
+full-width: true
 ---
 
 This is the course notes I took when studying [Introduction to Corporate Finance](https://www.coursera.org/learn/wharton-finance/), offered by Wharton on Coursera.

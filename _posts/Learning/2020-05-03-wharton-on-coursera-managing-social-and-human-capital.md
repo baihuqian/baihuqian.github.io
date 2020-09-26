@@ -4,6 +4,7 @@ title: 'Wharton on Coursera: Managing Social and Human Capital'
 date: '2020-05-03 21:09'
 tags:
   - Business
+full-width: true
 ---
 
 This is the course notes I took when studying [Managing Social and Human Capital](https://www.coursera.org/learn/wharton-social-human-capital/), offered by Wharton on Coursera.

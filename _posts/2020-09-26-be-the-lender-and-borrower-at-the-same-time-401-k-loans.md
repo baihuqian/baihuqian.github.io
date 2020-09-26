@@ -1,7 +1,9 @@
 ---
-layout: "post"
-title: "Be the Lender and Borrower at the Same Time: 401(k) Loans"
-date: "2020-09-21 20:31"
+layout: post
+title: 'Be the Lender and Borrower at the Same Time: 401(k) Loans'
+date: '2020-09-26 14:13'
+tags:
+  - PersonalFinance
 ---
 
 You can borrow money from yourself and pay yourself interest. What is this and why is this a good thing?

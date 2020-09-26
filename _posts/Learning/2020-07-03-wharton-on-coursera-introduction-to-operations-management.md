@@ -4,6 +4,7 @@ title: 'Wharton on Coursera: Introduction to Operations Management'
 date: '2020-07-03 15:05'
 tags:
   - Business
+full-width: true
 ---
 
 This is the course notes I took when studying [Introduction to Operations Management](https://www.coursera.org/learn/wharton-operations/), offered by Wharton on Coursera.

@@ -4,7 +4,7 @@ title: Udacity OS Course
 date: '2018-10-28 20:26'
 tags:
   - Computer Science
-published: true
+full-width: true
 ---
 
 This is the notes for [Introduction to Operating Systems](https://classroom.udacity.com/courses/ud923), offered by Udacity.
