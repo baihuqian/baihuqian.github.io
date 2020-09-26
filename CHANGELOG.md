@@ -1,5 +1,11 @@
 ## Unreleased version
 
+- Changed the width at which the navbar collapses to a higher threshold because most modern non-mobile browsers are >1000px
+- Fixed bug where navbar secondary level dropdown items didn't inherit te same colour as the primary navbar links
+- Fixed bug where the navbar "burger" collapsed button didn't always revert back to a light colour
+
+## v5.0.0 (2020-09-15)
+
 One of the major changes in this version is that a lot of time was spent on rethinking the entire SEO and social media sharing model (how a page looks on eg. Google, Twitter, Facebok). It was redesigned to be more simple and customizable. The new documentation has a section dedicated to SEO and social media sharing of a page. Unfortunately some changes that are not backwards-compatible had to be made.
 
 #### Breaking changes
@@ -16,7 +22,8 @@ One of the major changes in this version is that a lot of time was spent on reth
 - Added `full-width` YAML parameter to allow having full-width pages
 - Added `feed_show_excerpt` config setting to show/hide the post excerpts on the feed page
 - Added `feed_show_tags` config setting to show/hide the list of tags on post previews on the feed page
-- Added `share-title` YAML parameter to give control over the search engine/social media title 
+- Added `share-title` YAML parameter to give control over the search engine/social media title
+- Added `last-updated` YAML parameter to show a "Last Updated on" date for blog posts
 - Added `before-content` and `after-content` YAML parameters that allow you to add some common HTML before the main content of a page (below the title) or after the main content (above the footer). Works in a similar way to `footer-extra`.
 - Added `head-extra` YAML parameter which is similar to `footer-extra` but is used to include custom HTML code in a page's `<head>` tag
 - Added `site-js` config setting to provide JavaScript files that are used on all pages in the site
@@ -27,9 +34,10 @@ One of the major changes in this version is that a lot of time was spent on reth
 - Added automatic navbar color detection (#702)
 - When `nav-short` is turned on, the avatar will also be shorter
 - Changed navbar and footer background colour to be slightly darker, for better contrast with the default white page background for accessibility reasons
-- Changed the behaviour of `site-css` to include site-wide CSS file **before** instead of after page-specific files 
+- Changed the behaviour of `site-css` to include site-wide CSS file **before** instead of after page-specific files
 - Renamed internal css/js files from "main" to "beautifuljekyll" to make it easier for users to troubleshoot
 - Added alt text to all images for better accessibility
+- Made thumbnail images square instead of circles, as users reported that circles cut off important parts of images
 
 #### Bug fixes
 
