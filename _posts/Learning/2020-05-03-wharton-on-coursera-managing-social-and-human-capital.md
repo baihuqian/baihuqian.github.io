@@ -60,7 +60,7 @@ Standard tests (such as IQ tests or personality tests) are not so useful in pred
 
 The Attraction-Selection-Attrition model indicates that people tend to hire those similar to themselves. This means the hiring process can drive the culture of the company and also shapes who gets hired.
 
-The reality Of hiring no longer fits text-book descriptions:
+The reality of hiring no longer fits text-book descriptions:
 * The use of technology to find applicants: majority of those who change jobs now aren’t looking to move!
 * Applicant tracking systems use keywords to find applicants.
 * Outsource the whole hiring process to recruitment firms.
@@ -83,9 +83,9 @@ Why it is uncomfortable:
 * Overconfidence bias: people are consistently overconfident about their own performance (average performers think they're at 80-percentile) and thus leading do cognitive dissonance;
 
 Supervisors are not perfect. They can also have biases:
-* Fundamental Attribution Error: we attribute certain bad behavior to the wrong reason;
-* Self-fulfilling prophesies: we tend to manage perceived good performers differently, and thus leading them to become actual good performers;
-* Relationship biases – similarities, attractiveness, etc., that we tend to think people we're familiar or attracted to better performers.
+* **Fundamental Attribution Error**: we attribute certain bad behavior to the wrong reason;
+* **Self-fulfilling prophesies**: we tend to manage perceived good performers differently, and thus leading them to become actual good performers;
+* **Relationship biases** – similarities, attractiveness, etc., that we tend to think people we're familiar or attracted to better performers.
 
 Thus, a new model emerges in about 1/3rd of US companies that replaces formal annual appraisal with a "check-in" system that relies on culture than rules to have regular conversations about improving performance.
 
@@ -96,7 +96,7 @@ Both the check-in system and formal appraisal require giving feedback. To give e
 So if you're a supervisor, the single most important thing to worry about is getting better at giving people feedback in a way that they can take it in, that doesn't threaten them, that they're really listening to what you say, and that they're going to change their behavior because of it.
 
 # Tasks, Jobs, and Systems of Work
-A task means the individual thing that you are doing. A job is organized around a series of tasks that have a bunch of things in common. Jobs are arranged into organization charts, which identify reporting relationships and decision rights.
+A *task* means the individual thing that you are doing. A *job* is organized around a series of tasks that have a bunch of things in common. Jobs are arranged into organization charts, which identify reporting relationships and decision rights.
 
 Once people start working together with other people, then the definition of jobs matters a lot because it affects how those people interact with each other, who does what.
 
