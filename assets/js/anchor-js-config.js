@@ -1,2 +1,2 @@
-anchors.options.placement = 'left';
+anchors.options.placement = 'right';
 anchors.add('h1').add();
