@@ -219,6 +219,15 @@ Jul 19 02:48:09 ubuntu1804 systemd[1]: Started LSB: pihole-FTL daemon.
   [✓] Pi-hole blocking is Enabled
 ```
 
+# 中文区广告拦截
+(This section is only for Chinese readers)
+
+Pi-hole 是国外软件，默认带几条规则表，不太适合中国特色互联网。我们需要换用国内常用的广告域名列表。如果可以访问GitHub的话可以使用以下几个融合广告域名列表：
+* [cjx82630/cjxlist](https://github.com/cjx82630/cjxlist)
+* [privacy-protection-tools/anti-AD](https://github.com/privacy-protection-tools/anti-AD)
+
+这两个列表融合了几家细分的列表并且更新频繁，是一键配置的首选。
+
 # Further Reads
 This is the post series. Other posts on the home network topics are:
 1. [Device and Management Setup]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-09-07-secure-home-network-device-and-management-setup.md %})
