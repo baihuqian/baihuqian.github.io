@@ -23,14 +23,14 @@ The backup script is `s3 sync` commands:
 
 ```bash
 #!/bin/bash
-sudo aws s3 sync /var/lib/unifi/backup/autobackup/ s3://unifi-backups-baihqian/unifi-controller
-sudo aws s3 sync /home/unms/data/config-backups/ s3://unifi-backups-baihqian/unms/config-backups
-sudo aws s3 sync /home/unms/data/unms-backups/backups s3://unifi-backups-baihqian/unms/unms-backups
+sudo aws s3 sync /var/lib/unifi/backup/autobackup/ s3://<backup-bucket-name>/unifi-controller
+sudo aws s3 sync /home/unms/data/config-backups/ s3://<backup-bucket-name>/unms/config-backups
+sudo aws s3 sync /home/unms/data/unms-backups/backups s3://<backup-bucket-name>/unms/unms-backups
 ```
 
 The cron job runs a couple of hours after the weekly backup, which is configured to run at midnight UTC every Monday:
 ```bash
-0 5 * * 1 /home/ubuntu/unifi-controller-backup.sh
+0 5 * * 1 /path/to/script/unifi-controller-backup.sh
 ```
 
 Then, if you lose your instance, you can easily launch another one, attach the Elastic IP to the new instance, install controllers and restore them from the S3 bucket.
@@ -47,3 +47,5 @@ This is the post series. Other posts on the home network topics are:
 1. [Block Ad and Tracking with Pi-Hole]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-09-14-secure-home-network-block-ad-with-pi-hole.md %})
 1. [IoT Automation with Home Assistant]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-06-06-secure-home-networking-iot-automation-with-home-assistant.md %})
 1. [Set Up a Plex Server]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-10-18-secure-home-network-set-up-a-plex-server.md %})
+1. [Place APs for Optimal Coverage]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-11-29-secure-home-network-place-aps-for-optimal-coverage.md %})
+1. [Network Design Considerations for Cord Cutters]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-11-29-secure-home-network-network-design-considerations-for-cord-cutters.md %})

@@ -50,3 +50,4 @@ This is the post series. Other posts on the home network topics are:
 1. [Troubleshoot DHCP Problems]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-01-11-secure-home-network-troubleshoot-dhcp-problems.md %})
 1. [IoT Automation with Home Assistant]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-06-06-secure-home-networking-iot-automation-with-home-assistant.md %})
 1. [Set Up a Plex Server]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-10-18-secure-home-network-set-up-a-plex-server.md %})
+1. [Network Design Considerations for Cord Cutters]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-11-29-secure-home-network-network-design-considerations-for-cord-cutters.md %})
