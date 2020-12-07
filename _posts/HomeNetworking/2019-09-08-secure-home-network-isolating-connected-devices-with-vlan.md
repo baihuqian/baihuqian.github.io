@@ -1,9 +1,9 @@
 ---
 layout: post
 title: 'Secure Home Network - Isolating Connected Devices with VLAN'
-date: '2019-09-02 23:24'
+date: '2019-09-08 23:24'
 tags:
- - Networking
+ - HomeNetwork
 ---
 
 Nowadays many devices connect to the Internet besides your computers, phones, and tablets. Those things are often referred as "smart devices" or "IoT". however, the security standard of IoT devices is quite poor and the devices are prone to hacking. You don't want hackers to get into your important devices such as laptops and NAS from a compromised smart light, do you? When friends and family come over, often they are going to ask you for your WiFi password the moment they sit down at your place. You don't want a compromised device to get into your home network, do you?
@@ -266,10 +266,19 @@ Direction: local
 ```
 
 ### DEVICE_IN
-`DEVICE_IN` is mostly similar to `GUEST_IN`, except certain `Accept` rules for specific use cases. For example, AirPlay requires certain traffic from the Device LAN to the Secure LAN, as discussed in [this post]({{ site.baseurl }}{% post_url HomeNetworking/2019-08-31-secure-home-network-using-airplay-across-vlans %}). Such exceptions must be carefully evaluated and only applied as necessary.
+`DEVICE_IN` is mostly similar to `GUEST_IN`, except certain `Accept` rules for specific use cases. For example, AirPlay requires certain traffic from the Device LAN to the Secure LAN, as discussed in [using AirPlay across VLANs]({{ site.baseurl }}{% post_url HomeNetworking/2019-09-09-secure-home-network-using-airplay-across-vlans %}). Such exceptions must be carefully evaluated and only applied as necessary.
 
 ### DEVICE_LOCAL
-`DEVICE_LOCAL` should be identical to `GUEST_LOCAL`.
+Same as `GUEST_LOCAL`, `DEVICE_LOCAL` should at least allow DNS and DHCP. But if you want to connect smart TVs in Device LAN from Secure LAN, you should allow Bonjour/mDNS traffic, too:
+
+```
+Description: allow Bonjour/mDNS
+Action: Allow
+Protocol: UDP
+Destination > Address 224.0.0.251, Port : 5353
+```
+
+See [using AirPlay across VLANs]({{ site.baseurl }}{% post_url HomeNetworking/2019-09-09-secure-home-network-using-airplay-across-vlans %}) on details.
 
 # References
 * [1](https://help.ubnt.com/hc/en-us/articles/115012700967)
@@ -281,15 +290,4 @@ Direction: local
 * [7](https://help.ui.com/hc/en-us/articles/360046144234-UniFi-Using-VLANs-with-UniFi-Switching)
 
 # Further Reads
-This is the post series. Other posts on the home network topics are:
-1. [Device and Management Setup]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-09-07-secure-home-network-device-and-management-setup.md %})
-1. [Using HomeKit Devices Across VLANs]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-08-27-secure-home-network-using-homekit-devices-across-vlans.md %})
-1. [Using AirPlay Across VLANs]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-08-31-secure-home-network-using-airplay-across-vlans.md %})
-1. [Troubleshoot DHCP Problems]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-01-11-secure-home-network-troubleshoot-dhcp-problems.md %})
-1. [Extend WiFi Coverage with Multiple APs]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-01-11-secure-home-network-extend-wifi-coverage-with-multiple-aps.md %})
-1. [Backup Your Configurations]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-11-23-secure-home-network-backup-your-configurations.md %})
-1. [Block Ad and Tracking with Pi-Hole]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-09-14-secure-home-network-block-ad-with-pi-hole.md %})
-1. [IoT Automation with Home Assistant]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-06-06-secure-home-networking-iot-automation-with-home-assistant.md %})
-1. [Set Up a Plex Server]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-10-18-secure-home-network-set-up-a-plex-server.md %})
-1. [Place APs for Optimal Coverage]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-11-29-secure-home-network-place-aps-for-optimal-coverage.md %})
-1. [Network Design Considerations for Cord Cutters]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-11-29-secure-home-network-network-design-considerations-for-cord-cutters.md %})
+This is the post series. Other posts can be found under [HomeNetwork tag]({{ site.baseurl }}/tags/#HomeNetwork).

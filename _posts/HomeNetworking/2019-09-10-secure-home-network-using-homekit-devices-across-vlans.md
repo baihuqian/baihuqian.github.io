@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "Secure Home Network - Using HomeKit Devices Across VLANs"
-date: '2019-08-27 22:18'
+date: '2019-09-10 22:18'
 tags:
- - Networking
+ - HomeNetwork
 ---
 
 _TL;DR Version: Make sure your iOS devices can connect to the HomeKit Devices on port 80 and 443, and enable mDNS reflection in the router._
@@ -31,15 +31,4 @@ Here is how to get it working almost as if it was on the same network.
 Credit: This post is a combination of [Guillaume Ross](https://medium.com/@gepeto42/using-homekit-devices-across-vlans-and-subnets-aa5ae1024939)'s solution of installing Avahi on the router and [John Reed](http://leerspace.com/2015/12/20/bonjour-mdns-reflection-on-ubiquiti-edgeos/)'s solution to allow Bonjour/mDNS on EdgeOS.
 
 # Further Reads
-This is the post series. Other posts on the home network topics are:
-1. [Device and Management Setup]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-09-07-secure-home-network-device-and-management-setup.md %})
-1. [Isolating Connected Devices with VLAN]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-09-02-secure-home-network-isolating-connected-devices-with-vlan.md %})
-1. [Using AirPlay Across VLANs]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-08-31-secure-home-network-using-airplay-across-vlans.md %})
-1. [Troubleshoot DHCP Problems]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-01-11-secure-home-network-troubleshoot-dhcp-problems.md %})
-1. [Extend WiFi Coverage with Multiple APs]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-01-11-secure-home-network-extend-wifi-coverage-with-multiple-aps.md %})
-1. [Backup Your Configurations]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-11-23-secure-home-network-backup-your-configurations.md %})
-1. [Block Ad and Tracking with Pi-Hole]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-09-14-secure-home-network-block-ad-with-pi-hole.md %})
-1. [IoT Automation with Home Assistant]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-06-06-secure-home-networking-iot-automation-with-home-assistant.md %})
-1. [Set Up a Plex Server]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-10-18-secure-home-network-set-up-a-plex-server.md %})
-1. [Place APs for Optimal Coverage]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-11-29-secure-home-network-place-aps-for-optimal-coverage.md %})
-1. [Network Design Considerations for Cord Cutters]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-11-29-secure-home-network-network-design-considerations-for-cord-cutters.md %})
+This is the post series. Other posts can be found under [HomeNetwork tag]({{ site.baseurl }}/tags/#HomeNetwork).

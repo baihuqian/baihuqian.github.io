@@ -3,10 +3,11 @@ layout: post
 title: Secure Home Network - Network Design Considerations for Cord Cutters
 date: '2020-11-29 15:21'
 tags:
-  - Networking
+  - HomeNetwork
+  - CordCutter
 ---
 
-Cord-cutters refers to people who cancel their subscriptions to multichannel television services available over cable or satellite or  drop pay television channels by replacing them with rival media available over the Internet. I personally don't have any cable TV subscriptions; but I have Amazon Prime Video and Netflix subscriptions, and I play lots of contents via AirPlay and Plex. This post discusses considerations of network design to achieve a good experience for internet-based content viewing.
+Cord-cutters refers to people who cancel their subscriptions to multichannel television services available over cable or satellite or drop pay television channels by replacing them with rival media available over the Internet. I personally don't have any cable TV subscriptions; but I have Amazon Prime Video and Netflix subscriptions, and I play lots of contents via AirPlay and Plex. This post discusses considerations of network design to achieve a good experience for internet-based content viewing.
 
 # Smart TV
 Most new TVs today are "smart", meaning they run an operating system that can have "apps". Even if your TV is not, there are cheap HDMI dongles (around 30 to 100 dollars) that can turn your TV into a smart one. These devices run a vendor-modified *Android TV*, a version of the Android operating system developed by Google for television sets, digital media players, set-top boxes, and soundbars. The OS supports apps for streaming services and provides support for mirroring content from other devices, such as smartphones and tablets.
@@ -40,22 +41,11 @@ Lastly, given wireless network uses a shared medium of radio, it always has high
 
 Therefore, I strongly recommend connecting TV to your network via Ethernet. A wired connection provides consistent performance for both streaming/DLNA and AirPlay use cases and significantly reduce the data transfer in your wireless network.
 
-If there is an Ethernet port nearby but you have multiple devices, such as TV, soundbar, console, etc., consider using a small PoE-powered switch behind your TV to fan-out wired connections to them. I recommend UniFi Switch Flex Mini (USW-Flex-Mini), a tiny 802.3af/USB-C powered 5-port switch. It is slightly larger than a credit card and you can easily attach it to the back of the TV. It is managed by UniFi and can have VLAN profiles for every port, important as entertainment devices notoriously gather information about your network and send home (see my post on [isolating connected devices with VLAN]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-09-02-secure-home-network-isolating-connected-devices-with-vlan.md %}) on how to put them on a separate VLAN and protect your other devices on network,  [using AirPlay across VLANs]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-08-31-secure-home-network-using-airplay-across-vlans.md %}), and [blocking tracking by TV with Pi-Hole]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-09-14-secure-home-network-block-ad-with-pi-hole.md %})).
+If there is an Ethernet port nearby but you have multiple devices, such as TV, soundbar, console, etc., consider using a small PoE-powered switch behind your TV to fan-out wired connections to them. I recommend UniFi Switch Flex Mini (USW-Flex-Mini), a tiny 802.3af/USB-C powered 5-port switch. It is slightly larger than a credit card and you can easily attach it to the back of the TV. It is managed by UniFi and can have VLAN profiles for every port, important as entertainment devices notoriously gather information about your network and send home (see my post on [isolating connected devices with VLAN]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-09-08-secure-home-network-isolating-connected-devices-with-vlan.md %}) on how to put them on a separate VLAN and protect your other devices on network,  [using AirPlay across VLANs]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-09-09-secure-home-network-using-airplay-across-vlans.md %}), and [blocking tracking by TV with Pi-Hole]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-09-14-secure-home-network-block-ad-with-pi-hole.md %})).
 
 If wired connection is not possible, then make sure your TV supports 5GHz radio and 802.11ac (as of now, 802.11ax is still too new). If you have older version of APs, consider getting a new one that supports AC Wave 2 (like UniFi's "HD" access points). If possible, move or reconfigure your access points to be closer to your TV by improving the RSSI of the TV, which you can find it in "clients" page of your UniFi controller.
 
 The bottom line is, a wired Ethernet connection, even at 100Mbps, is more cost-effective and reliable than wireless solution.
 
 # Further Reads
-This is the post series. Other posts on the home network topics are:
-1. [Device and Management Setup]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-09-07-secure-home-network-device-and-management-setup.md %})
-1. [Isolating Connected Devices with VLAN]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-09-02-secure-home-network-isolating-connected-devices-with-vlan.md %})
-1. [Using HomeKit Devices Across VLANs]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-08-27-secure-home-network-using-homekit-devices-across-vlans.md %})
-1. [Using AirPlay Across VLANs]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-08-31-secure-home-network-using-airplay-across-vlans.md %})
-1. [Extend WiFi Coverage with Multiple APs]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-01-11-secure-home-network-extend-wifi-coverage-with-multiple-aps.md %})
-1. [Backup Your Configurations]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-11-23-secure-home-network-backup-your-configurations.md %})
-1. [Block Ad and Tracking with Pi-Hole]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-09-14-secure-home-network-block-ad-with-pi-hole.md %})
-1. [Troubleshoot DHCP Problems]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-01-11-secure-home-network-troubleshoot-dhcp-problems.md %})
-1. [IoT Automation with Home Assistant]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-06-06-secure-home-networking-iot-automation-with-home-assistant.md %})
-1. [Set Up a Plex Server]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-10-18-secure-home-network-set-up-a-plex-server.md %})
-1. [Place APs for Optimal Coverage]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-11-29-secure-home-network-place-aps-for-optimal-coverage.md %})
+This is the post series. Other posts can be found under [HomeNetwork tag]({{ site.baseurl }}/tags/#HomeNetwork).
