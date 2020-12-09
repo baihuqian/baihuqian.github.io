@@ -148,13 +148,16 @@ Finally, configure Pi-hole to use the local `cloudflared` service as the upstrea
 
 Go to "Settings" in the Pi-Hole console, choose "DNS" tab, uncheck the checkboxes before "Cloudflare", and type in `127.0.0.1#5053` as the primary and `1.1.1.1#53` as the secondary for IPv4. Check the checkboxes before them. Don't forget to hit Return or click on Save.
 
-# Prevent Custom DNS Servers in Network
-While Pi-Hole is the default DNS server provided in the DHCP lease when devices, savvy users can manually set the DNS server in their network settings to use a different DNS server, such as Google's `8.8.8.8`. We can use a combination of three firewall rules to block any DNS traffic to non-Pi-Hole servers.
+# Firewall Rules
+To allow devices in your network to use Pi-Hole DNS server, we need to add firewall rules to allow them to connect to it on TCP/UDP port 53.
 
-1. Create a "Firewall/NAT Groups" for Pi-Hole servers. This is useful when you have multiple Pi-Holes.
-2. Create an allow rule for TCP/UDP traffic on port 53 (DNS) with destination as the previously-created address group. This allows DNS traffic to reach Pi-Hole.
-3. Create an allow rule for TCP/UDP traffic on port 53 (DNS) with source as the address group. This allows Pi-Holes to send DNS requests to external providers.
-4. Create a drop rule for TCP/UDP traffic on port 53 (DNS). Because rules are evaluated in order, this drops all DNS requests to non-Pi-Hole servers.
+1. Create an "address group" for Pi-Hole servers. This is useful when you have multiple Pi-Holes.
+2. For the *in* direction of the VLAN interfaces whose devices use pi-hole, create an allow rule for TCP/UDP traffic on port 53 (DNS) with destination as the previously-created address group. This allows DNS traffic to reach Pi-Hole.
+3. For *in* direction of the interface to which pi-hole is connected, create an allow rule for TCP/UDP traffic on port 53 (DNS) with source as the address group. This allows Pi-Holes to send DNS requests to external providers.
+
+While Pi-Hole is the default DNS server provided in the DHCP lease when devices, savvy users can manually set the DNS server in their network settings to use a different DNS server, such as Google's `8.8.8.8`. This is in fact done by many "smart" device manufacturers. We can add an additional firewall rule to block any DNS traffic to non-Pi-Hole servers after previous rules.
+
+Create a drop rule for TCP/UDP traffic with destination port 53 (DNS). Because rules are evaluated in order, this drops all DNS requests to non-Pi-Hole servers.
 
 # Fix Pi-Hole after OS Upgrade
 After I upgraded my OS to Ubuntu 20.04 LTS, Pi-Hole failed to start. The DNS resolution fails on the host and thus, it cannot install any necessary updates. First, modify `/etc/resolv.conf` to replace `127.0.0.1` or the host's IP with a public DNS server such as `1.1.1.1` to get DNS resolution back, then run `pihole -r` and select "Repair" to see if it can fix itself. In my case, the `pihole-FTL` service fails to start:

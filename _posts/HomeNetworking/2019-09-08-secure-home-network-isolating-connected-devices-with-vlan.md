@@ -85,7 +85,9 @@ DNS 1: 192.168.30.1
 You can choose the dynamically-allocated range. Note that the router and DNS 1 should be the VLAN address to avoid configuring firewalls to allow DNS traffic to go to a different subnet.
 
 ### Enable DNS Forwarding
-Go to **Services > DNS**, in **DNS Forwarding** section, click **Add Listen Interface**, and add `switch0.10` and `switch0.20`.
+If your router is your DNS server on the LAN, then you need to enable DNS forwarding. Go to **Services > DNS**, in **DNS Forwarding** section, click **Add Listen Interface**, and add `switch0.10` and `switch0.20`.
+
+If you have a separate DNS server, such as [Pi-Hole]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-09-14-secure-home-network-block-ad-with-pi-hole.md %}), then you need to add firewall rules for VLANs to reach the DNS server. My post on [Pi-Hole]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-09-14-secure-home-network-block-ad-with-pi-hole.md %}/#firewall-rules) includes how to set up proper firewall rules.
 
 ### Tag/Untag Ports
 Go to **Dashboard > switch0 > Actions > Config > VLAN**:
@@ -104,17 +106,17 @@ In the UniFi controller, go to **Settings > Wireless Networks**, and create or e
 For guest network, check "Guest Policy".
 
 ### Configure Switch Ports
-VLANs can be used with UniFi Switches. By default, ports are set to All, so it'll have an untagged VLAN 1 (which should be the default network in your controller), and then the rest will be tagged. To enable tagged VLAN for a port, VLANs needs to be defined in the UniFi Network Controller under **Settings > Networks**. To simply set up a VLAN, set a network as VLAN only.
+VLANs can be used with UniFi Switches. By default, ports are set to `All`, so it'll have an untagged VLAN 1 (which should be the default network in your controller), and then the rest will be tagged. To enable tagged VLAN for a port, VLANs needs to be defined in the UniFi Network Controller under **Settings > Networks**. To simply set up a VLAN, set a network as *VLAN only*.
 
 To change the profile on a port, or port group, click on the Switch in the Devices tab to reveal the **Properties Panel**, then go to **Ports**, and either choose the edit button on the right or select the desired ports and click "edit selected" on the bottom. In editing mode, choose the profile for the port(s). The Networks/VLANs profile on a port can be used to define the untagged and tagged networks on the selected port(s).
 
 # Firewall
 
-So far, you have set up VLANs and devices in these VLANs are able to obtain dynamic address and access Internet. Now, let's configure firewall rules to lock down access.
+So far, you have set up VLANs and devices in these VLANs are able to obtain dynamic IP addresses and access Internet. Now, let's configure firewall rules to lock down access.
 
 Firewall has three directions, IN, OUT, and LOCAL. However, it is quite confusing because it refers to the direction respective to the router.
-* In firewall rules are processed for packets entering a given interface.
-* Out firewall rules are processed for packets exiting a given interface.
+* In firewall rules are processed for packets entering from a given interface.
+* Out firewall rules are processed for packets exiting from a given interface.
 * Local firewall rules are processed for packets destined for the router itself from a given interface.
 
 In terms of using IN or OUT rules, some will say that IN is better because if you're going to drop a packet it's better to do it on input rather than go through the full packet processing path only to drop it before it leaves the router. Also note that creating a firewall ruleset without applying it to an interface/direction does *nothing*. Thus, we will create IN and LOCAL for WAN as well as each LAN.
@@ -217,7 +219,7 @@ Description: guest to lan/wan
 Default action: Accept
 ```
 
-Then, add a firewall rule to the newly created firewall policy. **Firewall/NAT > Firewall Policies > GUEST_IN > Actions > Edit Ruleset > + Add New Rule**
+Then, add a firewall rule to the newly created firewall policy to drop traffic from guest VLAN to other LAN networks. **Firewall/NAT > Firewall Policies > GUEST_IN > Actions > Edit Ruleset > + Add New Rule**
 
 ```
 Description: drop guest to lan
@@ -225,6 +227,7 @@ Action: Drop
 Protocol: All protocols
 Destination > Network Group : LAN_NETWORKS
 ```
+You may want to enable logging so you can inspect packets hitting this `drop` rule.
 
 Last, attach the firewall policy to the `switch0.30` LAN interface in the inbound direction. **Firewall/NAT > Firewall Policies > GUEST_IN > Actions > Interfaces**
 
@@ -266,10 +269,10 @@ Direction: local
 ```
 
 ### DEVICE_IN
-`DEVICE_IN` is mostly similar to `GUEST_IN`, except certain `Accept` rules for specific use cases. For example, AirPlay requires certain traffic from the Device LAN to the Secure LAN, as discussed in [using AirPlay across VLANs]({{ site.baseurl }}{% post_url HomeNetworking/2019-09-09-secure-home-network-using-airplay-across-vlans %}). Such exceptions must be carefully evaluated and only applied as necessary.
+`DEVICE_IN` is mostly similar to `GUEST_IN` with additional `Accept` rules for specific use cases. For example, AirPlay requires certain traffic from the Device LAN to the Secure LAN, as discussed in [using AirPlay across VLANs]({{ site.baseurl }}{% post_url HomeNetworking/2019-09-09-secure-home-network-using-airplay-across-vlans %}). Such exceptions must be carefully evaluated and only applied as necessary. I discuss extra rules for `DEVICE_IN` in posts for each use case.
 
 ### DEVICE_LOCAL
-Same as `GUEST_LOCAL`, `DEVICE_LOCAL` should at least allow DNS and DHCP. But if you want to connect smart TVs in Device LAN from Secure LAN, you should allow Bonjour/mDNS traffic, too:
+Same as `GUEST_LOCAL`, `DEVICE_LOCAL` should at least allow DHCP and DNS (if router is the DNS server). But if have other use cases, such as connecting smart TVs in Device LAN from Secure LAN, you should allow Bonjour/mDNS traffic, too:
 
 ```
 Description: allow Bonjour/mDNS
