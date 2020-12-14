@@ -284,13 +284,13 @@ Destination > Address 224.0.0.251, Port : 5353
 See [using AirPlay across VLANs]({{ site.baseurl }}{% post_url HomeNetworking/2019-09-09-secure-home-network-using-airplay-across-vlans %}) on details.
 
 # References
-* [1](https://help.ubnt.com/hc/en-us/articles/115012700967)
-* [2](https://help.ubnt.com/hc/en-us/articles/218889067-EdgeRouter-How-to-Create-a-Guest-LAN-Firewall-Rule)
-* [3](https://help.ubnt.com/hc/en-us/articles/204962154-EdgeRouter-How-to-Create-a-WAN-Firewall-Rule)
-* [4](https://community.ui.com/questions/Laymans-firewall-explanation/2dafa379-3269-4749-b224-0dee15374de9)
-* [5](https://help.ubnt.com/hc/en-us/articles/222183968-Intro-to-Networking-Introduction-to-Virtual-LANs-VLANs-and-Tagging)
-* [6](https://help.ubnt.com/hc/en-us/articles/219654087-UniFi-Using-VLANs-with-UniFi-Wireless-Routing-Switching-Hardware)
-* [7](https://help.ui.com/hc/en-us/articles/360046144234-UniFi-Using-VLANs-with-UniFi-Switching)
+* [Configure EdgeRouter as a VLAN-Aware switch](https://help.ubnt.com/hc/en-us/articles/115012700967)
+* [EdgeRouter - How to Create a Guest\LAN Firewall Rule](https://help.ubnt.com/hc/en-us/articles/218889067-EdgeRouter-How-to-Create-a-Guest-LAN-Firewall-Rule)
+* [EdgeRouter - How to Create a WAN Firewall Rule](https://help.ubnt.com/hc/en-us/articles/204962154-EdgeRouter-How-to-Create-a-WAN-Firewall-Rule)
+* [Layman's firewall explanation](https://community.ui.com/questions/Laymans-firewall-explanation/2dafa379-3269-4749-b224-0dee15374de9)
+* [Introduction to Virtual LANs (VLANs) and Tagging](https://help.ubnt.com/hc/en-us/articles/222183968-Intro-to-Networking-Introduction-to-Virtual-LANs-VLANs-and-Tagging)
+* [Using VLANs with UniFi Routing Hardware](https://help.ubnt.com/hc/en-us/articles/219654087-UniFi-Using-VLANs-with-UniFi-Wireless-Routing-Switching-Hardware)
+* [Using VLANs with UniFi Switching](https://help.ui.com/hc/en-us/articles/360046144234-UniFi-Using-VLANs-with-UniFi-Switching)
 
 # Further Reads
 This is the post series. Other posts can be found under [HomeNetwork tag]({{ site.baseurl }}/tags/#HomeNetwork).
