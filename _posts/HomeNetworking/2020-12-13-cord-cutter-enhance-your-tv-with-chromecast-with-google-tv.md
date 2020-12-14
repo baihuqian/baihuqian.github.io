@@ -20,6 +20,13 @@ Third, being Google's official Android TV implementation, it supports Google Pla
 
 Lastly, it allows sideloading apps (installing apps from APK), enabling you to install anything you want to it. Combined with Google Play store, this provides unlimited freedom of content viewing to your TV.
 
+## Network Design Considerations for Chromecast
+Same as any connected devices, and being as notorious as Google (at collecting data in exchange for providing service), we should be careful at how it could interact with other devices on the private network and what information it could phone home. There are two areas: block undesired access to private network and block undesired tracking.
+
+If you use [Pi-Hole]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-09-14-secure-home-network-block-ad-with-pi-hole.md %}) DNS server, make sure to have your Chromecast use it. Google devices notoriously bypass DNS settings from DHCP servers and default to `8.8.8.8` (Google's public DNS) for "important" tasks (respective to its business). So make sure to [add a `drop` rule to block any non-Pi-Hole DNS traffic]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-09-14-secure-home-network-block-ad-with-pi-hole.md %}/#firewall-rules).
+
+Chromecast should not be allowed to access other devices on your LAN network unless there is a use case. There are discovery protocols, such as mDNS and UPnP, that allow devices to discover each other on a network without any special setup. By placing it in the IoT network with [firewall rules allowing casting functionality]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-12-13-secure-home-network-using-chromecast-across-vlans.md %}), we can block unnecessary interactions to your other devices.
+
 ## Sideloading Apps to your Chromecast
 To sideload apps, you need a file browser. I recommend [File Commander](https://play.google.com/store/apps/details?id=com.mobisystems.fileman&hl=en_US&gl=US) which is available in Google Play store.
 
