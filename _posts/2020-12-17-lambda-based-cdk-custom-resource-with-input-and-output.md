@@ -1,8 +1,11 @@
 ---
 layout: post
-published: false
-title: Lambda-based CDK Custom Resource with Input and Output
+title: 'Lambda-based CDK Custom Resource with Input and Output'
+date: '2020-12-17 20:10'
+tags:
+ - AWS
 ---
+
 [AWS Cloud Development Kit (CDK)](https://aws.amazon.com/cdk/) is a great way to describe your infrastructure in a strongly-typed language. CDK provides support for many resources out of the gate, and also have integration with CloudFormation resources. However, there are still gaps in support, mainly due to
 
 1. Gap in CloudFormation support by AWS services. CDK compiles code into a CloudFormation template so it cannot accomplish what CloudFormation does not support.
@@ -30,10 +33,10 @@ CloudFormation can invoke a Lambda function with the following request:
 ```
 The `"ResourceProperties"` are properties supplied to the CustomResource's constructor. The `"ResponseURL"` is a pre-signed URL that CloudFormation expects the Lambda to call with the outcome and result. CloudFormation provides the following [sample code](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-lambda-function-code-cfnresponsemodule.html#w2ab1c27c24c14b9c15):
 
-```python3
+```python
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: MIT-0
- 
+
 from __future__ import print_function
 import urllib3
 import json
@@ -82,7 +85,7 @@ def send(event, context, responseStatus, responseData, physicalResourceId=None, 
 
 For our use case, we will create a folder `custom-resource-handlers` in the root of the CDK project with the above sample code in `cfnresponse.py` and the handler code in `ddb-stream.py`:
 
-```python3
+```python
 from cfnresponse import send, SUCCESS
 
 import boto3
@@ -190,11 +193,11 @@ const customResource = new CustomResource(this, `${tableName}CustomResource`, {
 const streamArn = customResource.getAtt('LatestStreamArn').toString();
 ```
 
-The Provider framework can support asynchronous processes by supplying the optional `isCompleteHandler`. This allows the Custom Resource to stablize beyond the 15-minute maximum execution time by Lambda. Here we only use the synchronous process.
+The Provider framework can support asynchronous processes by supplying the optional `isCompleteHandler`. This allows the Custom Resource to stabilize beyond the 15-minute maximum execution time by Lambda. Here we only use the synchronous process.
 
-The Lambda function can be simplified as it no longer requires calling the CloudFormation-provided pre-signed URL with the outcome. The result should simply be returned by the Lambda handler:
+The Lambda function can be simplified as it no longer requires calling the CloudFormation-provided pre-signed URL with the outcome. The result should simply be returned by the Lambda handler. The Lambda function is invoked with the same input from CloudFormation discussed in the previous section.
 
-```python3
+```python
 import boto3
 import botocore
 import json
@@ -253,7 +256,7 @@ When an `Update` operation occurs, the default behavior is to return the current
 Therefore, as a rule of thumb, if your custom resource relates to a resource, you must return the unique identifier in `PhysicalResourceId` and make sure to handle replacement properly. In my example, the Lambda function always return the name of the DynamoDB table as `PhysicalResourceId` and do not disable the DynamoDB stream even on `Delete`.
 
 ## On Singleton Lambda Function
-Many times we use Custom Resources in reusable constructs to perform the same operations on multiple resources. When defining resources for a custom resource provider, you will likely want to define them as a stack _singleton_ so that only a single instance of the provider is created in your stack and which is used by all custom resources of that type. A typical technique is the have a unique ID for the custom resource provider that can be looked up by `stack.node.tryFindChild(uniqueId)`. For example, the following function creates or returns the previously-defined provider:
+If the Custom Resource is created multiple times to perform the same operation on multiple resources. When defining resources for a custom resource provider, you will likely want to define them as a stack _singleton_ so that only a single instance of the provider is created in your stack and which is used by all custom resources of that type. A typical technique is the have a unique ID for the custom resource provider that can be looked up by `stack.node.tryFindChild(uniqueId)`. For example, the following function creates or returns the previously-defined provider:
 
 ```typescript
 getOrCreateDdbStreamCustomProvider(scope: Construct): customresources.Provider {
@@ -286,3 +289,5 @@ getOrCreateDdbStreamCustomProvider(scope: Construct): customresources.Provider {
   }
 }
 ```
+
+Note, CDK uses a tree structure and `stack.node` is the node in which Custom Resources are instantiated. `tryFindChild` only looks at the direct children of the `node`; it does not recursively traverse the tree. In other words, if the same custom resource `A` is created under Construct `X` and `Y`, i.e., the resource is `X/A` and `Y/A` respectively, they will be treated as different resources instead of a singleton.
