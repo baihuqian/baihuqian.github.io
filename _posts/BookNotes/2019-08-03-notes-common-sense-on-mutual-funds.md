@@ -3,7 +3,8 @@ layout: post
 title: 'Notes: Common Sense on Mutual Funds'
 date: '2019-08-03 13:35'
 tags:
- - Finance
+ - Personal Finance
+ - Book
 ---
 
 The longer the time horizon, the less the variability in average annual returns.

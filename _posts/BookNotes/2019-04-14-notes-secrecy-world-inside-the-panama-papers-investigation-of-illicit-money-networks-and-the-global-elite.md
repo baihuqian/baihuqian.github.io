@@ -5,6 +5,7 @@ title: >-
 date: '2019-04-14 20:10'
 tags:
  - Finance
+ - Book
 ---
 
 ## On Tax Havens

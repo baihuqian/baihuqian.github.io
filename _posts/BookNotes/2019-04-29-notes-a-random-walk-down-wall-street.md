@@ -3,7 +3,8 @@ layout: post
 title: "Notes: A Random Walk Down Wall Street: The Time-Tested Strategy for Successful Investing"
 date: '2019-04-29 21:10'
 tags:
- - Finance
+ - Personal Finance
+ - Book
 ---
 
 I view investing as a method of purchasing assets to gain profit in the form of reasonably predictable income (dividends, interest, or rentals) and/or appreciation over the long term.

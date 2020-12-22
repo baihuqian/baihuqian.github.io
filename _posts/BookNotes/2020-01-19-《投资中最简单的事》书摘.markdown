@@ -5,6 +5,7 @@ title: '《投资中最简单的事》书摘'
 date: '2020-01-19 17:47'
 tags:
  - Finance
+ - Book
 ---
 
 这是邱国鹭所著[投资中最简单的事](https://www.amazon.cn/gp/product/B00PC4EJZ6)的书摘。
