@@ -96,6 +96,19 @@ This lets you run arbitrary shell commands against a commit.
 * `--before`: only show commits before certain time
 * `-L`: show commits related to some lines in a file
 
+## Unicode Support
+In certain OS, Git may not render non-English characters in file names correctly. If this case occurs, run
+
+```bash
+git config --global core.quotePath false
+```
+
+If it still does not fix the problem on cacOS, run
+
+```bash
+git config --global core.precomposeunicode true
+```
+
 ## Git Internal
 Git is a stupid context checker. It is one of the most popular revision control system, i.e. software change and configuration management system. Traditional RCS is central, meaning repo is stored on a remote server, and all clients communicate with server on commit. The biggest difference for Git is that Git is distributed. Every clone is really full backup of all data. After initial clone, almost every operation is local. Thus, it is fast and scalable (local changes are invisible to others)
 
@@ -103,7 +116,7 @@ It provides two level of commands:
 * Porcelain: user-friendly commands
 * Plumbing: low-level commands
 
-Git’s version database: 
+Git’s version database:
 * Content addressable file system, a simple key-value data store
 * Key: SHA-1 hash (distinct)
 * Value: binary files:
