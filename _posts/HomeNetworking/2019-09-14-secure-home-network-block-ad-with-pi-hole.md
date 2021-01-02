@@ -32,7 +32,7 @@ Your ISP performs DPI to detect malicious or illegal usage of Internet and its s
 
 However, DNS-Over-HTTPS is not the standard protocol and is not supported by all devices. Therefore, we want to set it up centrally in our network.
 
-This post will go through the setup of [Pi-Hole](https://github.com/pi-hole/pi-hole), a DNS sinkhole that protects your devices from unwanted content, and [configuring DNS-Over-HTTPS on Pi-hole](https://docs.pi-hole.net/guides/dns-over-https/) to avoid DNS snooping and hijacking.
+This post will go through the setup of [Pi-Hole](https://github.com/pi-hole/pi-hole), a DNS sinkhole that protects your devices from unwanted content, and [configuring DNS-Over-HTTPS on Pi-hole](https://docs.pi-hole.net/guides/dns-over-https/) to avoid DNS snooping and hijacking. I also include an excellent post on setting up Pi-Hole in a docker container on Synology NAS.
 
 # Install and Configure Pi-Hole
 You should install Pi-Hole on a long-running device in your network. It is not recommended to install it on your router as it is not supposed to have custom software installed on it. You can install it on a [Raspberry Pi](https://www.raspberrypi.org/), or a computer if you have spares around. In my case I have a spare NUC and I install Ubuntu Server on it and run it in the server closet with my routers.
@@ -147,6 +147,9 @@ google.com.     299 IN  A   243.65.127.221
 Finally, configure Pi-hole to use the local `cloudflared` service as the upstream DNS server instead of the standard Cloudflare server.
 
 Go to "Settings" in the Pi-Hole console, choose "DNS" tab, uncheck the checkboxes before "Cloudflare", and type in `127.0.0.1#5053` as the primary and `1.1.1.1#53` as the secondary for IPv4. Check the checkboxes before them. Don't forget to hit Return or click on Save.
+
+# Installing Pi-Hole on Synology NAS
+Because I purchased a [Synology NAS]({{ site.baseurl }}{% link _posts/HomeNetworking/2021-01-01-secure-home-network-build-your-own-private-cloud-with-nas.md %}), I moved my Pi-Hole to it. I followed [this guide](https://kevq.uk/how-to-setup-pi-hole-on-a-synology-nas/) to go through the setup. 
 
 # Firewall Rules
 To allow devices in your network to use Pi-Hole DNS server, we need to add firewall rules to allow them to connect to it on TCP/UDP port 53.
