@@ -46,6 +46,9 @@ sudo systemctl enable docker
 
 The Home Assistant container is configured to restart automatically when docker engine starts up, so there is no need to start up on boot.
 
+# Install on Synology NAS
+Synology NAS supports Docker with a nice UI. Home Assistant provides [a comprehensive guide on setting it up on Synology NAS](https://www.home-assistant.io/docs/installation/docker/#synology-nas). I find it painless to set up.
+
 # Check Configuration
 Home Assistant UI is useful but sometimes limited. Sometimes its configuration file, located in `/home/ubuntu/home-assitant/config`, must be manually edited. The following command can verify the integrity of the configuration files after editing.
 

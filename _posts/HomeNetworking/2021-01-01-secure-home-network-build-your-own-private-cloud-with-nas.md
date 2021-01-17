@@ -86,11 +86,17 @@ I have used the following packages:
 * Synology Drive;
 * Synology Office;
 * Moments.
+* Docker.
+
+## Run Docker Containers
+Synology Docker package comes with a very nice UI so that we don't need to use command line to manage images and containers. To host configuration files for containers, I created a share folder called `docker`, which is only accessible by the admin account so far but is able to extend the privilege in case some users should run docker containers themselves, and sub-folders (such as `docker/pihole`) as each container's volumes.
+
+So far I have configured [Pi-Hole]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-09-14-secure-home-network-block-ad-with-pi-hole.md %}/#installing-pi-hole-on-synology-nas) and [Home Assistant]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-06-06-secure-home-networking-iot-automation-with-home-assistant.md %}/#install-on-synology-nas) to run on it. I find the experience very straightforward.
 
 ## Photography Use Cases
 Synology provides packages aiming at arranging photos for users: [Moments](https://www.synology.com/en-us/dsm/feature/moments) and [Photo Station](https://www.synology.com/en-us/dsm/feature/photo_station). Since I use Lightroom 6 (the last Lightroom standalone version without the need of a subscription) to manage and edit photos, I do not use either of them to manage photo catalog. I set up Moments for my photo selection to leverage its auto-organization feature.
 
-After mounting NAS as a network drive, I manually convert RAW files into DNG and upload them to NAS, then import them into Lightroom. My Lightroom catalog resides on my editing machine but all photos and Lightroom backups are on my NAS. Then I use Synology Drive to back up the Lightroom catalog in case my computer dies.
+After mounting NAS as a network drive, I manually convert RAW files into DNG and upload them to NAS, then import them into Lightroom. My Lightroom catalog resides on my editing machine but all photos and Lightroom backups are on my NAS. Then I use [Synology Drive to back up](https://www.synology.com/en-global/knowledgebase/DSM/help/DSM/Tutorial/backup_from_computer) the Lightroom catalog in case my computer dies.
 
 ## Time Machine
 Initially I tried to copy the Time Machine backup from WD MyCloud EX2 to Synology to retain its full history. But because the underlying file system is different, Macbook is unable to recognize it in the new location with a "volume in use" error message. In the end I set up a new Time Machine backup by following [Synology's guide](https://www.synology.com/en-us/knowledgebase/DSM/tutorial/Backup/How_to_back_up_files_from_Mac_to_Synology_NAS_with_Time_Machine).
@@ -101,3 +107,6 @@ The backup speed is much faster. The initial backup of 90GB complete in under 3 
 Assuming NAS lasts 10 years and drives last 5 years, my NAS costs $55 per year. The total cost of ownership for my 12TB storage is $135 per year. As a comparison, personal or family plans from major cloud storage providers caps at 2TB for $120, so I get a lot more space and growth potential with similar price point. Business plans charges per user with minimum user requirements rather than per storage space so it is more expensive for prosumer usage.
 
 I can upgrade to 18TB or 24TB in the future by replacing one or two 2TB drives with new 8TB drive at an incremental cost of $6.67 per TB per year. Adobe Creative Cloud offers higher storage at $10 per TB per month or $120 per year. Thus, the total cost of ownership is much, much lower over the long run.
+
+# Further Reads
+This is the post series. Other posts can be found under [HomeNetwork tag]({{ site.baseurl }}/tags/#HomeNetwork).
