@@ -4,6 +4,7 @@ title: 'Secure Home Network: How to Connect Synology NAS to Multiple VLANs'
 date: '2021-01-16 20:49'
 tags:
  - HomeNetwork
+ - NAS
 ---
 
 In a [previous post]({{ site.baseurl }}{% link _posts/HomeNetworking/2021-01-01-secure-home-network-build-your-own-private-cloud-with-nas.md %}), I discussed my setup of a Synology NAS. I have [multiple VLANs]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-09-08-secure-home-network-isolating-connected-devices-with-vlan.md %}) at home, and I find a need to connect my Synology NAS to some of them. My NAS device has two network interfaces and can be connected to different VLANs on each interface. However, I have configured dynamic link aggregation which offers higher aggregate throughput across multiple users and automatic failover, and I do not want to be limited to only two VLANs that I can connect to.

@@ -148,22 +148,59 @@ Finally, configure Pi-hole to use the local `cloudflared` service as the upstrea
 
 Go to "Settings" in the Pi-Hole console, choose "DNS" tab, uncheck the checkboxes before "Cloudflare", and type in `127.0.0.1#5053` as the primary and `1.1.1.1#53` as the secondary for IPv4. Check the checkboxes before them. Don't forget to hit Return or click on Save.
 
-# Installing Pi-Hole on Synology NAS
-Because I purchased a [Synology NAS]({{ site.baseurl }}{% link _posts/HomeNetworking/2021-01-01-secure-home-network-build-your-own-private-cloud-with-nas.md %}), I moved my Pi-Hole to it. I followed [this guide](https://kevq.uk/how-to-setup-pi-hole-on-a-synology-nas/) to go through the setup. 
 
-# Firewall Rules
-To allow devices in your network to use Pi-Hole DNS server, we need to add firewall rules to allow them to connect to it on TCP/UDP port 53.
+# Installing Pi-Hole on Docker
+Because I purchased a [Synology NAS]({{ site.baseurl }}{% link _posts/HomeNetworking/2021-01-01-secure-home-network-build-your-own-private-cloud-with-nas.md %}), I moved my Pi-Hole to it by using Docker. I followed [this guide](https://kevq.uk/how-to-setup-pi-hole-on-a-synology-nas/) to go through the setup.
+
+## Environment Variables
+Because Docker-based Pi-Hole reads configurations from the container's environment variables, it is important to configure them as settings through web interface are not persisted.
+
+The default configuration only allows DNS queries originating from the local network (i.e., one hop away). Thus, it **does not allow cross-VLAN DNS queries**. If your Pi-Hole container serves multiple VLANs, make sure to set `DNSMASQ_LISTENING` environment variable to `all`. Note,
+
+1. you should also configure your firewall to allow traffic to go through.
+2. your container is not exposed to the internet (and it should not).
+
+## Configure DNS-over-HTTPS in Docker
+We can still get DNS-over-HTTPS to upstream server by running `cloudflared` in a Docker container and configure Pi-Hole to use it. Ideally, we would enable Pi-Hole-to-`cloudflared` communication in a separate network instead of the `host` network, and bootstrap both containers using Docker Compose. But as my Docker host (Synology NAS in this case) runs in a private network and Docker Compose is not so easy to configure, I simply configure `cloudflared` in the `host` network.
+
+The `visibilityspots/cloudflared:amd64` image is pre-configured to Cloudflare's public DNS `1.1.1.1` and `1.0.0.1`, and expose port 5054 for downstream requests. The maintainer of this image wrote [an excellent post](https://visibilityspots.org/dockerized-cloudflared-pi-hole.html) about this configuration. You can customize them via environment variables. I changed the DNS port to 5053 and metrics port to 5080 to avoid port collision.
+
+Once the `cloudflared` is up and running, you can test it by specifying port via the `-p` option of `dig`:
+
+```
+dig @<docker_host_ip> -p 5053 amazon.com
+```
+
+Then you can configure the Pi-Hole container to use it, again via environment variable `DNS1=127.0.0.1#5053`.
+
+# Configure DHCP Server to Use Pi-Hole
+In order for clients to use Pi-Hole as the DNS server, we should configure them. When your DHCP server (in most cases, your router) sends lease to clients, it includes the DNS servers of the network, and most clients use them (we will explain how to block DNS traffic to other servers in the next section).
+
+There are mainly two options:
+1. Configure your DHCP servers with Pi-Hole's address directly. This method directs clients to send all DNS traffic to Pi-Hole directly without routers being involved. This is the best option if the clients and Pi-Hole are in the same network (VLAN).
+2. Configure your router to use Pi-Hole as the upstream DNS server, instead of that obtained from your ISP as part of public IP assignment (also via DHCP). Then configure your DHCP server to use the gateway address as the DNS server. This is the best option if the clients and Pi-Hole are not in the same network (VLAN) as no directly cross-VLAN traffic (which requires router's involvement anyway) and pinhole firewall rules.
+
+To configure your EdgeRouter to use Pi-Hole as upstream DNS server, use the `name-server` command, besides enabling DNS service and listening on appropriate interfaces (see [this article](https://help.ui.com/hc/en-us/articles/115010913367-EdgeRouter-DNS-Forwarding-Setup-and-Options) for detailed information):
+
+```
+set service dns forwarding name-server <ip-address>
+```
+
+# Configure Firewall Rules
+To allow devices in your network to use Pi-Hole DNS server directly (as in Option 1), we need to add firewall rules to allow them to connect to it on TCP/UDP port 53.
 
 1. Create an "address group" for Pi-Hole servers. This is useful when you have multiple Pi-Holes.
 2. For the *in* direction of the VLAN interfaces whose devices use pi-hole, create an allow rule for TCP/UDP traffic on port 53 (DNS) with destination as the previously-created address group. This allows DNS traffic to reach Pi-Hole.
 3. For *in* direction of the interface to which pi-hole is connected, create an allow rule for TCP/UDP traffic on port 53 (DNS) with source as the address group. This allows Pi-Holes to send DNS requests to external providers.
+
+To allow devices to use your router as the DNS server (as in Option 2), we need to add a firewall rule in the *local* direction of the interface to which the router is used as the DNS server (option 2 in the previous section) and allow DNS and ICMP traffic.
 
 While Pi-Hole is the default DNS server provided in the DHCP lease when devices, savvy users can manually set the DNS server in their network settings to use a different DNS server, such as Google's `8.8.8.8`. This is in fact done by many "smart" device manufacturers. We can add an additional firewall rule to block any DNS traffic to non-Pi-Hole servers after previous rules.
 
 Create a drop rule for TCP/UDP traffic with destination port 53 (DNS). Because rules are evaluated in order, this drops all DNS requests to non-Pi-Hole servers.
 
 # Fix Pi-Hole after OS Upgrade
-After I upgraded my OS to Ubuntu 20.04 LTS, Pi-Hole failed to start. The DNS resolution fails on the host and thus, it cannot install any necessary updates. First, modify `/etc/resolv.conf` to replace `127.0.0.1` or the host's IP with a public DNS server such as `1.1.1.1` to get DNS resolution back, then run `pihole -r` and select "Repair" to see if it can fix itself. In my case, the `pihole-FTL` service fails to start:
+After I upgraded my OS to Ubuntu 20.04 LTS, host-installed Pi-Hole failed to start. The DNS resolution fails on the host and thus, it cannot install any necessary updates. First, modify `/etc/resolv.conf` to replace `127.0.0.1` or the host's IP with a public DNS server such as `1.1.1.1` to get DNS resolution back, then run `pihole -r` and select "Repair" to see if it can fix itself. In my case, the `pihole-FTL` service fails to start:
 
 ```
 [✗] pihole-FTL: no process found
@@ -224,6 +261,8 @@ Jul 19 02:48:09 ubuntu1804 systemd[1]: Started LSB: pihole-FTL daemon.
   [✓] DNS service is running
   [✓] Pi-hole blocking is Enabled
 ```
+
+As a comparison, Docker-hosted Pi-Hole will not suffer from the same issue. This is another great example of why Docker is popular in deploying software.
 
 # 中文区广告拦截
 (This section is only for Chinese readers)

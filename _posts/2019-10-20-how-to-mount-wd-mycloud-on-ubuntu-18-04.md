@@ -9,6 +9,8 @@ tags:
 
 Although WD MyCloud does not officially support Linux, it uses Samba for network mount. This post will explain how to mount a password-protected WD MyCloud share to Ubuntu 18.04 and enable automatic mount at start up.
 
+**Note**: This solution works for any network attached storage (NAS) that supports Samba. For example, it works for [my Synology NAS when I migrated to it]({{ site.baseurl }}{% link _posts/HomeNetworking/2021-01-01-secure-home-network-build-your-own-private-cloud-with-nas.md %}).
+
 ## Install CIFS
 You will need to install CIFS (Common Internet File System) in your Linux system, if it is not already installed:
 

@@ -4,6 +4,7 @@ title: 'Secure Home Network: Build Your Own Private Cloud with NAS'
 date: '2021-01-01 18:51'
 tags:
  - HomeNetwork
+ - NAS
 ---
 
 As everyone's digital footprint increases with more and more photos on phones, more and more digital (or "paperless") documents from life and work, and as Covid-19 changes our lives to be more online, we now have a large amount of digital data lying around on our desktops, laptops, tablets, phones, and in the cloud. Many tech companies provide online storage, either as a storage service, like Dropbox or Google Drive, or as a bundled benefit, such as iCloud storage when you have an iCloud account for your Apple devices.
