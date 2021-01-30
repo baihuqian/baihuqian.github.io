@@ -44,7 +44,7 @@ Statement of Cash Flows reports cash transactions over *a period of time*, with 
 Income statement reports results of operations over a period of time using accrual accounting:
 * Revenues are increases in "owners' equity" from providing goods or services;
 * Expenses are decreases in "owners' equity" incurred in the process of generating revenues;
-* Net Income (or Earnings or Net Profit) = Revenues * Expenses. Note that **Net Income does not equal to change in cash**.
+* Net Income (or Earnings or Net Profit) = Revenues - Expenses. Note that **Net Income does not equal to change in cash**.
 
 Balance sheet reports financial position (resources and obligations) on a specific date.
 * **Assets** are resources owned by a business that are expected to provide future economic benefits;
