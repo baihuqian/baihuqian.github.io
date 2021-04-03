@@ -6,6 +6,7 @@ title: >-
 date: '2021-01-17 11:31'
 tags:
  - HomeNetwork
+ - IoT
 ---
 
 Previously, I set up [Home Assistant]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-06-06-secure-home-networking-iot-automation-with-home-assistant.md %}) to be my home automation platform. Though it supports a plethora of brands and devices, it is community-driven and is not very user-friendly. It's configuration is YAML-based and should be checked via a command-line tool before applying it, it's UI is hard to adjust, and sharing it with other family members is not easy at all. In addition, a recent update that breaks my Yeelight integration and I spent quite some time reading through GitHub issues to figure out what version of Home Assistant to roll back to and when it is safe to upgrade again. It is too hard for a casual user to have as a simple reliable automation platform.

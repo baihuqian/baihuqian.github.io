@@ -5,11 +5,13 @@ date: '2021-03-19 22:11'
 tags:
   - HomeNetwork
   - NAS
+  - HomeSecurity
+  - IoT
 ---
 
 Home security is important to everyone. Security camera, once expensive, has now become very accessible, both in terms of unit price and ease of deployment. IP cameras that runs on IP network (in other words, require no special cabling) can be an effective addition to your home.
 
-Given that [this blog series focus on home network and digital privacy](({{ site.baseurl }}/tags/#HomeNetwork), I will discuss security cameras from three aspects:
+Given that [this blog series focus on home network and digital privacy]({{ site.baseurl }}/tags/#HomeNetwork), I will discuss security cameras from three aspects:
 * Home network;
 * Privacy and security;
 * Integration with home automation systems.

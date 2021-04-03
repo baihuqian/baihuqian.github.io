@@ -4,6 +4,7 @@ title: 'Secure Home Network - Isolating Connected Devices with VLAN'
 date: '2019-09-08 23:24'
 tags:
  - HomeNetwork
+ - IoT
 ---
 
 Nowadays many devices connect to the Internet besides your computers, phones, and tablets. Those things are often referred as "smart devices" or "IoT". however, the security standard of IoT devices is quite poor and the devices are prone to hacking. You don't want hackers to get into your important devices such as laptops and NAS from a compromised smart light, do you? When friends and family come over, often they are going to ask you for your WiFi password the moment they sit down at your place. You don't want a compromised device to get into your home network, do you?
