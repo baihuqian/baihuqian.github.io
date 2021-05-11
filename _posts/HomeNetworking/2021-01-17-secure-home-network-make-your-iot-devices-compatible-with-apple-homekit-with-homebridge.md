@@ -9,6 +9,8 @@ tags:
  - IoT
 ---
 
+***Update May 10, 2021: Home Assistant has since greatly improved its usability for non-hardcore users with more UI-based configurations and it has native HomeKit support. I have migrated from Homebridge to Home Assistant.***
+
 Previously, I set up [Home Assistant]({{ site.baseurl }}{% link _posts/HomeNetworking/2020-06-06-secure-home-networking-iot-automation-with-home-assistant.md %}) to be my home automation platform. Though it supports a plethora of brands and devices, it is community-driven and is not very user-friendly. It's configuration is YAML-based and should be checked via a command-line tool before applying it, it's UI is hard to adjust, and sharing it with other family members is not easy at all. In addition, a recent update that breaks my Yeelight integration and I spent quite some time reading through GitHub issues to figure out what version of Home Assistant to roll back to and when it is safe to upgrade again. It is too hard for a casual user to have as a simple reliable automation platform.
 
 I researched other leading platforms like Alexa, Google Home, Apple HomeKit, Samsung SmartThings, IFTTT, and so on. I do not like the requirement of special hubs (such as Zigbee or Z-Wave), so most of my devices work with WiFi. I focus greatly on privacy and security, so cloud-based platforms are not as preferable as those supporting local point-to-point communications. Lastly, device discovery relying on broadcast or UPnP (which is used by so many other use cases, too) makes network chatty, so I prefer mDNS or special-purpose multicast-based device discovery. So Apple HomeKit fits most of my requirements, and I am already in the Apple ecosystem.
