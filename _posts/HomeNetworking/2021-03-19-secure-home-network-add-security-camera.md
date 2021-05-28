@@ -47,3 +47,9 @@ Setup is easy and the [DS Cam app](https://apps.apple.com/us/app/ds-cam/id349087
 Apple HomeKit supports cameras, but HomeKit-certified cameras are very overpriced in my opinion. Since I use HomeKit as my main home automation platform and I have [Homebridge]({{ site.baseurl }}{% link _posts/HomeNetworking/2021-01-17-secure-home-network-make-your-iot-devices-compatible-with-apple-homekit-with-homebridge.md %}) set up, I can expose my IP cameras using the [Homebridge Camera FFmpeg](https://github.com/Sunoo/homebridge-camera-ffmpeg) plugin. This plugin transcodes the [RTSP feed](https://en.wikipedia.org/wiki/Real_Time_Streaming_Protocol) into AAC and makes the camera feed available via Homebridge. Most cameras support RTSP but the the network path vary by vendor. For example, here is [Amcrest's RTSP specification](https://support.amcrest.com/hc/en-us/articles/360052688931-Accessing-Amcrest-Products-Using-RTSP).
 
 Once you configure it in Homebridge, you can add the camera to your Home app and the camera feed should be available. You may want to reduce the frame rate and resolution of the video stream if your Homebridge is run on resource-constrained compute, such as NAS or Resberry Pi.
+
+# HomeKit Support via Home Assitant
+Home Assitant has [integration with Synology DSM and Surveillance Station](https://www.home-assistant.io/integrations/synology_dsm/) to bring camera feeds into Home Assistant, and can expose them HomeKit. I find the video feed in both Home Assitant and Home app very usable, even over the public internet (require you have a home hub). This is my current setup.
+
+# Further Reads
+This is the post series. Other posts can be found under [HomeNetwork tag]({{ site.baseurl }}/tags/#HomeNetwork).
