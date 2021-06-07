@@ -4,6 +4,7 @@ title: 'Secure Home Networking: IoT Automation with Home Assistant'
 date: '2020-06-06 11:13'
 tags:
   - HomeNetwork
+  - IoT
 ---
 
 This post introduces [Home Assistant](https://www.home-assistant.io/), an open-source home IoT automation that puts local control and privacy first. it also helps address many IoT platform by providing a cross-vendor management interface.
@@ -49,6 +50,8 @@ The Home Assistant container is configured to restart automatically when docker 
 # Install on Synology NAS
 Synology NAS supports Docker with a nice UI. Home Assistant provides [a comprehensive guide on setting it up on Synology NAS](https://www.home-assistant.io/docs/installation/docker/#synology-nas). I find it painless to set up.
 
+Home Assistant's `stable` image is updated very frequently. To avoid manually updating them, you can [run a docker container to automate the update process]({{ site.baseurl }}{% link _posts/2021-01-30-automate-docker-container-updates-on-synology-nas.md %}).
+
 # Check Configuration
 Home Assistant UI is useful but sometimes limited. Sometimes its configuration file, located in `/home/ubuntu/home-assitant/config`, must be manually edited. The following command can verify the integrity of the configuration files after editing.
 
@@ -66,7 +69,7 @@ docker-compose pull
 docker-compose restart
 ```
 
-# Configure IoT Device
+# Configure IoT Devices
 Home Assistant is developed and maintained by community. While many devices can be configured through its web UI, many still requires configurations through its YAML files. For example, I have many [Yeelight](https://www.home-assistant.io/integrations/yeelight/) bulbs, but it must be configured through YAML. It requires configuring static IPs for light bulbs:
 
 ```yaml
@@ -89,6 +92,17 @@ yeelight:
 Always validate the configuration before restarting your Home Assistant!
 
 Home Assistant is limited by what vendors allow for third-party integration. For example, Google no longer allows new third-party integration with [Nest](https://www.home-assistant.io/integrations/nest/) devices, and you cannot configure Home Assistant to control it if you don't have a developer account with Nest before the cut-off date.
+
+Now there are more and more integrations that can be configured via web UI, making it closer to the main stream users.
+
+# Work with HomeKit
+Home Assistant has native integration for HomeKit. In fact, it support HomeKit in two directions:
+1. It's able to integrate IoT devices that support "Work with HomeKit" via the [HomeKit Controller](https://www.home-assistant.io/integrations/homekit_controller/) integration. This is useful to include HomeKit-enabled devices in Home Assistant.
+2. it's able to expose devices in Home Assistant to HomeKit by acting as a bridge using the [HomeKit](https://www.home-assistant.io/integrations/homekit/) integration.
+
+Because Home Assistant can have way more entities, I find it helpful to selectly expose devices to HomeKit with explicit "include". This way I can declutter the Home app on my iPhone while maintaining a performant integration.
+
+I personally connects all "Work with HomeKit" devices to Home Assistant, then expose them to Home app. This allows me to have dual-mode control using both the Home app and Home Assistant. It also helps including devices that are tricky to onboard to Home Assistant, such as Ecobee (requires a developer account).
 
 # Further Reads
 This is the post series. Other posts can be found under [HomeNetwork tag]({{ site.baseurl }}/tags/#HomeNetwork).
