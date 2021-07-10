@@ -74,6 +74,19 @@ Name: "Connection", Value: "$connection_upgrade"
 
 Synology actually created a shortcut in the dropdown of the "**Create**" button. Without this, you will be able to log in but then get an error of "Unable to connect to Home Assistant".
 
+# Allow Reverse Proxy in Home Assistant
+Starting from version 2021.7, Home Assistant [will block HTTP requests](https://www.home-assistant.io/blog/2021/07/07/release-20217/#breaking-changes) when a misconfigured reverse proxy, or misconfigured Home Assistant instance when using a reverse proxy, has been detected. This will result in "400: Bad Request" is returned when accessing Home Assistant.
+
+Because a reverse proxy is configured in our setup, the following configuration should be added to `configurations.yaml`:
+
+```yaml
+http:
+  use_x_forwarded_for: true
+  trusted_proxies: 127.0.0.1
+```
+This allows Home Assistant to reply to requests coming from a proxy on `localhost`.
+
+
 # Set Up Internal URL on Home Assistant iOS
 The Home Assistant iOS app can actually configure different URLs when connected to your home WiFi. Go to the "**App Configuration**"  on the sidebar and click on your name. Input the private HTTP endpoint in "Internal URL" and your home WiFi's SSID, and the public HTTPS endpoint in "External URL". This could save a round-trip time to your internet when at home.
 
