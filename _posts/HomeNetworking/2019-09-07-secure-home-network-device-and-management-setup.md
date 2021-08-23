@@ -4,6 +4,7 @@ title: "Secure Home Network - Device and Management Setup"
 date: "2019-09-07 19:29"
 tags:
  - HomeNetwork
+ - EdgeOS
 ---
 
 Internet connectivity, especially through wireless network, is now a critical utility in our homes. Setting up reliable and versatile wireless network and making it secure is a crucial step at move-in time.

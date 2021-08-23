@@ -4,6 +4,7 @@ title: "Secure Home Network - Troubleshoot DHCP Problems"
 date: "2020-01-11 20:19"
 tags:
  - HomeNetwork
+ - EdgeOS
 ---
 
 Recently, after an EdgeOS upgrade, I started to see intermittent DHCP timeouts from my UniFi controller, mostly from new clients. Then after flushing the DHCP lease, all devices are unable to obtain an IP address, indicating a problem with the DHCP server.

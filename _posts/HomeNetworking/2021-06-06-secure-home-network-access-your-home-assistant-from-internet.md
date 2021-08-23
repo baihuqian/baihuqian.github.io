@@ -4,6 +4,7 @@ title: 'Secure Home Network: Access Your Home Assistant from Internet'
 date: '2021-06-06 21:04'
 tags:
  - HomeNetwork
+ - EdgeOS
  - NAS
  - IoT
 ---

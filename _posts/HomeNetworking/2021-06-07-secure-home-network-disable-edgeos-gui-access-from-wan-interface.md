@@ -4,6 +4,7 @@ title: "Secure Home Network: Disable EdgeOS SSH and GUI Access from WAN Interfac
 date: "2021-06-07 20:46"
 tags:
  - HomeNetwork
+ - EdgeOS
 ---
 
 Today, I accidently accessed the standard HTTP and HTTPS endpoint at my home's DNS name after [setting up DDNS]({{ site.baseurl }}{% link _posts/HomeNetworking/2021-06-06-secure-home-network-access-your-home-assistant-from-internet.md %}/#ddns-using-edgerouter), and the EdgeOS GUI shows up. In addition, I can SSH to my DNS name and access EdgeOS from terminal. I have [set up firewall rules to block any access from WAN]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-09-08-secure-home-network-isolating-connected-devices-with-vlan.md %}/#firewall), but how is it possible?

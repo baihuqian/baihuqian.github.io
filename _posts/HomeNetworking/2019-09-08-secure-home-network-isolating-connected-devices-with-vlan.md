@@ -4,6 +4,7 @@ title: 'Secure Home Network - Isolating Connected Devices with VLAN'
 date: '2019-09-08 23:24'
 tags:
  - HomeNetwork
+ - EdgeOS
  - IoT
 ---
 

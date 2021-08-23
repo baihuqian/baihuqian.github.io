@@ -4,6 +4,7 @@ title: "Secure Home Network - Using HomeKit Devices Across VLANs"
 date: '2019-09-10 22:18'
 tags:
  - HomeNetwork
+ - EdgeOS
 ---
 
 _TL;DR Version: Your iOS devices should be able to connect to the HomeKit Devices on port 80 and 443, and  mDNS should work between VLANs._

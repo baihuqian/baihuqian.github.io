@@ -4,6 +4,7 @@ title: 'Secure Home Network: Using Chromecast across VLANs'
 date: '2020-12-13 19:23'
 tags:
  - HomeNetwork
+ - EdgeOS
  - CordCutter
 ---
 

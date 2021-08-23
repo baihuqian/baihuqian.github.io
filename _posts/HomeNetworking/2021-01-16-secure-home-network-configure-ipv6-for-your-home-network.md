@@ -4,6 +4,7 @@ title: 'Secure Home Network: Configure IPv6 for Your Home Network'
 date: '2021-01-16 15:06'
 tags:
  - HomeNetwork
+ - EdgeOS
 ---
 
 IPv6 has been around for a while, but surprisingly, not every ISP supports it. If your ISP supports it, you can enable it on your router. Given not all devices or everyone in the internet supports IPv6 yet (or never will), we will run dual-stack network that supports both IPv4 and IPv6 simultaneously.
