@@ -42,7 +42,7 @@ Destination > Network Group : LAN_NETWORKS
 
 Description: allow airplay
 Action: Accept
-Protocol: UDP
+Protocol: Both TCP and UDP
 Source > Address Group : TV_ADDRESS, Port Group: airplay
 Destination > Network Group : LAN_NETWORKS
 
