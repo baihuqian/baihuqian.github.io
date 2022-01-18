@@ -7,7 +7,7 @@ tags:
   - EdgeOS
 ---
 
-In the era of work-from-home, it is rare of a need to access your home network. In the rarest occasion when we need something from your digital home, from accessing files in your NAS to viewing security camera footage, while being away, it is very inconvenient and less secure to get access from a public internet hotspot.
+In the era of work-from-home, it is rare of a need to access your home network from outside of your home. In the rarest occasion when we need something from your digital home, from accessing files in your NAS to viewing security camera footage, while being away, it is very inconvenient and less secure to get access from a public internet hotspot.
 
 There are plenty of cloud-based P2P solutions for specific use cases and products, ranging from Synology's QuickConnect that allows you to access your Synology NAS anytime, anywhere, from any device and browser, to security cameras' remote access feature. However, cloud-based solutions are vendor-specific, requiring different setups and apps for different use cases; and it is as secure and the vendors' security posture, which is usually not very high. The P2P communication may not be encrypted end-to-end using proper algorithm, making it possible for attackers on your public WiFi hotspot, on the internet, or at the compromised vendor cloud, to eavesdrop your access. In addition, a trip to the cloud is almost not the shortest path, especially you are not far away from home.
 
