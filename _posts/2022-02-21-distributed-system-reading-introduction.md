@@ -7,6 +7,27 @@ This is a new series of learning I took on to enhance my knowledge about distrib
 
 Week 1 is the introduction.
 
+## [A Note on Distributed Computing](https://www.cc.gatech.edu/classes/AY2010/cs4210_fall/papers/smli_tr-94-29.pdf)
+This paper argues why the unified object model fails and why engineers must be aware of differences between local and distributed computing.
+
+In unified object model, an object, whether local or remote, is defined in terms of a set of interfaces declared in an interface definition language. The vision is that developers write their applications so that the objects within the application are joined using the same programmatic glue as objects between applications, but it does not require that the two kinds of glue be implemented the same way. This vision is centered around the following principles, and all of these are false:
+
+* there is a single natural object-oriented design for a given application, regardless of the context in which that application will be deployed;
+* failure and performance issues are tied to the imple- mentation of the components of an application, and consideration of these issues should be left out of an initial design; and
+* the interface of an object is independent of the context in which that object is used.
+
+The paper aruges that unified object model is missing the point. The hard problems in distributed computing are not the problems of how to get things on and off the wire. The hard problems in distributed computing concern dealing with partial failure and the lack of a central resource man- ager. The hard problems in distributed computing concern insuring adequate performance and dealing with problems of concurrency. The hard problems have to do with differences in memory access paradigms between local and distributed entities.
+
+The major differences between local and distributed com- puting concern the areas of latency, memory access, partial failure, and concurrency. The difference in latency is the most obvious, but in many ways is the least fundamental. The often overlooked differences concerning memory access, partial failure, and concurrency are far more difficult to explain away and *the differences concerning partial failure and concurrency make unifying the local and remote computing models impossible without making unacceptable compromises*.
+
+Partial failure is a central reality of distributed computing. In the case of local computing, failures are either total, affecting all of the entities that are working together in an application, or detectable by some central resource allocator (such as the operating system on the local machine). This is not the case in distributed computing. Not only is the failure of the distributed components independent, but there is no common agent that is able to determine what component has failed and inform the other components of that failure, no global state that can be examined that allows determination of exactly what error has occurred. In a distributed system, the failure of a network link is indistinguishable from the failure of a processor on the other side of that link. A central problem in distributed computing is insuring that the state of the whole system is consistent after such a failure, such problem doesn't exist in local computing. Partial failure requires that programs deal with indeterminacy.
+
+Distributed objects by their nature must handle concurrent method invocations. Multi-threaded application has not real source of indeterminacy of invocations of operations. A non-distributed system, even when multi-threaded, is layered on top of a single operating system that can aid the communication between objects and can be used to determine and aid in synchronization and in the recovery of failure. A distributed system, on the other hand, has no single point of resource allocation, synchronization, or failure recovery, and thus is conceptually very different.
+
+The lack of robustness of distributed system is not in the implementation; issues that can’t be answered by supplying a “more robust implementation” because the lack of robustness is inherent in the interface and not something that can be changed by altering the implementation.
+
+Therefore, differences in latency, memory access, partial failure, and concurrency make merging of the computational models of local and distributed computing both unwise to attempt and unable to succeed. Rather than trying to merge local and remote objects, engineers need to be constantly reminded of the differences between the two, and know when it is appropriate to use each kind of object. Distributed objects are different from local objects, and keeping that difference visible will keep the programmer from forgetting the difference and making mistakes.
+
 ## [Fallacies of Distributed Computing Explained](https://arnon.me/wp-content/uploads/Files/fallacies.pdf)
 There are eight fallacies of distributed computing and they have remained the same since the inception of distributed computing.
 
