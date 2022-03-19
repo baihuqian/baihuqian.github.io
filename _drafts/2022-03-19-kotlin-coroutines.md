@@ -47,7 +47,7 @@ runBlocking {
 ```
 means `two` never runs.
 
-## Structured Concurrency and Coroutine Context
+## Structured Concurrency
 Coroutines follow a principle of **structured concurrency** which means that new coroutines can be only launched in a specific `CoroutineScope` which delimits the lifetime of the coroutine. 
 
 Coroutine scope is responsible for the structure and parent-child relationships between different coroutines. Coroutine builder automatically creates the corresponding scope for each coroutine. It is possible to create a new scope without starting a new coroutine, using the `coroutineScope` function. `coroutineScope` is usually usedinside any suspending function to perform multiple concurrent operations. For example,
@@ -65,8 +65,43 @@ It's also possible to start a new coroutine from the global scope using `GlobalS
 * The scope can automatically cancel child coroutines if something goes wrong or if a user simply changes their mind and decides to revoke the operation.
 * The scope automatically waits for completion of all the child coroutines. Therefore, if the scope corresponds to a coroutine, then the parent coroutine does not complete until all the coroutines launched in its scope are complete.
 
+All functions that create coroutines should be defined as extensions on `CoroutineScope`, so that we can rely on structured concurrency to make sure that we don't have lingering global coroutines in our application.
+
+## Coroutine Context
 Coroutine context stores additional technical information used to run a given coroutine, like the coroutine custom name, or the dispatcher specifying the threads the coroutine should be scheduled on. Coroutine builder accepts an optional `CoroutineContext` that can be used to explicitly specify the dispatcher for the new coroutine and other context elements. If not specified, the launched coroutine inherits parent's context.
 
 The `CoroutineDispatcher` determines what thread or threads the corresponding coroutine uses for its execution.
 
 You can combine multiple elements for a coroutine context using the `+` operator, like `Dispatchers.Default + CoroutineName("test")`.
+
+## Channels
+A `Channel` is conceptually very similar to `BlockingQueue`. One key difference is that instead of a blocking `put` operation it has a suspending `send`, and instead of a blocking `take` operation it has a suspending `receive`.
+
+Unlike a queue, a channel can be closed to indicate that no more elements are coming. Conceptually, a `clos`e is like sending a special close token to the channel, and there is a guarantee that all previously sent elements before the close are received.
+
+Channel is often used to bridge *producer-consumer* pattern. A channel can have multiple producers (fan-in) or multiple consumers (fan-out). But channels are *fair* with respect to the order of invocations of `send` and `receive`, and they're served FIFO. For example, first `receive` gets the value from first `send`.
+
+The default Channel has no buffer and thus transfers elements when sender and receiver meets (aka rendezvous). Channel can have buffers via the optional `capacity` parameter, and it will suspend `send` when buffer is full.
+
+### Producer
+There is a coroutine builder `produce` to write the producer code:
+
+```kotlin
+fun CoroutineScope.produceNumbers(): ReceiveChannel<Int> = produce<Int> {
+    var x = 1
+    while (true) send(x++) // infinite stream of integers starting from 1
+}
+```
+
+You can also use `produce` to build pipelines that takes a channel and returns another channel:
+
+```kotlin
+fun CoroutineScope.square(numbers: ReceiveChannel<Int>): ReceiveChannel<Int> = produce {
+    for (x in numbers) send(x * x)
+}
+```
+
+Note that cancelling a producer coroutine closes its channel, thus eventually terminating all consumers.
+
+### Consumer
+It is convenient to use a regular `for msg in channel` loop to receive elements from the channel on the consumer side.
