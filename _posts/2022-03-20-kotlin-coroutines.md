@@ -1,9 +1,11 @@
 ---
 layout: post
-published: false
 title: Kotlin Coroutines
+tags:
+ - Kotlin
 ---
-Unlike other languages like Golang, Kotlin provides coroutines as a library `kotlinx.coroutines`. The core language provides the concept of *suspending function*, a safer and less error-prone abstraction for asynchronous operations than futures and promises. The rest is provided in the coroutine library.
+
+Kotlin provides coroutines as a library `kotlinx.coroutines`. The core language provides the concept of *suspending function*, a safer and less error-prone abstraction for asynchronous operations than futures and promises. The rest is provided in the coroutine library.
 
 A *coroutine* is an instance of suspendable computation. It consists of suspending function and *coroutine builder*. Coroutine builder launches a coroutine, a few common ones are:
 * `runBlocking`: it runs a new coroutine and **block**s the current thread until its completion. It is designed to bridge regular blocking code to libraries that are written in suspending style, to be used in `main` functions and in tests.
@@ -17,7 +19,7 @@ Coroutines are lightweight and can be run on any threads. A coroutine may run on
 
 Coroutine cancellation is *cooperative*. A coroutine code has to cooperate to be cancellable. It means the coroutine must check for cancellation and throw `CancellationException` when cancelled. All the suspending functions in `kotlinx.coroutines` are cancellable.
 
-There are two approaches to making computation code cancellable. 
+There are two approaches to making computation code cancellable.
 * The first one is to periodically invoke a suspending function that checks for cancellation. There is a `yield` function that is a good choice for that purpose.
 * The other one is to explicitly check the cancellation status. `isActive` is an extension property available inside the coroutine via the `CoroutineScope` object.
 
@@ -48,7 +50,7 @@ runBlocking {
 means `two` never runs.
 
 ## Structured Concurrency
-Coroutines follow a principle of **structured concurrency** which means that new coroutines can be only launched in a specific `CoroutineScope` which delimits the lifetime of the coroutine. 
+Coroutines follow a principle of **structured concurrency** which means that new coroutines can be only launched in a specific `CoroutineScope` which delimits the lifetime of the coroutine.
 
 Coroutine scope is responsible for the structure and parent-child relationships between different coroutines. Coroutine builder automatically creates the corresponding scope for each coroutine. It is possible to create a new scope without starting a new coroutine, using the `coroutineScope` function. `coroutineScope` is usually usedinside any suspending function to perform multiple concurrent operations. For example,
 
@@ -70,7 +72,7 @@ All functions that create coroutines should be defined as extensions on `Corouti
 ## Coroutine Context
 Coroutine context stores additional technical information used to run a given coroutine, like the coroutine custom name, or the dispatcher specifying the threads the coroutine should be scheduled on. Coroutine builder accepts an optional `CoroutineContext` that can be used to explicitly specify the dispatcher for the new coroutine and other context elements. If not specified, the launched coroutine inherits parent's context.
 
-The `CoroutineDispatcher` determines what thread or threads the corresponding coroutine uses for its execution.
+The `CoroutineDispatcher` determines what thread or threads the corresponding coroutine uses for its execution. Unlike Go where the Go runtime takes complete control of scheduling goroutine execution on the OS threads, `CoroutineDispatcher` allows developers to define context switching if needed.
 
 You can combine multiple elements for a coroutine context using the `+` operator, like `Dispatchers.Default + CoroutineName("test")`.
 
@@ -105,3 +107,48 @@ Note that cancelling a producer coroutine closes its channel, thus eventually te
 
 ### Consumer
 It is convenient to use a regular `for msg in channel` loop to receive elements from the channel on the consumer side.
+
+## Kotlin Coroutine vs. Java ExecutionService
+Java ExecutionService allows you to run `Runnable` on a thread pool, and Coroutines allows you to run suspending function on a dispatcher, the default of which, `Dispatchers.Default`, is also a thread pool. You would think - what is the difference between the two?
+
+If your coroutines do not truly suspend, then the difference is not much. However, truly suspendable operations such as async IO or `delay` (instead of `Thread.sleep`) allows coroutines to preempt from a thread, while `Runnable` does not support that. A `Runnable` blocks the exeucting thread while `sleep` or waiting for IO to return. Therefore, large number of `Runnable` can easily exhaust the thread pool in the ExecutionService while coroutines are less likely, if implemented correctly.
+
+## Actor
+I love the [Actor model](https://en.wikipedia.org/wiki/Actor_model). The nice thing about actors is it does not have shared mutable state and thus no synchronization or locking problems, and interaction between different components are always asynchronous via message passing. I have written quite a few complex software with [Akka Actor](https://doc.akka.io/docs/akka/current/typed/actors.html).
+
+There is an `actor` coroutine builder that conveniently combines actor's mailbox channel into its scope to receive messages from and combines the send channel into the resulting `Job` object, so that the reference to the actor can be carried around as its handle.
+
+Just like Scala's `sealed trait`, Kotlin's sealed class is best for defining the type of messages an actor receives. When a message requires a reply, either supplies a `CompletableDeferred` response or a `SendChannel` sender as part of the message. For example, an actor with a counter can be implemented like this:
+
+```kotlin
+// Message types for counterActor
+sealed class CounterMsg
+object IncCounter : CounterMsg() // one-way message to increment counter
+class GetCounter(val response: CompletableDeferred<Int>) : CounterMsg() // a request with reply
+
+// This function launches a new counter actor
+fun CoroutineScope.counterActor() = actor<CounterMsg> {
+    var counter = 0 // actor state
+    for (msg in channel) { // iterate over incoming messages
+        when (msg) {
+            is IncCounter -> counter++
+            is GetCounter -> msg.response.complete(counter)
+        }
+    }
+}
+
+// the main function
+fun main() = runBlocking<Unit> {
+    val counter = counterActor() // create the actor
+    withContext(Dispatchers.Default) {
+        massiveRun { // run it many, many times
+            counter.send(IncCounter)
+        }
+    }
+    // send a message to get a counter value from an actor
+    val response = CompletableDeferred<Int>()
+    counter.send(GetCounter(response))
+    println("Counter = ${response.await()}")
+    counter.close() // shutdown the actor
+}
+```
