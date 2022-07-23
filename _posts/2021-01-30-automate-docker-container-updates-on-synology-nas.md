@@ -27,3 +27,5 @@ Watchtower does this using the UNIX domain socket that Docker server listens for
 Then you will see the container in the web UI of your Synology NAS. By default, Watchtower checks for update for the images of all running containers every day. Docker Hub has implemented [rate limiting for pull](https://www.docker.com/blog/scaling-docker-to-serve-millions-more-developers-network-egress/), and the default limit is 100 pulls per 6 hours for anonymous users. If you have many images or containers, you can avoid throttling by increasing the [poll interval](https://containrrr.dev/watchtower/arguments/#poll_interval) using the `WATCHTOWER_POLL_INTERVAL` environment variable. This can be configured and updated via web UI after the container is created. I personally set it to `604800` (7 days).
 
 Because Watchtower is also a running container, it will update itself, too. Thus, it is truly a "fire and forget" maintenance tool.
+
+You can also run it once to get updates on-demand: `sudo docker run --rm -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower --run-once`.
