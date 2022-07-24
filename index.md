@@ -12,3 +12,5 @@ I am a Senior Software Development Engineer at Amazon Web Services in Chicago, I
 Prior to joining AWS, I received Master's degree from [Department of Electrical and Computer Engineering at Carnegie Mellon University](http://www.ece.cmu.edu/), and Bachelor's degree in Information and Communication Engineering at [Zhejiang University, China](http://www.zju.edu.cn/english/).
 
 This is my personal blog. I write about pretty much everything that I care about. I hope you finding it interesting and helpful. Recently I have been writing about setup, security, privacy about home network that help improve the digital life of my family.
+
+<iframe height='200' width='300' frameborder='0' allowtransparency='true' scrolling='no' src='https://www.strava.com/athletes/11213769/activity-summary/300ae2f793f5d7c5668ac94405292684bb137204'></iframe>
