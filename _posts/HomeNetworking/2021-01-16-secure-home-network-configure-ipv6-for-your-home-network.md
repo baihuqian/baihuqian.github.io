@@ -67,17 +67,19 @@ save
 
 Then in `show interfaces`, you should see a `/128` address is allocated to your WAN interface, and your LAN interface (in this case, `switch0.100`) should have a `/64` address, and `show ipv6 route` should show `/64` prefixes to each of the LAN interfaces, and `::/0` to your WAN interface. All your IPv6 enabled devices should pick up their IPv6 addresses, if IPv6 configuration is set to automatic, and full IPv6 connectivity to the internet is established. You can test it with [test-ipv6.com](https://test-ipv6.com).
 
-However, the main question is: do you need IPv6 in your home network? The answer is largely, no.
+However, the main question is: do you need IPv6 in your home network? The answer is largely, no, not necessarily.
 
-Only a small fraction of your devices fully support IPv6 or is able to operate in an IPv6-only network. Many devices use network discovery protocols such as UPnP or mDNS that rely on multicast or broadcast in a local network. Given multicast is different in IPv6 and broadcast simply does not exist, and there is no more local or private network with IPv6, I fully expect many devices simply do not work in IPv6-only networks. Vendors are unlikely to provide firmware updates to legacy hardware to make it work with IPv6 and will ask you to buy new ones instead, making them trapped in the IPv4 era.
+Only a small fraction of your devices fully support IPv6 or is able to operate in an IPv6-only network, mostly the more powerful computing devices like computers, phones, tablets, smart TVs, and game consoles. Many low-power devices such as IoT devices do not support Ipv6. Many devices use network discovery protocols such as UPnP or mDNS that rely on multicast or broadcast in a local network. Given multicast is different in IPv6 and broadcast simply does not exist, and there is no more local or private network with IPv6, I fully expect many devices simply do not work in IPv6-only networks. Vendors are unlikely to provide firmware updates to legacy hardware to make it work with IPv6 and will ask you to buy new ones instead, making them trapped in the IPv4 era.
 
 In addition, without proper firewall in place, having internet-addressable home network can potentially expose security vulnerability that are currently local within your router to the Internet, and your home network would be affected by Internet events if your ISP fails to stop it from reaching your router.
 
-If you use [Pi-Hole]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-09-14-secure-home-network-block-ad-with-pi-hole.md %}) DNS server, the default configuration does not block tracking on IPv6 network. Additional configuration is required to block ads and tracking if you have IPv6 enabled.
+After [enabling hardware offload in your router]({{ site.baseurl }}{% link _posts/HomeNetworking/2022-01-17-secure-home-network-enable-hardware-offloading-on-edgerouter.md % }}), NAT performance is not going to be a bottleneck for your internet-bound traffic. Your router is able to perform NAT'ing at line rate (1 Gbps), more than enough for your internet usage. So you will not see a big performance improvement in IPv6.
 
-IPv4 works fine for most home networks. Home routers can NAT at higher throughput than most people's internet bandwidth so you will not see a big performance improvement in IPv6. So if you don't host things on the Internet (like web servers and such), then you don't need IPv6 in your home.
+DNS servers support IPv6 (via AAAA records), so it is not a concern. The default configuration of [Pi-Hole]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-09-14-secure-home-network-block-ad-with-pi-hole.md %}) DNS server blocks tracking on IPv6 network. So no additional configuration is required to block ads and tracking if you have IPv6 enabled.
 
-So the main benefit to configure IPv6 in my network (and remove it later on) for me is the opportunity to try something new and learn what the industry has learned from IPv6 and thus what design improvements are put into the IPv6 protocol suite.
+IPv4 works fine for most home networks. So if you don't host things on the Internet (like web servers and such), then you don't need IPv6 in your home. Even if you do, port forwarding usually does the job of exposing your web application to the internet.
+
+So as of now, the main benefit to configure IPv6 in my network for me is the opportunity to try something new and learn what the industry has learned from IPv6 and thus what design improvements are put into the IPv6 protocol suite. Until ISPs run out of IPv4 addresses, or it becomes too expensive to assign one for every subscriber, we will not see wide adoption of IPv6 in the residential Internet market.
 
 # Further Reads
 This is the post series. Other posts can be found under [HomeNetwork tag]({{ site.baseurl }}/tags/#HomeNetwork).
