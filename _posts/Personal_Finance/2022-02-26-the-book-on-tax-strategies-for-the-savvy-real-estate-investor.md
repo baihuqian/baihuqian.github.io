@@ -12,7 +12,7 @@ It's tax time of the year. As a new real estate investor and long-time DIY taxpa
 ## Deductions
 For W-2 employees, deductions are rare since [the Tax Cuts and Jobs Act of 2017](https://en.wikipedia.org/wiki/Tax_Cuts_and_Jobs_Act_of_2017). Not much we can do about reducing taxable income.
 
-However, real estate investing is treated as "business", whether or not the title of the properties are held in personal names or in legal entities. Having a legal entity is not an IRS requirement to write off real estate or business expenses. On the contrary, the IRS simply requires that you have a "business", defined as "activities with the goal of making profit.".
+However, real estate investing is treated as "business", whether or not the title of the properties are held in personal names or in legal entities. Having a legal entity is not an IRS requirement to write off real estate or business expenses. On the contrary, the IRS simply requires that you have a "business", defined as "activities with the goal of making profit."
 
 It allows to deduct "business expenses" against income, whereas personal expenses are generally not deductible. The main thing the average taxpayer needs to understand is the definition of "business expenses". The IRS has only two criteria:
 1. The expense must be **ordinary** in the course of your business. In other words, is this an expense that occurs commonly in your business?
@@ -49,11 +49,11 @@ Average home office creates write-offs between $2,000 and $3,000.
 The simplified method allows you to deduct $5 for each square foot of home office space, as a substitute of actual expenses. However, simplified method cannot generate loss.
 
 ### Pass-Through Tax Deduction
-In the pass-through tax deduction, the first 20 percent of certain types of income may be completely tax free. It has nothing to do with legal entities so you can still claim this deduction if the property is under your personal name. It is available for rental income when it is considered a "trade or business". The "trade or business" requirement a difficult one to define ,the IRS provided a safe-harbor test to help you determine whether your rental income is eligible for this pass-through tax break. Chances are high if you meet all four:
+In the pass-through tax deduction, the first 20 percent of certain types of income may be completely tax free. It has nothing to do with legal entities so you can still claim this deduction if the property is under your personal name. It is available for rental income when it is considered a "trade or business". The "trade or business" requirement a difficult one to define, the IRS provided a safe-harbor test to help you determine whether your rental income is eligible for this pass-through tax break. Chances are high if you meet all four:
 1. You need to have separate books and records for your rental real estate activities.
 2. There needs to be over 250 hours of rental service activities done for the year.
 3. You must be able to produce records and documents to prove these hours and services actually occurred.
-4. You need to attach a signed statement t o the tax return to indicate the safe harbor requirement has been met.
+4. You need to attach a signed statement to the tax return to indicate the safe harbor requirement has been met.
 
 ## Legal Entities
 Establish business accounts for legal entities and use them to pay for business expenses. Business accounts cannot be used to pay for personal expenses. If business expenses are paid with personal accounts, reimburse yourself from the business account and keep receipts.

@@ -73,7 +73,7 @@ Only a small fraction of your devices fully support IPv6 or is able to operate i
 
 In addition, without proper firewall in place, having internet-addressable home network can potentially expose security vulnerability that are currently local within your router to the Internet, and your home network would be affected by Internet events if your ISP fails to stop it from reaching your router.
 
-After [enabling hardware offload in your router]({{ site.baseurl }}{% link _posts/HomeNetworking/2022-01-17-secure-home-network-enable-hardware-offloading-on-edgerouter.md % }}), NAT performance is not going to be a bottleneck for your internet-bound traffic. Your router is able to perform NAT'ing at line rate (1 Gbps), more than enough for your internet usage. So you will not see a big performance improvement in IPv6.
+After [enabling hardware offload in your router]({{ site.baseurl }}{% link _posts/HomeNetworking/2022-01-17-secure-home-network-enable-hardware-offloading-on-edgerouter.md %}), NAT performance is not going to be a bottleneck for your internet-bound traffic. Your router is able to perform NAT'ing at line rate (1 Gbps), more than enough for your internet usage. So you will not see a big performance improvement in IPv6.
 
 DNS servers support IPv6 (via AAAA records), so it is not a concern. The default configuration of [Pi-Hole]({{ site.baseurl }}{% link _posts/HomeNetworking/2019-09-14-secure-home-network-block-ad-with-pi-hole.md %}) DNS server blocks tracking on IPv6 network. So no additional configuration is required to block ads and tracking if you have IPv6 enabled.
 

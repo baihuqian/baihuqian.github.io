@@ -5,7 +5,7 @@ subtitle: Innovate at scale, in the cloud and for the cloud
 use-site-title: true
 ---
 
-I am a Senior Software Development Engineer at Amazon Web Services in Chicago, IL. My team owns
+I am a Principal Software Development Engineer at Amazon Web Services in Chicago, IL. My team owns
 * [AWS Transit Gateway](https://aws.amazon.com/transit-gateway/) service, which provides centralized connectivity and management across thousands of networks;
 * [AWS Cloud WAN](https://aws.amazon.com/cloud-wan/), which is a managed wide area networking (WAN) service that makes it easy for you to build, manage, and monitor a global network that connects resources running across your cloud and on-premises environments.
 
