@@ -26,6 +26,8 @@ OpenVPN uses the OpenSSL encryption library extensively, as well as the TLS prot
 Therefore, OpenVPN is the best option.
 
 # Server Configuration in EdgeOS
+Configuring OpenVPN on EdgeRouter requires the use of CLI and the documentation is not very clear. It requires user to have reasonable understanding of what's going on with certificate generation and signing. I attempt to add gotchas along the way.
+
 1. Make sure that the date/time is set correctly on the EdgeRouter.
 ```
 show date
@@ -37,12 +39,16 @@ Mon Jan 21 12:13:07 UTC 2019
 openssl dhparam -out /config/auth/dh.pem -2 2048
 ```
 Generating a Diffie-Hellman (DH) key file can take a long time. It took more than an hour for me.
-4. Go to `/usr/lib/ssl/misc`. Certificate and key generation should be run from this directory.
+4. Go to `/usr/lib/ssl/misc`. Certificate and key generation should be run from this directory using the helper script.
+```
+cd /usr/lib/ssl/misc
+```
+
 4. Generate a root certificate using helper script:
 ```
 ./CA.pl -newca
 ```
-Make sure you remember the passphrase.
+Make sure you remember the passphrase. The passphrase will be used to sign the server and client certificates.
 5. Copy the newly created certificate + key to the `/config/auth` directory.
 ```
 cp demoCA/cacert.pem /config/auth
@@ -62,15 +68,16 @@ openssl rsa -in /config/auth/server.key -out /config/auth/server-no-pass.key
 mv /config/auth/server-no-pass.key /config/auth/server.key
 ```
 If this step is skipped, the clients will need to enter the password when connecting.
-8. Generate certificates for clients.
+8. Generate certificates for clients. The combination of country, state, location, organization, common name, and email address should be specified and must be unique among the server and all clients, otherwise cert signing will fail. Set the name of your client in the variable `$CLIENT`.
 ```
 ./CA.pl -newreq
 ./CA.pl -sign
-mv newcert.pem /config/auth/client.pem
-mv newkey.pem /config/auth/client.key
-openssl rsa -in /config/auth/client.key -out /config/auth/client-no-pass.key
-mv /config/auth/client-no-pass.key /config/auth/client.key
-chmod 644 /config/auth/client.key
+CLIENT=client
+mv newcert.pem /config/auth/$CLIENT.pem
+mv newkey.pem /config/auth/$CLIENT.key
+openssl rsa -in /config/auth/$CLIENT.key -out /config/auth/$CLIENT-no-pass.key
+mv /config/auth/$CLIENT-no-pass.key /config/auth/$CLIENT.key
+chmod 644 /config/auth/$CLIENT.key
 ```
 Repeat for all your clients.
 9. Once done, verify the contents of the `/config/auth` directory. It should include DH key file, root certificate, server certificate, and all client certificates and keys. Exit root user.
@@ -112,18 +119,22 @@ set interfaces openvpn vtun0 tls dh-file /config/auth/dh.pem
 ```
 commit ; save
 ```
+15. If you changed certificates, or created certificates for new clients, you need reload certificates. Restart the openVPN interface as root by
+```
+reset openvpn interface vtun0
+```
 
 # Client Configuration
-Client requires the certificates and server information, in the form of address/domain name and port (1194). The certificates can be transferred from EdgeRouter:
+Client requires the certificates and server information, in the form of address/domain name and port (1194). The certificates can be transferred from EdgeRouter using `scp`:
 ```
 scp username@<ip-address>:/config/auth/cacert.pem ~/Desktop/config
 scp username@<ip-address>:/config/auth/client.pem ~/Desktop/config
-scp username@<ip-address>:/config/auth/client1.key ~/Desktop/config
+scp username@<ip-address>:/config/auth/client.key ~/Desktop/config
 ```
 
 With [DDNS]({{ site.baseurl }}{% link _posts/HomeNetworking/2021-06-06-secure-home-network-access-your-home-assistant-from-internet.md %}#ddns-using-edgerouter), we can specify a constant domain name without worrying about changing dynamic IPs assigned by the ISP.
 
-Add the following information to the `er.ovpn` configuration file:
+Add the following information to the `client.ovpn` configuration file:
 ```
 client
 dev tun
@@ -150,26 +161,31 @@ The OpenVPN protocol is not one that is built into the Apple iOS operating syste
 First, comment out the lines in the `ovpn` file specifying the relative paths to the server, client certs and keys:
 
 ```
-#ca ca.pem
-#cert server.pem
-#key server.key
+#ca cacert.pem
+#cert client.pem
+#key client.key
 ```
 
 Then, add the content of these files to the end of the `ovpn` file:
 
 ```
 <ca>
-[--- CONTENTS OF ca.crt GOES HERE ---]
+[--- CONTENTS OF cacert.pem GOES HERE ---]
 </ca>
 <cert>
-[--- CONTENTS OF server.crt GOES HERE ---]
+[--- CONTENTS OF client.pem GOES HERE ---]
 </cert>
 <key>
-[--- CONTENTS OF server.key GOES HERE ---]
+[--- CONTENTS OF client.key GOES HERE ---]
 </key>
 ```
 
+The content of the `pem` files should be certificate, not certificate request. If you see certificate request in these files, they are not signed properly. The content of the `key` file should be RSA private key.
+
 Then, upload this file to iCloud drive and download it using the `Files` app, or AirDrop to your phone. Share the file with OpenVPN. It should prompt you to import the profile. Try not to email it to yourself, that’s less secure.
+
+## MacOS
+[Tunnelblick](https://tunnelblick.net/) is a free software on MacOS. You can install it via [Homebrew Cask](https://formulae.brew.sh/cask/tunnelblick). You can install the client configuration by dragging and dropping the `client.ovpn` file to the tunnelblick icon.
 
 # References
 1. [This Ubiquiti Support Page](https://help.ui.com/hc/en-us/articles/115015971688-EdgeRouter-OpenVPN-Server)
