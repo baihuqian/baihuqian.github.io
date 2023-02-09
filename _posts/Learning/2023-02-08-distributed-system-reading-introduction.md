@@ -1,11 +1,14 @@
 ---
 layout: post
-published: false
 title: Distributed System Reading - Introduction
+date: '2023-02-08 08:00'
+tags:
+  - Computer Science
 ---
+
 This is a new series of learning I took on to enhance my knowledge about distributed system. This series will focus on reading papers selected by [a University of Chicago reading course](http://uchicago-cs.github.io/cmsc23310/calendar.html).
 
-Week 1 is the introduction.
+Week 1 is the introduction. My focus is to understand *why distributed systems are different*, without going into the details of each area or into the summarized posts that can benefit more later on. I find the following two reading materials good.
 
 ## [A Note on Distributed Computing](https://www.cc.gatech.edu/classes/AY2010/cs4210_fall/papers/smli_tr-94-29.pdf)
 This paper argues why the unified object model fails and why engineers must be aware of differences between local and distributed computing.
@@ -13,12 +16,15 @@ This paper argues why the unified object model fails and why engineers must be a
 In unified object model, an object, whether local or remote, is defined in terms of a set of interfaces declared in an interface definition language. The vision is that developers write their applications so that the objects within the application are joined using the same programmatic glue as objects between applications, but it does not require that the two kinds of glue be implemented the same way. This vision is centered around the following principles, and all of these are false:
 
 * there is a single natural object-oriented design for a given application, regardless of the context in which that application will be deployed;
-* failure and performance issues are tied to the imple- mentation of the components of an application, and consideration of these issues should be left out of an initial design; and
+* failure and performance issues are tied to the implementation of the components of an application, and consideration of these issues should be left out of an initial design; and
 * the interface of an object is independent of the context in which that object is used.
 
-The paper aruges that unified object model is missing the point. The hard problems in distributed computing are not the problems of how to get things on and off the wire. The hard problems in distributed computing concern dealing with partial failure and the lack of a central resource man- ager. The hard problems in distributed computing concern insuring adequate performance and dealing with problems of concurrency. The hard problems have to do with differences in memory access paradigms between local and distributed entities.
+The paper aruges that unified object model is missing the point. The hard problems in distributed computing are not the problems of how to get things on and off the wire. The hard problems in distributed computing concern 
+* dealing with partial failure and the lack of a central resource manager;
+* insuring adequate performance and dealing with problems of concurrency;
+* dealing with differences in memory access paradigms between local and distributed entities.
 
-The major differences between local and distributed com- puting concern the areas of latency, memory access, partial failure, and concurrency. The difference in latency is the most obvious, but in many ways is the least fundamental. The often overlooked differences concerning memory access, partial failure, and concurrency are far more difficult to explain away and *the differences concerning partial failure and concurrency make unifying the local and remote computing models impossible without making unacceptable compromises*.
+The major differences between local and distributed computing concern the areas of latency, memory access, partial failure, and concurrency. The difference in latency is the most obvious, but in many ways is the least fundamental. The often overlooked differences concerning memory access, partial failure, and concurrency are far more difficult to explain away and *the differences concerning partial failure and concurrency make unifying the local and remote computing models impossible without making unacceptable compromises*.
 
 Partial failure is a central reality of distributed computing. In the case of local computing, failures are either total, affecting all of the entities that are working together in an application, or detectable by some central resource allocator (such as the operating system on the local machine). This is not the case in distributed computing. Not only is the failure of the distributed components independent, but there is no common agent that is able to determine what component has failed and inform the other components of that failure, no global state that can be examined that allows determination of exactly what error has occurred. In a distributed system, the failure of a network link is indistinguishable from the failure of a processor on the other side of that link. A central problem in distributed computing is insuring that the state of the whole system is consistent after such a failure, such problem doesn't exist in local computing. Partial failure requires that programs deal with indeterminacy.
 
