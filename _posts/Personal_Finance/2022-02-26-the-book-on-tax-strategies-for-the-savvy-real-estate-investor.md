@@ -4,7 +4,6 @@ title: The Book on Tax Strategies for the Savvy Real Estate Investor
 date: '2022-02-26 20:27'
 tags:
   - 'Personal Finance'
-  -
 ---
 
 It's tax time of the year. As a new real estate investor and long-time DIY taxpayer, I'm always looking to systematically educate myself about various tax benefits I can use. I stumbled upon this book on BiggerPocket: "[The Book on Tax Strategies for the Savvy Real Estate Investor](https://store.biggerpockets.com/products/the-book-on-tax-strategies-for-the-savvy-real-estate-investor)". It has a good review on Amazon so I decided to give it a try. It's an easy read so I summarized take-aways in this post for future references.
