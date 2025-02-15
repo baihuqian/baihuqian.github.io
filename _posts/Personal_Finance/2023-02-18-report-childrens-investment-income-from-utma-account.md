@@ -10,13 +10,13 @@ A UTMA account allows children to receive gifts from relatives in their names wi
 
 Investing means receiving interests, dividends, or captial gain distributions. And at tax time, a form 1099 would come. It's not very obvious on how to handle the reported income in my children's name. Should I file a separate return, should I inclde them on my own return, or else?
 
-How you report children's investment income depends on how much they've made. A person is considered your child if they're a dependent under the age of 19 (24 if a full-time student) as of December 31, 2022.
+How you report children's investment income depends on how much they've made. A person is considered your child if they're a dependent under the age of 19 (24 if a full-time student) as of December 31, 2024. Unearned income can be thought of as "passive" income that doesn't involve active work or a business activity, and in UTMA's case, it's mostly interest, dividends, and investment income.
 
-* If your child's only income is **unearned** and doesn't exceed $1,150, it doesn't need to be reported
-* If your child's unearned income is between $1,150 and $12,950, they may need to file their own return, but in certain situations, this income can be included on your return
-* If your child's unearned income is $12,950 or more, they need to file their own return
+* If your child's only income is **unearned** and doesn't exceed $1,300, it doesn't need to be reported
+* If your child's unearned income is between $1,300 and $14,600, they may need to file their own return, but in certain situations, this income can be included on your return
+* If your child's unearned income is $14,600 or more, they need to file their own return
 
-Unearned income can be thought of as "passive" income that doesn't involve active work or a business activity, and in UTMA's case, it's mostly interest, dividends, and investment income.
+You also need to watch out for the so-called kiddie tax. This law was passed to discourage wealthier individuals from transferring assets to their children to take advantage of their lower tax rates. The kiddie tax has seen many iterations, but current rules tax a minor child's unearned income—including capital gains distributions, dividends, and interest income—in three buckets. The first $1,300 of earnings in a UGMA/UTMA custodial account may be exempt from federal income taxes, while the next $1,300 is potentially taxed at a lower, “kiddie tax” rate of 10 percent. Everything above $2,600 (the annual limit) is taxed at the parents' tax rate.
 
 So in my case, I do not need to report the form 1099-DIV on my return, nor do I have to file a separate return for my children, given they received less than $100 of dividends.
 
@@ -26,5 +26,9 @@ The tax savings can be significant if you're in high income bracket and subject 
 
 This also means it's better to put assets in your children's name and let them grow with a lower tax burden along the way, than distributing to your children in your estate by paying higher taxes on passive income over the years.
 
-# Reference
+You can also "harvest" taxable gains to take advantage of the annual tax-free limit. Selling appreciated asset to capture realized gains and immediately buying it back does not trigger wash sale rules.
+
+## Reference
+
 * [TurboTax Help](https://ttlc.intuit.com/turbotax-support/en-us/help-article/taxation/report-child-investment-income/L6Jr6uNR2_US_en_US)
+* [Understanding Kiddie Tax](https://www.schwab.com/learn/story/understanding-kiddie-tax)
